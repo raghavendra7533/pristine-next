@@ -5,6 +5,7 @@ import { Hero } from '@/components/Hero'
 import { StatsSection } from '@/components/StatsSection'
 import { FeaturesSection } from '@/components/FeaturesSection'
 import { ComparisonTable } from '@/components/ComparisonTable'
+import { WorkflowComparison } from '@/components/WorkflowComparison'
 
 export const metadata: Metadata = {
   title: 'Pristine Data AI - The All-in-One GTM Platform',
@@ -47,6 +48,7 @@ export default function HomePage() {
       <main>
         <Hero />
         <StatsSection />
+        <WorkflowComparison />
         <FeaturesSection />
         <ComparisonTable />
       </main>

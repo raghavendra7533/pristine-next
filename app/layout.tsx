@@ -42,6 +42,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             document.getElementsByTagName("script")[0].parentNode.insertBefore(s, document.getElementsByTagName("script")[0]);
           }("961Y0HXR7RNG");
         `}</Script>
+        <Script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js" strategy="afterInteractive" />
         <Script id="clarity" strategy="afterInteractive">{`
           (function(c,l,a,r,i,t,y){
             c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
