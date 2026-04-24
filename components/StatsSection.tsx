@@ -1,6 +1,26 @@
+'use client'
 import { Icon } from '@iconify/react'
+import { useRef, useState } from 'react'
 
 export function StatsSection() {
+  const cardRef = useRef<HTMLDivElement>(null)
+  const [tilt, setTilt] = useState({ x: 0, y: 0 })
+
+  function handleMouseMove(e: React.MouseEvent<HTMLDivElement>) {
+    const card = cardRef.current
+    if (!card) return
+    const rect = card.getBoundingClientRect()
+    const cx = rect.left + rect.width / 2
+    const cy = rect.top + rect.height / 2
+    const dx = (e.clientX - cx) / (rect.width / 2)
+    const dy = (e.clientY - cy) / (rect.height / 2)
+    setTilt({ x: -dy * 6, y: dx * 6 })
+  }
+
+  function handleMouseLeave() {
+    setTilt({ x: 0, y: 0 })
+  }
+
   return (
     <section className="overflow-hidden text-white bg-slate-900 dark:bg-slate-900/50 pt-24 pb-24 relative border-t border-b border-transparent dark:border-slate-800">
       <div className="absolute inset-0 grid-bg-dark opacity-20 pointer-events-none" />
@@ -49,9 +69,22 @@ export function StatsSection() {
             </div>
           </div>
 
-          <div className="relative perspective-midrange group">
+          <div
+            className="relative group"
+            style={{ perspective: '800px' }}
+            onMouseMove={handleMouseMove}
+            onMouseLeave={handleMouseLeave}
+          >
             <div className="absolute inset-0 bg-indigo-500/20 blur-[100px] rounded-full translate-x-10 translate-y-10 group-hover:bg-indigo-500/30 transition-all duration-700" />
-            <div className="relative bg-slate-900/60 backdrop-blur-xl border border-slate-700/60 rounded-2xl p-8 shadow-2xl ring-1 ring-white/10 transition-transform duration-500 hover:rotate-y-5 hover:rotate-x-5 transform-style-preserve-3d">
+            <div
+              ref={cardRef}
+              style={{
+                transform: `rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)`,
+                transition: 'transform 0.15s ease-out',
+                transformStyle: 'preserve-3d',
+              }}
+              className="relative bg-slate-900/60 backdrop-blur-xl border border-slate-700/60 rounded-2xl p-8 shadow-2xl ring-1 ring-white/10"
+            >
               <div className="flex justify-between items-center mb-8 border-b border-slate-700/50 pb-4">
                 <div className="flex items-center gap-2">
                   <div className="w-2 h-2 rounded-full bg-indigo-500 animate-pulse" />
@@ -67,7 +100,7 @@ export function StatsSection() {
                   { email: 'sarah@deadstartup.io', status: 'BOUNCE', color: 'text-[#F43F5E]', icon: 'solar:close-circle-linear', dot: 'bg-[#F43F5E]', opacity: 'opacity-50', strike: true },
                   { email: 'mike@vercel.com', status: 'VERIFYING...', color: 'text-emerald-400', icon: 'solar:check-read-linear', dot: 'bg-emerald-500', opacity: 'opacity-30', strike: false },
                 ].map(({ email, status, color, icon, dot, opacity, strike }) => (
-                  <div key={email} className={`flex items-center justify-between p-2.5 rounded-lg bg-slate-800/40 border border-slate-700/50 ${opacity}`}>
+                  <div key={email} className={`flex items-center justify-between p-2.5 rounded-lg bg-slate-800/40 border border-slate-700/50 hover:bg-slate-700/50 hover:border-slate-600/70 transition-all duration-300 cursor-default ${opacity}`}>
                     <div className="flex items-center gap-3">
                       <div className={`w-1.5 h-1.5 rounded-full ${dot}`} />
                       <div className={`text-sm text-slate-200 font-mono ${strike ? 'line-through text-slate-400' : ''}`}>{email}</div>

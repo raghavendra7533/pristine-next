@@ -1,36 +1,9 @@
+'use client'
 // app/compare/pristine-vs-clay/page.tsx
-import type { Metadata } from 'next'
 import Link from 'next/link'
+import { useState } from 'react'
 import { Navbar } from '@/components/Navbar'
 import { Footer } from '@/components/Footer'
-
-export const metadata: Metadata = {
-  title: 'Pristine vs Clay: One Platform vs. a Workflow Builder',
-  description: 'Clay connects your tools. Pristine replaces them. Compare enrichment, sequencing, and pricing — and see what it actually costs to run a Clay-based stack.',
-  alternates: { canonical: 'https://pristinedata.ai/compare/pristine-vs-clay' },
-  openGraph: {
-    title: 'Pristine vs Clay: One Platform vs. a Workflow Builder',
-    description: 'Clay connects your tools. Pristine replaces them. Compare enrichment, sequencing, and pricing — and see what it actually costs to run a Clay-based stack.',
-    url: 'https://pristinedata.ai/compare/pristine-vs-clay',
-    siteName: 'Pristine Data AI',
-    images: [{ url: 'https://pristinedata.ai/og-image.png', width: 1200, height: 630, alt: 'Pristine vs Clay' }],
-    type: 'website',
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'Pristine vs Clay: One Platform vs. a Workflow Builder',
-    description: 'Clay connects your tools. Pristine replaces them.',
-    images: ['https://pristinedata.ai/og-image.png'],
-  },
-}
-
-const jsonLd = {
-  '@context': 'https://schema.org',
-  '@type': 'WebPage',
-  name: 'Pristine vs Clay: One Platform vs. a Workflow Builder',
-  description: 'Clay connects your tools. Pristine replaces them. Compare enrichment, sequencing, and pricing.',
-  url: 'https://pristinedata.ai/compare/pristine-vs-clay',
-}
 
 const enrichmentRows = [
   ['How it works', 'Queries providers one at a time, stops at first hit', 'Queries all providers simultaneously'],
@@ -76,35 +49,91 @@ const faqs = [
   },
 ]
 
+function Accordion({ items }: { items: { q: string; a: string }[] }) {
+  const [open, setOpen] = useState<number | null>(null)
+  return (
+    <div className="divide-y divide-slate-100 dark:divide-slate-800 border border-slate-100 dark:border-slate-800 rounded-2xl overflow-hidden">
+      {items.map(({ q, a }, i) => (
+        <div key={i}>
+          <button
+            onClick={() => setOpen(open === i ? null : i)}
+            className="w-full flex items-center justify-between gap-4 px-6 py-5 text-left hover:bg-slate-50 dark:hover:bg-slate-900 transition-colors"
+          >
+            <span className="text-sm font-semibold text-slate-900 dark:text-white">{q}</span>
+            <span className={`shrink-0 w-5 h-5 rounded-full border border-slate-200 dark:border-slate-700 flex items-center justify-center transition-transform duration-300 ${open === i ? 'rotate-45' : ''}`}>
+              <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
+                <path d="M5 1v8M1 5h8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" className="text-slate-400" />
+              </svg>
+            </span>
+          </button>
+          <div className={`grid transition-all duration-300 ease-in-out ${open === i ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'}`}>
+            <div className="overflow-hidden">
+              <p className="text-sm text-slate-500 dark:text-slate-400 leading-relaxed px-6 pb-5">{a}</p>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  )
+}
+
 export default function PristineVsClayPage() {
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <Navbar />
       <main className="pt-16">
         <div className="max-w-3xl mx-auto px-6">
 
           {/* Hero */}
-          <section className="py-20 text-center">
-            <div className="inline-block text-xs font-semibold uppercase tracking-widest text-rose-500 bg-rose-50 dark:bg-rose-950 px-3 py-1 rounded-full mb-6">
-              Pristine vs Clay
+          <section className="py-16 text-center">
+            {/* Competitor badges */}
+            <div className="flex items-center justify-center gap-4 mb-10">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/assets/logos/Untitled Design 500x500.png" alt="Pristine" className="w-8 h-8 object-contain" />
+              <span className="text-xs font-semibold text-slate-400 tracking-widest">VS</span>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="https://img.logo.dev/clay.com?token=pk_R0FhQgSqRMmR86Lw1NOJNg" alt="Clay" className="w-8 h-8 object-contain" />
             </div>
-            <h1 className="text-4xl sm:text-5xl font-bold text-slate-900 dark:text-white leading-tight mb-6">
-              You hired Clay to simplify your stack. How many tools did you add to make it work?
+
+            <h1 className="text-4xl sm:text-5xl font-bold text-slate-900 dark:text-white leading-tight mb-4 max-w-2xl mx-auto">
+              You hired Clay to simplify your stack.
             </h1>
-            <p className="text-lg text-slate-500 dark:text-slate-400 leading-relaxed mb-4">
-              Clay is a workflow builder. It connects to your enrichment providers, your sequencer, your CRM, and your AI tools. When it works, it works well. But you are still paying Apollo for contacts, ZoomInfo for intent data, Smartlead or Instantly for sending, and OpenAI for writing the emails. Clay sits in the middle, routing data between subscriptions you never planned to manage.
+            <p className="text-xl text-slate-500 dark:text-slate-400 mb-3">How many tools did you add to make it work?</p>
+            <p className="text-base text-slate-400 dark:text-slate-500 leading-relaxed mb-10 max-w-xl mx-auto">
+              Clay connects your enrichment providers, sequencer, CRM, and AI tools. Pristine replaces them — prospecting, enrichment, signals, and outreach in one place.
             </p>
-            <p className="text-lg text-slate-500 dark:text-slate-400 leading-relaxed mb-10">
-              Pristine is a different decision. Prospecting, enrichment, campaign building, and sales intelligence live in one place. You log in. You search. You send. There is no waterfall to configure, no credits to budget across providers, no Zap to break on a Tuesday.
-            </p>
-            <div className="flex flex-wrap justify-center gap-4">
-              <Link href="/contact" className="px-6 py-3 rounded-full bg-rose-600 hover:bg-rose-700 text-white text-sm font-semibold transition-colors">
+
+            <div className="flex flex-wrap justify-center gap-3 mb-12">
+              <Link href="/contact" className="px-6 py-3 rounded-full bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-semibold transition-colors">
                 See Pristine in action
               </Link>
-              <Link href="#comparison" className="px-6 py-3 rounded-full border border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:border-slate-500 text-sm font-semibold transition-colors">
-                Compare features below
+              <Link href="#comparison" className="px-6 py-3 rounded-full border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:border-slate-400 text-sm font-semibold transition-colors">
+                Compare features ↓
               </Link>
+            </div>
+
+            {/* Stat tiles */}
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-left">
+              <div className="rounded-2xl p-5 bg-orange-50 dark:bg-orange-950/30 border border-orange-100 dark:border-orange-900">
+                <div className="text-3xl font-bold text-slate-900 dark:text-white mb-1">4–6</div>
+                <div className="text-sm font-semibold text-slate-700 dark:text-slate-300 mb-3">vendor contracts</div>
+                <div className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">to replicate what Pristine does natively in one subscription.</div>
+              </div>
+              <div className="rounded-2xl p-5 bg-indigo-50 dark:bg-indigo-950/30 border border-indigo-100 dark:border-indigo-900">
+                <div className="text-3xl font-bold text-slate-900 dark:text-white mb-1">0</div>
+                <div className="text-sm font-semibold text-slate-700 dark:text-slate-300 mb-3">waterfalls to configure</div>
+                <div className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">Parallel enrichment across all providers runs automatically at query time.</div>
+              </div>
+              <div className="rounded-2xl p-5 bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-100 dark:border-emerald-900">
+                <div className="text-3xl font-bold text-slate-900 dark:text-white mb-1">3×</div>
+                <div className="text-sm font-semibold text-slate-700 dark:text-slate-300 mb-3">enrichment sources</div>
+                <div className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">Apollo, Wiza, and Explorium queried in parallel — best result per field wins.</div>
+              </div>
+              <div className="rounded-2xl p-5 bg-violet-50 dark:bg-violet-950/30 border border-violet-100 dark:border-violet-900">
+                <div className="text-3xl font-bold text-slate-900 dark:text-white mb-1">Flat</div>
+                <div className="text-sm font-semibold text-slate-700 dark:text-slate-300 mb-3">monthly pricing</div>
+                <div className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">No credit math. No mid-campaign surprises. Know the cost before you run.</div>
+              </div>
             </div>
           </section>
 
@@ -132,7 +161,7 @@ export default function PristineVsClayPage() {
                   <tr className="border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900">
                     <th className="text-left px-5 py-3 text-xs font-semibold text-slate-400 uppercase tracking-wide w-1/3"></th>
                     <th className="text-left px-5 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wide">Clay</th>
-                    <th className="text-left px-5 py-3 text-xs font-semibold text-rose-500 uppercase tracking-wide">Pristine</th>
+                    <th className="text-left px-5 py-3 text-xs font-semibold text-indigo-500 uppercase tracking-wide">Pristine</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -164,7 +193,7 @@ export default function PristineVsClayPage() {
             <p className="text-base text-slate-600 dark:text-slate-400 leading-relaxed mb-4">
               Most teams using a workflow-based enrichment tool are running at least five paid subscriptions alongside it:
             </p>
-            <ul className="space-y-2 pl-5 list-disc marker:text-rose-500 text-base text-slate-600 dark:text-slate-400 leading-relaxed mb-6">
+            <ul className="space-y-2 pl-5 list-disc marker:text-indigo-400 text-base text-slate-600 dark:text-slate-400 leading-relaxed mb-6">
               <li>A database for contact and company search</li>
               <li>One or two enrichment providers for email and phone coverage</li>
               <li>An intent data platform for buying signals</li>
@@ -190,7 +219,7 @@ export default function PristineVsClayPage() {
                 <thead>
                   <tr className="border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900">
                     <th className="text-left px-5 py-3 text-xs font-semibold text-slate-400 uppercase tracking-wide w-1/3"></th>
-                    <th className="text-left px-5 py-3 text-xs font-semibold text-rose-500 uppercase tracking-wide">Pristine</th>
+                    <th className="text-left px-5 py-3 text-xs font-semibold text-indigo-500 uppercase tracking-wide">Pristine</th>
                     <th className="text-left px-5 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wide">Clay</th>
                   </tr>
                 </thead>
@@ -226,7 +255,7 @@ export default function PristineVsClayPage() {
                 },
               ].map(({ role, body }) => (
                 <div key={role} className="flex gap-4">
-                  <div className="mt-2 w-1.5 h-1.5 rounded-full bg-rose-500 shrink-0" />
+                  <div className="mt-2 w-1.5 h-1.5 rounded-full bg-indigo-500 shrink-0" />
                   <p className="text-base text-slate-600 dark:text-slate-400 leading-relaxed">
                     <span className="font-semibold text-slate-800 dark:text-slate-200">{role}</span> {body}
                   </p>
@@ -237,15 +266,8 @@ export default function PristineVsClayPage() {
 
           {/* FAQ */}
           <section className="py-16 border-t border-slate-100 dark:border-slate-800">
-            <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-10">Frequently Asked Questions</h2>
-            <div className="space-y-8">
-              {faqs.map(({ q, a }) => (
-                <div key={q}>
-                  <h3 className="text-base font-semibold text-slate-900 dark:text-white mb-2">{q}</h3>
-                  <p className="text-base text-slate-600 dark:text-slate-400 leading-relaxed">{a}</p>
-                </div>
-              ))}
-            </div>
+            <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-8">Frequently Asked Questions</h2>
+            <Accordion items={faqs} />
           </section>
 
           {/* CTA */}
@@ -257,7 +279,7 @@ export default function PristineVsClayPage() {
               Pristine is a single platform for prospecting, enrichment, and outreach. There is nothing to configure before your first search.
             </p>
             <div className="flex flex-wrap justify-center gap-4">
-              <Link href="/contact" className="px-6 py-3 rounded-full bg-rose-600 hover:bg-rose-700 text-white text-sm font-semibold transition-colors">
+              <Link href="/contact" className="px-6 py-3 rounded-full bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-semibold transition-colors">
                 Book a demo
               </Link>
               <Link href="/stack-audit" className="px-6 py-3 rounded-full border border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:border-slate-500 text-sm font-semibold transition-colors">

@@ -5,6 +5,7 @@ import { useState } from 'react'
 import { Icon } from '@iconify/react'
 import { Navbar } from '@/components/Navbar'
 import { Footer } from '@/components/Footer'
+import { supabase } from '@/lib/supabase'
 
 // Note: metadata export doesn't work in 'use client' components.
 // Move to a separate layout or use generateMetadata if needed server-side.
@@ -36,18 +37,15 @@ export default function ContactPage() {
     setStatus('loading')
 
     try {
-      const res = await fetch('https://api.web3forms.com/submit', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-        body: JSON.stringify({
-          access_key: 'b75d7917-b00d-40aa-95c9-92a2768372a9',
-          firstName, lastName, email,
-          company: company ? `https://${company}` : '',
-          inquiry, message,
-          submittedAt: new Date().toISOString(),
-        }),
+      const { error } = await supabase.from('contact_submissions').insert({
+        first_name: firstName,
+        last_name: lastName,
+        email,
+        company: company ? `https://${company}` : null,
+        inquiry,
+        message,
       })
-      if (!res.ok) throw new Error('Failed')
+      if (error) throw error
       setStatus('success')
       setFirstName(''); setLastName(''); setEmail(''); setCompany(''); setMessage('')
       setTimeout(() => setStatus('idle'), 3000)

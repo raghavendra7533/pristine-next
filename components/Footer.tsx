@@ -9,9 +9,9 @@ const links = {
   ],
   Compare: [
     { label: 'vs Clay', href: '/compare/pristine-vs-clay' },
-    { label: 'vs ZoomInfo', href: '/compare/zoominfo' },
-    { label: 'vs Apollo', href: '/compare/apollo' },
-    { label: 'vs Amplemarket', href: '/compare/amplemarket' },
+    { label: 'vs ZoomInfo', href: '/compare/pristine-vs-zoominfo' },
+    { label: 'vs Apollo', href: '/compare/pristine-vs-apollo' },
+    { label: 'vs Amplemarket', href: '/compare/pristine-vs-amplemarket' },
   ],
   Company: [
     { label: 'About', href: '/about-us' },
