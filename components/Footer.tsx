@@ -16,7 +16,7 @@ const links = {
   Company: [
     { label: 'About', href: '/about-us' },
     { label: 'Blog', href: '/blog' },
-    { label: 'Contact', href: '/contact' },
+    { label: 'Contact', href: '/contact-us' },
   ],
 }
 
