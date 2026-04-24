@@ -1,12 +1,3 @@
-// Iconify web-component type declaration
-declare global {
-  namespace JSX {
-    interface IntrinsicElements {
-      'iconify-icon': React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement> & { icon: string; width?: string | number; class?: string }, HTMLElement>
-    }
-  }
-}
-
 export function WorkflowComparison() {
   return (
     <section className="overflow-hidden bg-white dark:bg-slate-950 border-slate-100 dark:border-slate-800 border-b pt-24 pb-24 relative">
