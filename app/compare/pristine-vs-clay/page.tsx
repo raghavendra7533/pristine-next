@@ -104,7 +104,7 @@ export default function PristineVsClayPage() {
             </p>
 
             <div className="flex flex-wrap justify-center gap-3 mb-12">
-              <Link href="/contact" className="px-6 py-3 rounded-full bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-semibold transition-colors">
+              <Link href="/contact-us" className="px-6 py-3 rounded-full bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-semibold transition-colors">
                 See Pristine in action
               </Link>
               <Link href="#comparison" className="px-6 py-3 rounded-full border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:border-slate-400 text-sm font-semibold transition-colors">
@@ -279,7 +279,7 @@ export default function PristineVsClayPage() {
               Pristine is a single platform for prospecting, enrichment, and outreach. There is nothing to configure before your first search.
             </p>
             <div className="flex flex-wrap justify-center gap-4">
-              <Link href="/contact" className="px-6 py-3 rounded-full bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-semibold transition-colors">
+              <Link href="/contact-us" className="px-6 py-3 rounded-full bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-semibold transition-colors">
                 Book a demo
               </Link>
               <Link href="/stack-audit" className="px-6 py-3 rounded-full border border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:border-slate-500 text-sm font-semibold transition-colors">
