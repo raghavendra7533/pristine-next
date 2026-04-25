@@ -7,7 +7,7 @@ import { blogs } from '@/lib/blogs'
 
 export const metadata: Metadata = {
   title: 'GTM & B2B Sales Insights',
-  description: 'Practical thinking on go-to-market strategy, B2B sales, and buyer alignment — from the Pristine Data AI team and industry contributors.',
+  description: 'Practical thinking on go-to-market strategy, B2B sales, and buyer alignment: from the Pristine Data AI team and industry contributors.',
   alternates: { canonical: 'https://pristinedata.ai/blog' },
   openGraph: {
     title: 'GTM & B2B Sales Insights | Pristine Data AI',
@@ -54,7 +54,7 @@ export default function BlogIndexPage() {
               GTM & B2B Sales Insights
             </h1>
             <p className="text-lg text-slate-500 dark:text-slate-400 leading-relaxed">
-              Practical thinking on go-to-market strategy, B2B sales, and buyer alignment — from the Pristine Data AI team and industry contributors.
+              Practical thinking on go-to-market strategy, B2B sales, and buyer alignment: from the Pristine Data AI team and industry contributors.
             </p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">

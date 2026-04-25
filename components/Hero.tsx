@@ -84,7 +84,7 @@ export function Hero() {
         </h1>
 
         <p className="leading-relaxed dark:text-slate-400 text-base font-medium text-slate-700 max-w-lg mx-auto mb-10">
-          Find prospects, enrich data, and run outreach — all in one place. Stop paying for ZoomInfo, Amplemarket, and OpenAI separately.
+          Find prospects, enrich data, and run outreach: all in one place. Stop paying for ZoomInfo, Amplemarket, and OpenAI separately.
         </p>
 
         <div className="relative w-full max-w-2xl mx-auto group">

@@ -15,10 +15,10 @@ export function Navbar() {
       <nav className="fixed w-full z-50 transition-all duration-300 top-0 glass-nav bg-white/80 dark:bg-slate-950/80">
         <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
           <div className="flex items-center gap-8">
-            <Link href="/" className="flex items-center group">
+            <a href="/" className="flex items-center group">
               <Image src="/assets/Pristine Data Footer Logo.svg" alt="Pristine Data AI" width={120} height={32} className="h-8 w-auto dark:hidden" />
               <Image src="/assets/Pristine Data AI Logo.svg" alt="Pristine Data AI" width={120} height={32} className="h-8 w-auto hidden dark:block" />
-            </Link>
+            </a>
             <div className="hidden md:flex items-center gap-6 text-xs font-medium text-slate-600 dark:text-slate-400">
               <Link href="/" className="hover:text-slate-900 dark:hover:text-white transition-colors">Product</Link>
               <Link href="/integrations" className="hover:text-slate-900 dark:hover:text-white transition-colors">Integrations</Link>

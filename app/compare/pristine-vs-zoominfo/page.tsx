@@ -13,17 +13,24 @@ const enrichmentRows = [
   ['Unverified records', 'Included in results; bounce risk on export', 'Filtered out; no unverified guesses delivered'],
 ]
 
-const featureRows = [
+const approachRows: [string, string, string][] = [
+  ['Data quality', 'Live query at search time: freshest data per field', 'Batch database snapshot: records age between refreshes'],
+  ['Pricing model', 'Flat monthly: prospecting, enrichment, signals, outreach included', 'Seat licenses + export credits + intent add-on + Engage + Chorus'],
+  ['GTM flexibility', 'Prospecting, signals, AI personalization, and campaigns in one workflow', 'Modular: database, intent, sequencing, and CI each priced separately'],
+  ['AI personalization', 'Opportunity Playbook: structured pre-call brief before every call', 'AI Copilot (beta); generates account summaries'],
+  ['Setup time', 'Log in and search', 'Implementation, training, RevOps configuration'],
+]
+
+const featureRows: [string, string, string][] = [
   ['Prospecting interface', 'Natural language AI search', 'Filter-based with 300+ parameters; training required'],
   ['Data enrichment', 'Parallel multi-source waterfall', 'Single-source database; waterfall in premium tier'],
-  ['Buying signals', 'Native — surfaced inside prospecting workflow', 'Paid add-on; separate intent dashboard'],
-  ['Sales intelligence', 'Opportunity Playbook — structured pre-call brief', 'Not available natively; reps research manually'],
+  ['Buying signals', 'Native: surfaced inside prospecting workflow', 'Paid add-on; separate intent dashboard'],
+  ['Sales intelligence', 'Opportunity Playbook: structured pre-call brief', 'Not available natively; reps research manually'],
   ['AI personalization', 'Per-prospect content generation in campaign builder', 'AI Copilot (beta); generates summaries'],
   ['Campaign builder', 'Native sequencer integrated with prospect data', 'Engage module; billed separately or bundled'],
   ['Conversation intelligence', 'Not in scope', 'Chorus (separate license)'],
   ['CRM sync', 'Salesforce, HubSpot, Pipedrive', 'Salesforce, Dynamics, HubSpot'],
-  ['Pricing model', 'Transparent credits — see cost before you run', 'Seat licenses + export credits + add-ons'],
-  ['Who operates it', 'SDR or AE directly', 'Power users are RevOps; simplified rep interface'],
+  ['Pricing model', 'Flat monthly', 'Seat licenses + export credits + add-ons'],
   ['Target segment', 'B2B teams, $1M–$30M revenue, active outbound', 'Enterprise and upper mid-market'],
   ['Setup time', 'Log in and search', 'Implementation, training, RevOps configuration'],
 ]
@@ -31,15 +38,15 @@ const featureRows = [
 const faqs = [
   {
     q: 'Does Pristine replace ZoomInfo entirely?',
-    a: "For most mid-market outbound teams, yes. If your primary use is prospecting, enrichment, personalization, and outreach, Pristine handles all of it natively. ZoomInfo's strongest advantages — raw database size, conversation intelligence via Chorus, and enterprise-grade lead routing — matter most at scale with dedicated RevOps. If you are paying for a ZoomInfo subscription primarily to get contact data for outbound sequences, Pristine is a direct replacement with more built in.",
+    a: "For most mid-market outbound teams, yes. If your primary use is prospecting, enrichment, personalization, and outreach, Pristine handles all of it natively. ZoomInfo's strongest advantages: raw database size, conversation intelligence via Chorus, and enterprise-grade lead routing: matter most at scale with dedicated RevOps. If you are paying for a ZoomInfo subscription primarily to get contact data for outbound sequences, Pristine is a direct replacement with more built in.",
   },
   {
-    q: "How does Pristine's data quality compare to a large database?",
-    a: 'Coverage and freshness are different problems. A large database has coverage; freshness is harder. Pristine queries live providers at the moment you search, so you get the most current data each source holds — not a cached record from the last batch refresh. On deliverability, parallel multi-source enrichment with real-time SMTP verification consistently outperforms single-source lookups on bounce rate.',
+    q: "How does Pristine's data quality compare to ZoomInfo's large database?",
+    a: "Coverage and freshness are different problems. ZoomInfo has coverage; freshness is harder. Pristine queries live providers at the moment you search, so you get the most current data each source holds: not a cached record from the last batch refresh. On deliverability, parallel multi-source enrichment with real-time SMTP verification consistently outperforms single-source lookups on bounce rate.",
   },
   {
-    q: "What about intent data — ZoomInfo's buyer intent is well-known?",
-    a: "ZoomInfo's intent product is strong, and we give it fair credit. The difference with Pristine is where signals surface. Pristine shows buying signals — job changes, funding rounds, tech stack shifts — inside the prospecting workflow, while you are deciding who to reach out to. A separate intent dashboard gets checked once a week. A signal visible when you are building the list drives action.",
+    q: "What about intent data: ZoomInfo's buyer intent is well-known?",
+    a: "ZoomInfo's intent product is strong, and we give it fair credit. The difference with Pristine is where signals surface. Pristine shows buying signals: job changes, funding rounds, tech stack shifts: inside the prospecting workflow, while you are deciding who to reach out to. A separate intent dashboard gets checked once a week. A signal visible when you are building the list drives action.",
   },
   {
     q: 'What is the actual price difference?',
@@ -47,7 +54,7 @@ const faqs = [
   },
   {
     q: 'Can I see Pristine working on my actual ICP before I decide?',
-    a: 'Yes. Book a demo and we will run Pristine against your actual ICP in real time — no curated lists, no staged data. You will see enrichment quality, signal coverage, and the Opportunity Playbook output for accounts you care about.',
+    a: 'Yes. Book a demo and we will run Pristine against your actual ICP in real time. No curated lists, no staged data. You will see enrichment quality, signal coverage, and the Opportunity Playbook output for accounts you care about.',
   },
 ]
 
@@ -88,8 +95,7 @@ export default function PristineVsZoomInfoPage() {
 
           {/* Hero */}
           <section className="py-16 text-center">
-            {/* Competitor badges */}
-            <div className="flex items-center justify-center gap-4 mb-10">
+            <div className="flex items-center justify-center gap-4 mb-6">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src="/assets/logos/Untitled Design 500x500.png" alt="Pristine" className="w-8 h-8 object-contain" />
               <span className="text-xs font-semibold text-slate-400 tracking-widest">VS</span>
@@ -97,12 +103,14 @@ export default function PristineVsZoomInfoPage() {
               <img src="https://img.logo.dev/zoominfo.com?token=pk_R0FhQgSqRMmR86Lw1NOJNg" alt="ZoomInfo" className="w-8 h-8 object-contain" />
             </div>
 
+            <p className="text-xs font-semibold uppercase tracking-widest text-indigo-500 mb-4">ZoomInfo Alternative</p>
+
             <h1 className="text-4xl sm:text-5xl font-bold text-slate-900 dark:text-white leading-tight mb-4 max-w-2xl mx-auto">
-              You&apos;re paying for a database.
+              Pristine Data vs ZoomInfo
             </h1>
-            <p className="text-xl text-slate-500 dark:text-slate-400 mb-3">Your rep is still not closing.</p>
+            <p className="text-xl text-slate-500 dark:text-slate-400 mb-3">You&apos;re paying for a database.<br className="hidden sm:block" /> Your rep is still not closing.</p>
             <p className="text-base text-slate-400 dark:text-slate-500 leading-relaxed mb-10 max-w-xl mx-auto">
-              A contact database tells you who to call. Pristine tells you why to call them, what to ask, and what to say — in one platform, without the six-figure contract.
+              A contact database tells you who to call. Pristine tells you why to call them, what to ask, and what to say: in one platform, without the six-figure contract.
             </p>
 
             <div className="flex flex-wrap justify-center gap-3 mb-12">
@@ -129,24 +137,95 @@ export default function PristineVsZoomInfoPage() {
               <div className="rounded-2xl p-5 bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-100 dark:border-emerald-900">
                 <div className="text-3xl font-bold text-slate-900 dark:text-white mb-1">1</div>
                 <div className="text-sm font-semibold text-slate-700 dark:text-slate-300 mb-3">pre-call playbook</div>
-                <div className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">AI-generated brief with discovery questions, pitch, and next steps — before every call.</div>
+                <div className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">AI-generated brief with discovery questions, pitch, and next steps: before every call.</div>
               </div>
               <div className="rounded-2xl p-5 bg-violet-50 dark:bg-violet-950/30 border border-violet-100 dark:border-violet-900">
                 <div className="text-3xl font-bold text-slate-900 dark:text-white mb-1">0</div>
                 <div className="text-sm font-semibold text-slate-700 dark:text-slate-300 mb-3">separate intent tabs</div>
-                <div className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">Buying signals surface inside the prospecting workflow — where decisions are made.</div>
+                <div className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">Buying signals surface inside the prospecting workflow: where decisions are made.</div>
               </div>
+            </div>
+          </section>
+
+          {/* Who Should Choose Which */}
+          <section className="py-16 border-t border-slate-100 dark:border-slate-800">
+            <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">Who Should Choose Which?</h2>
+            <p className="text-base text-slate-500 dark:text-slate-400 mb-8">If you&apos;re evaluating ZoomInfo or searching for ZoomInfo alternatives in 2025–2026, here&apos;s the honest breakdown.</p>
+            <div className="grid sm:grid-cols-2 gap-4">
+              <div className="rounded-2xl border border-slate-200 dark:border-slate-800 p-6">
+                <div className="flex items-center gap-2 mb-4">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src="https://img.logo.dev/zoominfo.com?token=pk_R0FhQgSqRMmR86Lw1NOJNg" alt="ZoomInfo" className="w-5 h-5 object-contain" />
+                  <p className="text-sm font-bold text-slate-700 dark:text-slate-300">Choose ZoomInfo if…</p>
+                </div>
+                <ul className="space-y-2.5">
+                  {[
+                    'You are enterprise-scale with dedicated RevOps managing lead routing, territory ops, and complex Salesforce workflows.',
+                    'You need Chorus for conversation intelligence and want it tightly integrated with your contact data.',
+                    'Your compliance team requires SOC 2 and enterprise data agreements that only a large platform provides.',
+                  ].map((item) => (
+                    <li key={item} className="flex gap-2.5 text-sm text-slate-500 dark:text-slate-400 leading-relaxed">
+                      <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-slate-300 dark:bg-slate-600 shrink-0" />
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div className="rounded-2xl border border-indigo-200 dark:border-indigo-900/50 bg-indigo-50/40 dark:bg-indigo-950/20 p-6">
+                <div className="flex items-center gap-2 mb-4">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src="/assets/logos/Untitled Design 500x500.png" alt="Pristine" className="w-5 h-5 object-contain" />
+                  <p className="text-sm font-bold text-slate-700 dark:text-slate-300">Choose Pristine if…</p>
+                </div>
+                <ul className="space-y-2.5">
+                  {[
+                    'You want live enrichment at query time, not a database snapshot that may be months out of date.',
+                    'Your reps need more than a contact record: they need to know why to call today and what to say when someone picks up.',
+                    'You are a mid-market team spending $20K–$40K on ZoomInfo and not using most of what you are paying for.',
+                  ].map((item) => (
+                    <li key={item} className="flex gap-2.5 text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                      <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-indigo-400 shrink-0" />
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          {/* Approach table */}
+          <section id="comparison" className="py-16 border-t border-slate-100 dark:border-slate-800">
+            <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-8">How They Approach the Problem</h2>
+            <div className="overflow-x-auto rounded-2xl border border-slate-200 dark:border-slate-800">
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900">
+                    <th className="text-left px-5 py-3 text-xs font-semibold text-slate-400 uppercase tracking-wide w-1/3"></th>
+                    <th className="text-left px-5 py-3 text-xs font-semibold text-indigo-500 uppercase tracking-wide">Pristine</th>
+                    <th className="text-left px-5 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wide">ZoomInfo</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {approachRows.map(([label, pristine, zi], i) => (
+                    <tr key={i} className="border-b last:border-0 border-slate-100 dark:border-slate-800">
+                      <td className="px-5 py-3.5 font-medium text-slate-700 dark:text-slate-300 text-sm">{label}</td>
+                      <td className="px-5 py-3.5 text-slate-800 dark:text-slate-200 font-medium text-sm">{pristine}</td>
+                      <td className="px-5 py-3.5 text-slate-500 dark:text-slate-400 text-sm">{zi}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
           </section>
 
           {/* The Database Problem */}
           <section className="py-16 border-t border-slate-100 dark:border-slate-800">
-            <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-6">The Database Problem Nobody Talks About in the Renewal Meeting</h2>
+            <p className="text-xs font-semibold uppercase tracking-widest text-indigo-500 mb-3">Data quality</p>
+            <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-6">Pristine Data: A ZoomInfo Alternative With Live Enrichment</h2>
             <div className="space-y-4 text-base text-slate-600 dark:text-slate-400 leading-relaxed">
-              <p>Legacy data platforms built their reputation on one thing: having the biggest contact database. 70 million direct dials. 174 million verified emails. Impressive on the slide. In practice, your reps are sending generic sequences to contacts who changed jobs six months ago, and your RevOps team is spending two days a week deduplicating CRM records.</p>
+              <p>If you&apos;re searching for ZoomInfo alternatives, the data freshness gap is usually the first thing that comes up. ZoomInfo built its reputation on one thing: having the biggest contact database. 70 million direct dials. Impressive on the slide. In practice, your reps are sending sequences to contacts who changed jobs six months ago, and your RevOps team is deduplicating CRM records instead of building pipeline.</p>
               <p>A contact database is a snapshot. The moment someone changes roles, gets promoted, or joins a new company, that record starts decaying. You paid for it. You are still paying for it next quarter. The data does not know that.</p>
-              <p>The other problem is what the database does not include. You bought contact data. Your rivals bought buyer intent — separately. Your other team bought conversation intelligence — separately. None of it talks to each other. You are not running a sales platform. You are managing a vendor portfolio.</p>
-              <p className="font-medium text-slate-800 dark:text-slate-200">Pristine queries live enrichment providers at the moment you search. The contact record you get reflects what those providers know today, not what was cached in a batch refresh last month.</p>
+              <p className="font-medium text-slate-800 dark:text-slate-200">Pristine queries live enrichment providers at the moment you search. The contact record you get reflects what those providers know today: not what was cached in a batch refresh last month. And unlike ZoomInfo, the full platform: signals, AI personalization, and outreach: is included in one subscription, not four.</p>
             </div>
           </section>
 
@@ -154,7 +233,7 @@ export default function PristineVsZoomInfoPage() {
           <section className="py-16 border-t border-slate-100 dark:border-slate-800">
             <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-4">Data That Refreshes When You Search, Not When They Feel Like It</h2>
             <div className="space-y-4 text-base text-slate-600 dark:text-slate-400 leading-relaxed mb-8">
-              <p>A large database maintains a warehouse. When you search, you are querying that warehouse. If a contact changed roles four months ago, you might get the old title. You often will not know until the bounce comes back.</p>
+              <p>ZoomInfo maintains a warehouse. When you search, you are querying that warehouse. If a contact changed roles four months ago, you might get the old title. You often will not know until the bounce comes back.</p>
               <p>Pristine runs enrichment at query time. Every search triggers a parallel waterfall across Apollo, Wiza, and Explorium. You get the most current data each of those providers holds, not a cached version from a batch refresh. The output is a confidence-scored contact record that shows which field came from which source.</p>
               <p className="font-medium text-slate-800 dark:text-slate-200">Verified emails only. If Pristine cannot verify an address, it moves to the next source. It does not hand you an unverified guess and let you figure out the bounce rate the hard way.</p>
             </div>
@@ -163,7 +242,7 @@ export default function PristineVsZoomInfoPage() {
                 <thead>
                   <tr className="border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900">
                     <th className="text-left px-5 py-3 text-xs font-semibold text-slate-400 uppercase tracking-wide w-1/3"></th>
-                    <th className="text-left px-5 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wide">Traditional Enterprise Data</th>
+                    <th className="text-left px-5 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wide">ZoomInfo</th>
                     <th className="text-left px-5 py-3 text-xs font-semibold text-indigo-500 uppercase tracking-wide">Pristine</th>
                   </tr>
                 </thead>
@@ -184,8 +263,8 @@ export default function PristineVsZoomInfoPage() {
           <section className="py-16 border-t border-slate-100 dark:border-slate-800">
             <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-6">The Intent Signal That Exists Where You&apos;re Actually Working</h2>
             <div className="space-y-4 text-base text-slate-600 dark:text-slate-400 leading-relaxed">
-              <p>Enterprise data platforms surface buyer intent as a separate module. You get a dashboard showing which accounts are researching topics relevant to you. It is useful. It is also three clicks away from where your SDR is building their outreach list, which means most SDRs do not check it.</p>
-              <p>Pristine surfaces buying signals inside the prospecting workflow. When your rep is building a list, they see which accounts have had a recent leadership change, received funding, or shifted their tech stack. The signal appears when the decision to reach out is being made — not in a separate intent dashboard that gets checked on Fridays.</p>
+              <p>ZoomInfo surfaces buyer intent as a separate module. You get a dashboard showing which accounts are researching topics relevant to you. It is useful. It is also three clicks away from where your SDR is building their outreach list, which means most SDRs do not check it.</p>
+              <p>Pristine surfaces buying signals inside the prospecting workflow. When your rep is building a list, they see which accounts have had a recent leadership change, received funding, or shifted their tech stack. The signal appears when the decision to reach out is being made: not in a separate intent dashboard that gets checked on Fridays.</p>
               <p className="font-medium text-slate-800 dark:text-slate-200">Intent signals are most useful when they are visible where you are building the list.</p>
             </div>
           </section>
@@ -194,40 +273,30 @@ export default function PristineVsZoomInfoPage() {
           <section className="py-16 border-t border-slate-100 dark:border-slate-800">
             <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-6">What Happens After You Find the Contact</h2>
             <div className="space-y-4 text-base text-slate-600 dark:text-slate-400 leading-relaxed">
-              <p>A legacy database tells you who to call. Pristine tells you why to call them, what to ask, and what story to tell.</p>
+              <p>ZoomInfo tells you who to call. Pristine tells you why to call them, what to ask, and what story to tell.</p>
               <p>The Opportunity Playbook generates a full account brief from public data and your CRM context. Before your rep gets on the call, they have the prospect&apos;s strategic priorities, recommended discovery questions organized by type, case studies mapped to the prospect&apos;s industry and stage, a value pitch built around their specific situation, and suggested next steps for the deal stage.</p>
               <p className="font-medium text-slate-800 dark:text-slate-200">A rep walking into a call with a Pristine playbook knows more about that account than most reps know going into their second follow-up. That is the gap that matters.</p>
             </div>
           </section>
 
-          {/* Pricing */}
+          {/* Full Feature Comparison */}
           <section className="py-16 border-t border-slate-100 dark:border-slate-800">
-            <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-6">What the Full Stack Actually Costs</h2>
-            <div className="space-y-4 text-base text-slate-600 dark:text-slate-400 leading-relaxed">
-              <p>This is the part that does not make it into the renewal deck.</p>
-              <p>The enterprise data subscription model: you buy seats. Then you buy export credits, because the seat does not include unlimited exports. Then you discover that intent signals cost more. Then RevOps asks for the operations module for proper lead routing. Then someone requests conversation intelligence, which is priced separately. By the time you have assembled everything a modern outbound team needs — data, intent, enrichment, sequencing, call prep — you have signed three or four contracts with the same vendor and you are paying for each one independently.</p>
-              <p className="font-medium text-slate-800 dark:text-slate-200">Pristine is one platform. Prospecting, enrichment, signal detection, AI personalization, sequencing, and deal-level intelligence. Credit pricing is transparent: you can see exactly what a campaign will cost before you run it. No seat tax on non-power users. No separate license for the intelligence layer.</p>
-            </div>
-          </section>
-
-          {/* Feature Comparison */}
-          <section id="comparison" className="py-16 border-t border-slate-100 dark:border-slate-800">
-            <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-8">Feature Comparison</h2>
+            <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-8">Full Feature Comparison</h2>
             <div className="overflow-x-auto rounded-2xl border border-slate-200 dark:border-slate-800">
               <table className="w-full text-sm">
                 <thead>
                   <tr className="border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900">
                     <th className="text-left px-5 py-3 text-xs font-semibold text-slate-400 uppercase tracking-wide w-1/3"></th>
                     <th className="text-left px-5 py-3 text-xs font-semibold text-indigo-500 uppercase tracking-wide">Pristine</th>
-                    <th className="text-left px-5 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wide">Traditional Enterprise Data</th>
+                    <th className="text-left px-5 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wide">ZoomInfo</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {featureRows.map(([label, pristine, legacy], i) => (
+                  {featureRows.map(([label, pristine, zi], i) => (
                     <tr key={i} className="border-b last:border-0 border-slate-100 dark:border-slate-800">
                       <td className="px-5 py-3.5 font-medium text-slate-700 dark:text-slate-300 text-sm">{label}</td>
                       <td className="px-5 py-3.5 text-slate-800 dark:text-slate-200 font-medium text-sm">{pristine}</td>
-                      <td className="px-5 py-3.5 text-slate-500 dark:text-slate-400 text-sm">{legacy}</td>
+                      <td className="px-5 py-3.5 text-slate-500 dark:text-slate-400 text-sm">{zi}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -240,14 +309,14 @@ export default function PristineVsZoomInfoPage() {
             <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-8">Head-to-Head: Where Each Wins</h2>
             <div className="grid sm:grid-cols-2 gap-6">
               <div className="rounded-2xl border border-slate-200 dark:border-slate-800 p-6">
-                <h3 className="text-sm font-semibold text-slate-500 uppercase tracking-wide mb-4">Where legacy enterprise platforms still lead</h3>
+                <h3 className="text-sm font-semibold text-slate-500 uppercase tracking-wide mb-4">Where ZoomInfo still leads</h3>
                 <ul className="space-y-3">
                   {[
-                    'Raw database size — 174M+ verified emails is a genuine network effect',
-                    'Conversation intelligence — Chorus is a mature, well-regarded product',
-                    'Lead routing and ops automation — purpose-built for RevOps at scale',
-                    'Enterprise security and compliance — SOC 2, SSO, RBAC, battle-tested',
-                    'CRM native integration depth — especially in Salesforce-heavy orgs',
+                    'Raw database size: 174M+ verified emails is a genuine network effect',
+                    'Conversation intelligence: Chorus is a mature, well-regarded product',
+                    'Lead routing and ops automation: purpose-built for RevOps at scale',
+                    'Enterprise security and compliance: SOC 2, SSO, RBAC, battle-tested',
+                    'CRM native integration depth: especially in Salesforce-heavy orgs',
                   ].map((item) => (
                     <li key={item} className="flex gap-3 text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
                       <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-slate-300 dark:bg-slate-600 shrink-0" />
@@ -291,7 +360,7 @@ export default function PristineVsZoomInfoPage() {
                 },
                 {
                   role: 'RevOps teams auditing the stack',
-                  body: "who are adding up seat licenses, export credits, intent add-ons, and conversation intelligence licenses and finding the total uncomfortable. Tool consolidation is one of the most concrete ROI cases Pristine makes — especially for teams where most reps aren't power users of the current platform.",
+                  body: "who are adding up seat licenses, export credits, intent add-ons, and conversation intelligence licenses and finding the total uncomfortable. Tool consolidation is one of the most concrete ROI cases Pristine makes: especially for teams where most reps aren't power users of the current platform.",
                 },
               ].map(({ role, body }) => (
                 <div key={role} className="flex gap-4">
@@ -316,7 +385,7 @@ export default function PristineVsZoomInfoPage() {
               The data platform that does the thinking too
             </h2>
             <p className="text-base text-slate-500 dark:text-slate-400 leading-relaxed mb-8">
-              If you need your SDR to find the right account, understand why to reach out today, and get on the call with something to say — without assembling five vendor contracts — that is what Pristine is built for.
+              If you need your SDR to find the right account, understand why to reach out today, and get on the call with something to say: without assembling five vendor contracts: that is what Pristine is built for.
             </p>
             <div className="flex flex-wrap justify-center gap-4">
               <Link href="/contact-us" className="px-6 py-3 rounded-full bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-semibold transition-colors">

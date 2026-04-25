@@ -268,6 +268,7 @@ function ToolCard({
   onToggle: () => void
   isDark: boolean
 }) {
+  const [logoError, setLogoError] = useState(false)
   const getColors = (colorName: ColorKey) => isDark ? COLORS_DARK[colorName] : COLORS_LIGHT[colorName]
 
   const tagHTML = tool.cats.map(cid => {
@@ -298,16 +299,17 @@ function ToolCard({
         <div
           className="w-8 h-8 rounded-lg flex items-center justify-center overflow-hidden shrink-0 border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800"
         >
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src={`https://img.logo.dev/${tool.domain}?token=${LOGO_TOKEN}`}
-            alt={tool.name}
-            className="w-6 h-6 object-contain rounded"
-            onError={(e) => {
-              const el = e.currentTarget.parentElement
-              if (el) el.innerHTML = `<span class="text-xs font-bold text-slate-400">${tool.name[0]}</span>`
-            }}
-          />
+          {logoError ? (
+            <span className="text-xs font-bold text-slate-400">{tool.name[0]}</span>
+          ) : (
+            /* eslint-disable-next-line @next/next/no-img-element */
+            <img
+              src={`https://img.logo.dev/${tool.domain}?token=${LOGO_TOKEN}`}
+              alt={tool.name}
+              className="w-6 h-6 object-contain rounded"
+              onError={() => setLogoError(true)}
+            />
+          )}
         </div>
         <div className="min-w-0">
           <div className="text-xs font-semibold leading-tight truncate text-slate-900 dark:text-slate-100">{tool.name}</div>
@@ -554,109 +556,6 @@ export function StackAuditClient() {
 
       <Navbar />
 
-      <style>{`
-        .gauge-bg  { fill: none; stroke: #e2e8f0; stroke-width: 10; }
-        .dark .gauge-bg { stroke: #1e293b; }
-        .gauge-arc {
-          fill: none;
-          stroke-width: 10;
-          stroke-linecap: round;
-          transform: rotate(-90deg);
-          transform-origin: 64px 64px;
-          transition: stroke-dashoffset 0.75s cubic-bezier(0.34, 1.3, 0.64, 1), stroke 0.4s ease;
-        }
-        .grid-bg {
-          background-image: linear-gradient(to right, #e2e8f0 1px, transparent 1px),
-                            linear-gradient(to bottom, #e2e8f0 1px, transparent 1px);
-          background-size: 24px 24px;
-        }
-        .dark .grid-bg {
-          background-image: linear-gradient(to right, #1e293b 1px, transparent 1px),
-                            linear-gradient(to bottom, #1e293b 1px, transparent 1px);
-        }
-        @keyframes receipt-print {
-          from { clip-path: inset(0 0 100% 0); }
-          to   { clip-path: inset(0 0 0%   0); }
-        }
-        .receipt-animating {
-          animation: receipt-print 0.9s steps(30, end) forwards;
-          filter: drop-shadow(0 10px 32px rgba(0,0,0,0.28)) drop-shadow(0 2px 4px rgba(0,0,0,0.12));
-        }
-        .receipt-visible {
-          filter: drop-shadow(0 10px 32px rgba(0,0,0,0.28)) drop-shadow(0 2px 4px rgba(0,0,0,0.12));
-        }
-        .receipt {
-          position: relative;
-          background: #fafaf3;
-          color: #0a0a00;
-          font-family: 'Courier New', Courier, monospace;
-          font-size: 12px;
-          font-weight: 600;
-          padding: 16px;
-          margin: 10px 0;
-        }
-        .receipt::before {
-          content: '';
-          position: absolute;
-          top: -10px; left: 0; right: 0; height: 10px;
-          background:
-            linear-gradient(135deg, transparent 33.33%, #fafaf3 33.33%) 0 0,
-            linear-gradient(225deg, transparent 33.33%, #fafaf3 33.33%) 0 0;
-          background-size: 10px 10px;
-          background-repeat: repeat-x;
-        }
-        .receipt::after {
-          content: '';
-          position: absolute;
-          bottom: -10px; left: 0; right: 0; height: 10px;
-          background:
-            linear-gradient(315deg, transparent 33.33%, #fafaf3 33.33%) 0 0,
-            linear-gradient(45deg,  transparent 33.33%, #fafaf3 33.33%) 0 0;
-          background-size: 10px 10px;
-          background-repeat: repeat-x;
-        }
-        .receipt hr { border: none; border-top: 1px dashed rgba(0,0,0,0.2); margin: 7px 0; }
-        .r-row  { display:flex; justify-content:space-between; align-items:baseline; gap:4px; line-height:1.75; }
-        .r-name { flex:1; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
-        .r-price{ font-weight:700; white-space:nowrap; min-width:72px; text-align:right; }
-        .r-sub  { font-size:10px; color:#555544; padding-left:8px; margin-top:-2px; margin-bottom:4px; }
-        .r-hdr  { text-align:center; font-weight:900; font-size:10px; letter-spacing:0.16em; margin:5px 0; }
-        .r-total{ display:flex; justify-content:space-between; font-weight:900; letter-spacing:0.04em; line-height:1.9; }
-        .tier-btn {
-          padding: 8px 0;
-          border-radius: 8px;
-          font-size: 11px;
-          font-weight: 700;
-          border: 1px solid;
-          cursor: pointer;
-          transition: all 0.12s ease;
-          text-align: center;
-        }
-        .tier-btn.active { background:#6366f1; color:#fff; border-color:#6366f1; }
-        .tier-btn:not(.active) { background:transparent; color:#94a3b8; border-color:#e2e8f0; }
-        .dark .tier-btn:not(.active) { color:#475569; border-color:#1e293b; }
-        .tier-btn:hover:not(.active) { border-color: #6366f1 !important; color: #6366f1 !important; }
-        input[type="range"] { -webkit-appearance: none; appearance: none; background: transparent; cursor: pointer; width: 100%; }
-        input[type="range"]::-webkit-slider-runnable-track { height: 6px; border-radius: 3px; background: #e2e8f0; }
-        .dark input[type="range"]::-webkit-slider-runnable-track { background: #1e293b; }
-        input[type="range"]::-webkit-slider-thumb {
-          -webkit-appearance: none;
-          width: 22px; height: 22px;
-          border-radius: 50%;
-          background: #6366f1;
-          border: 3px solid #ffffff;
-          box-shadow: 0 0 0 2px #6366f1;
-          margin-top: -8px;
-          transition: transform 0.1s ease, box-shadow 0.1s ease;
-        }
-        .dark input[type="range"]::-webkit-slider-thumb { border-color: #0f172a; }
-        input[type="range"]::-webkit-slider-thumb:hover { transform: scale(1.15); box-shadow: 0 0 0 3px rgba(99,102,241,0.4); }
-        input[type="range"]::-moz-range-track { height: 6px; border-radius: 3px; background: #e2e8f0; }
-        .dark input[type="range"]::-moz-range-track { background: #1e293b; }
-        input[type="range"]::-moz-range-thumb { width: 22px; height: 22px; border-radius: 50%; background: #6366f1; border: 3px solid #ffffff; }
-        .dark input[type="range"]::-moz-range-thumb { border-color: #0f172a; }
-      `}</style>
-
       {/* Hero */}
       <section className="pt-28 pb-10 relative overflow-hidden">
         <div className="absolute inset-0 grid-bg opacity-25 pointer-events-none" />
@@ -674,7 +573,7 @@ export function StackAuditClient() {
             Your GTM stack is costing<br className="hidden md:block" /> you more than you think.
           </h1>
           <p className="text-base md:text-lg text-slate-500 dark:text-slate-400 max-w-2xl mx-auto mb-3 leading-relaxed">
-            Check every tool your team uses. Get the real annual number, see where functions overlap, and get a stack health score — in 60 seconds.
+            Check every tool your team uses. Get the real annual number, see where functions overlap, and get a stack health score: in 60 seconds.
           </p>
           <p className="text-sm text-slate-400 dark:text-slate-600">Free. No sales call.</p>
         </div>
@@ -874,7 +773,7 @@ export function StackAuditClient() {
                   <Icon icon="solar:receipt-bold" width={36} className="text-slate-200 dark:text-slate-800 mb-3 block mx-auto" />
                   <p className="text-sm font-bold text-slate-300 dark:text-slate-600">Your cost receipt</p>
                   <p className="text-xs text-slate-400 dark:text-slate-700 mt-1 leading-relaxed">
-                    Select tools above —<br />your audit bill prints here.
+                    Select tools above ,<br />your audit bill prints here.
                   </p>
                 </div>
               )}

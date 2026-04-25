@@ -113,7 +113,7 @@ function LogoChip({
 }) {
   return (
     <div
-      title={`${tool.name} — $${tool.cost}/seat/mo`}
+      title={`${tool.name}: $${tool.cost}/seat/mo`}
       onClick={onToggle}
       className={`w-9 h-9 rounded-xl flex items-center justify-center overflow-hidden select-none cursor-pointer transition-all duration-150 border ${
         isSelected

@@ -96,7 +96,7 @@ export function WaveCarousel() {
     if (pauseTimerRef.current) clearTimeout(pauseTimerRef.current)
 
     if (isContinuous) {
-      // Manual browsing — pause auto-advance but show progress full
+      // Manual browsing: pause auto-advance but show progress full
       clearAll()
       pausedRef.current = true
       setActive(idx)
@@ -106,7 +106,7 @@ export function WaveCarousel() {
         startCarousel(idx)
       }, PAUSE_RESUME_DELAY)
     } else {
-      // Single click — restart timer from this wave
+      // Single click: restart timer from this wave
       pausedRef.current = false
       startCarousel(idx)
     }

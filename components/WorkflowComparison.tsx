@@ -1,3 +1,6 @@
+'use client'
+import { Icon } from '@iconify/react'
+
 export function WorkflowComparison() {
   return (
     <section className="overflow-hidden bg-white dark:bg-slate-950 border-slate-100 dark:border-slate-800 border-b pt-24 pb-24 relative">
@@ -35,7 +38,7 @@ export function WorkflowComparison() {
                       <span className="text-[10px] text-indigo-600/80 dark:text-indigo-400 font-medium">Target Definition</span>
                     </div>
                     <div className="w-7 h-7 rounded-lg bg-indigo-100 dark:bg-indigo-900/40 text-indigo-700 dark:text-indigo-400 flex items-center justify-center shrink-0 ml-2">
-                      <iconify-icon icon="solar:user-id-bold" width="14" />
+                      <Icon icon="solar:user-id-bold" width="14" />
                     </div>
                   </div>
                   {[
@@ -49,7 +52,7 @@ export function WorkflowComparison() {
                         <span className="text-[10px] text-amber-600/80 dark:text-amber-400 font-medium">{sub}</span>
                       </div>
                       <div className="w-7 h-7 rounded-lg bg-amber-100 dark:bg-amber-900/40 text-amber-700 dark:text-amber-400 flex items-center justify-center shrink-0 ml-2">
-                        <iconify-icon icon={icon} width="14" />
+                        <Icon icon={icon} width="14" />
                       </div>
                     </div>
                   ))}
@@ -57,8 +60,8 @@ export function WorkflowComparison() {
 
                 {/* CONNECTOR → */}
                 <div className="flex items-center justify-center text-slate-300 dark:text-slate-600 xl:self-center py-2 xl:py-0">
-                  <iconify-icon icon="solar:arrow-right-linear" class="hidden xl:block text-2xl" />
-                  <iconify-icon icon="solar:arrow-down-linear" class="xl:hidden text-2xl" />
+                  <Icon icon="solar:arrow-right-linear" className="hidden xl:block text-2xl" width="24" />
+                  <Icon icon="solar:arrow-down-linear" className="xl:hidden text-2xl" width="24" />
                 </div>
 
                 {/* PROCESS GRID */}
@@ -66,55 +69,35 @@ export function WorkflowComparison() {
                   <div className="absolute -top-2.5 left-4 bg-white dark:bg-slate-800 text-slate-400 dark:text-slate-400 text-[9px] font-bold px-2 py-0.5 rounded border border-slate-200 dark:border-slate-700 uppercase tracking-widest shadow-sm">Expensive Engineering</div>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 h-full content-center">
-                    <div className="bg-white dark:bg-slate-800/80 rounded-xl p-3 shadow-sm border border-indigo-200/50 dark:border-indigo-900/40 hover:border-indigo-300 hover:shadow-md transition-all flex flex-col justify-between gap-2 h-24">
-                      <span className="text-[10px] font-semibold text-slate-700 dark:text-slate-200 leading-tight text-center">Data Normalisation</span>
-                      <div className="flex items-center justify-center gap-1.5 bg-indigo-50 dark:bg-indigo-900/30 border border-indigo-100 dark:border-indigo-800 rounded-md py-1 px-2 w-full mt-auto">
-                        <iconify-icon icon="solar:settings-minimalistic-bold" class="text-indigo-500" width="12" />
-                        <span className="text-[10px] font-semibold text-indigo-600 dark:text-indigo-400">Clay</span>
-                      </div>
-                    </div>
-                    <div className="bg-white dark:bg-slate-800/80 rounded-xl p-3 shadow-sm border border-purple-200/50 dark:border-purple-900/40 hover:border-purple-300 hover:shadow-md transition-all flex flex-col justify-between gap-2 h-24">
-                      <span className="text-[10px] font-semibold text-slate-700 dark:text-slate-200 leading-tight text-center">ICP Qualification</span>
-                      <div className="flex items-center justify-center gap-1.5 bg-purple-50 dark:bg-purple-900/30 border border-purple-100 dark:border-purple-800 rounded-md py-1 px-2 w-full mt-auto">
-                        <iconify-icon icon="solar:magic-stick-3-bold" class="text-purple-500" width="12" />
-                        <span className="text-[10px] font-semibold text-purple-600 dark:text-purple-400">OpenAI</span>
-                      </div>
-                    </div>
-                    <div className="bg-white dark:bg-slate-800/80 rounded-xl p-3 shadow-sm border border-purple-200/50 dark:border-purple-900/40 hover:border-purple-300 hover:shadow-md transition-all flex flex-col justify-between gap-2 h-24">
-                      <span className="text-[10px] font-semibold text-slate-700 dark:text-slate-200 leading-tight text-center">Deep Research</span>
-                      <div className="flex items-center justify-center gap-1.5 bg-purple-50 dark:bg-purple-900/30 border border-purple-100 dark:border-purple-800 rounded-md py-1 px-2 w-full mt-auto">
-                        <iconify-icon icon="solar:magic-stick-3-bold" class="text-purple-500" width="12" />
-                        <span className="text-[10px] font-semibold text-purple-600 dark:text-purple-400">Perplexity</span>
-                      </div>
-                    </div>
-                    <div className="bg-white dark:bg-slate-800/80 rounded-xl p-3 shadow-sm border border-blue-200/50 dark:border-blue-900/40 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between gap-2 h-24">
-                      <span className="text-[10px] font-semibold text-slate-700 dark:text-slate-200 leading-tight text-center">Buying Committee</span>
-                      <div className="flex items-center justify-center gap-1.5 bg-blue-50 dark:bg-blue-900/30 border border-blue-100 dark:border-blue-800 rounded-md py-1 px-2 w-full mt-auto">
-                        <iconify-icon icon="solar:database-bold" class="text-blue-500" width="12" />
-                        <span className="text-[10px] font-semibold text-blue-600 dark:text-blue-400">ZoomInfo</span>
-                      </div>
-                    </div>
-                    <div className="bg-white dark:bg-slate-800/80 rounded-xl p-3 shadow-sm border border-emerald-200/50 dark:border-emerald-900/40 hover:border-emerald-300 hover:shadow-md transition-all flex flex-col justify-between gap-2 h-24">
-                      <span className="text-[10px] font-semibold text-slate-700 dark:text-slate-200 leading-tight text-center">Verify Contact</span>
-                      <div className="flex items-center justify-center gap-1.5 bg-emerald-50 dark:bg-emerald-900/30 border border-emerald-100 dark:border-emerald-800 rounded-md py-1 px-2 w-full mt-auto">
-                        <iconify-icon icon="solar:shield-check-bold" class="text-emerald-500" width="12" />
-                        <span className="text-[10px] font-semibold text-emerald-600 dark:text-emerald-400">Amplemarket</span>
-                      </div>
-                    </div>
-                    <div className="bg-white dark:bg-slate-800/80 rounded-xl p-3 shadow-sm border border-purple-200/50 dark:border-purple-900/40 hover:border-purple-300 hover:shadow-md transition-all flex flex-col justify-between gap-2 h-24">
-                      <span className="text-[10px] font-semibold text-slate-700 dark:text-slate-200 leading-tight text-center">Account Journey</span>
-                      <div className="flex items-center justify-center gap-1.5 bg-purple-50 dark:bg-purple-900/30 border border-purple-100 dark:border-purple-800 rounded-md py-1 px-2 w-full mt-auto">
-                        <iconify-icon icon="solar:magic-stick-3-bold" class="text-purple-500" width="12" />
-                        <span className="text-[10px] font-semibold text-purple-600 dark:text-purple-400">Gemini</span>
-                      </div>
-                    </div>
+                    {[
+                      { label: 'Data Normalisation', tool: 'Clay', icon: 'solar:settings-minimalistic-bold', cls: 'indigo' },
+                      { label: 'ICP Qualification', tool: 'OpenAI', icon: 'solar:magic-stick-3-bold', cls: 'purple' },
+                      { label: 'Deep Research', tool: 'Perplexity', icon: 'solar:magic-stick-3-bold', cls: 'purple' },
+                      { label: 'Buying Committee', tool: 'ZoomInfo', icon: 'solar:database-bold', cls: 'blue' },
+                      { label: 'Verify Contact', tool: 'Amplemarket', icon: 'solar:shield-check-bold', cls: 'emerald' },
+                      { label: 'Account Journey', tool: 'Gemini', icon: 'solar:magic-stick-3-bold', cls: 'purple' },
+                    ].map(({ label, tool, icon, cls }) => {
+                      const border = cls === 'indigo' ? 'border-indigo-200/50 dark:border-indigo-900/40 hover:border-indigo-300' : cls === 'purple' ? 'border-purple-200/50 dark:border-purple-900/40 hover:border-purple-300' : cls === 'blue' ? 'border-blue-200/50 dark:border-blue-900/40 hover:border-blue-300' : 'border-emerald-200/50 dark:border-emerald-900/40 hover:border-emerald-300'
+                      const tagBg = cls === 'indigo' ? 'bg-indigo-50 dark:bg-indigo-900/30 border-indigo-100 dark:border-indigo-800' : cls === 'purple' ? 'bg-purple-50 dark:bg-purple-900/30 border-purple-100 dark:border-purple-800' : cls === 'blue' ? 'bg-blue-50 dark:bg-blue-900/30 border-blue-100 dark:border-blue-800' : 'bg-emerald-50 dark:bg-emerald-900/30 border-emerald-100 dark:border-emerald-800'
+                      const iconCls = cls === 'indigo' ? 'text-indigo-500' : cls === 'purple' ? 'text-purple-500' : cls === 'blue' ? 'text-blue-500' : 'text-emerald-500'
+                      const textCls = cls === 'indigo' ? 'text-indigo-600 dark:text-indigo-400' : cls === 'purple' ? 'text-purple-600 dark:text-purple-400' : cls === 'blue' ? 'text-blue-600 dark:text-blue-400' : 'text-emerald-600 dark:text-emerald-400'
+                      return (
+                        <div key={label} className={`bg-white dark:bg-slate-800/80 rounded-xl p-3 shadow-sm border ${border} hover:shadow-md transition-all flex flex-col justify-between gap-2 h-24`}>
+                          <span className="text-[10px] font-semibold text-slate-700 dark:text-slate-200 leading-tight text-center">{label}</span>
+                          <div className={`flex items-center justify-center gap-1.5 ${tagBg} border rounded-md py-1 px-2 w-full mt-auto`}>
+                            <Icon icon={icon} className={iconCls} width="12" />
+                            <span className={`text-[10px] font-semibold ${textCls}`}>{tool}</span>
+                          </div>
+                        </div>
+                      )
+                    })}
                   </div>
                 </div>
 
                 {/* CONNECTOR → */}
                 <div className="flex items-center justify-center text-slate-300 dark:text-slate-600 xl:self-center py-2 xl:py-0">
-                  <iconify-icon icon="solar:arrow-right-linear" class="hidden xl:block text-2xl" />
-                  <iconify-icon icon="solar:arrow-down-linear" class="xl:hidden text-2xl" />
+                  <Icon icon="solar:arrow-right-linear" className="hidden xl:block text-2xl" width="24" />
+                  <Icon icon="solar:arrow-down-linear" className="xl:hidden text-2xl" width="24" />
                 </div>
 
                 {/* OUTPUTS */}
@@ -123,7 +106,7 @@ export function WorkflowComparison() {
                   <div className="bg-slate-100/50 dark:bg-slate-800/30 border border-dashed border-slate-300/60 dark:border-slate-700/40 rounded-xl p-4 shadow-sm flex flex-col gap-3 cursor-default">
                     <div className="flex items-center gap-3">
                       <div className="w-9 h-9 rounded-lg bg-slate-200 dark:bg-slate-700 text-slate-500 dark:text-slate-400 flex items-center justify-center">
-                        <iconify-icon icon="solar:code-square-bold" width="18" />
+                        <Icon icon="solar:code-square-bold" width="18" />
                       </div>
                       <div className="flex flex-col">
                         <span className="text-[12px] font-bold text-slate-600 dark:text-slate-300">Manually Built</span>
@@ -154,14 +137,14 @@ export function WorkflowComparison() {
               <div className="flex flex-col gap-3 w-full md:w-auto relative z-10 mt-4 md:mt-0">
                 <div className="bg-slate-800/50 backdrop-blur border border-slate-700 text-slate-300 rounded-xl p-4 flex items-center gap-4">
                   <div className="flex -space-x-2">
-                    <div className="w-8 h-8 rounded-full bg-amber-100 border-2 border-slate-800 flex items-center justify-center text-amber-600 text-[10px]">
-                      <iconify-icon icon="solar:ticket-bold" />
+                    <div className="w-8 h-8 rounded-full bg-amber-100 border-2 border-slate-800 flex items-center justify-center text-amber-600">
+                      <Icon icon="solar:ticket-bold" width="14" />
                     </div>
-                    <div className="w-8 h-8 rounded-full bg-blue-100 border-2 border-slate-800 flex items-center justify-center text-blue-600 text-[10px]">
-                      <iconify-icon icon="solar:shield-warning-bold" />
+                    <div className="w-8 h-8 rounded-full bg-blue-100 border-2 border-slate-800 flex items-center justify-center text-blue-600">
+                      <Icon icon="solar:shield-warning-bold" width="14" />
                     </div>
-                    <div className="w-8 h-8 rounded-full bg-indigo-100 border-2 border-slate-800 flex items-center justify-center text-indigo-600 text-[10px]">
-                      <iconify-icon icon="solar:global-bold" />
+                    <div className="w-8 h-8 rounded-full bg-indigo-100 border-2 border-slate-800 flex items-center justify-center text-indigo-600">
+                      <Icon icon="solar:global-bold" width="14" />
                     </div>
                   </div>
                   <span className="text-sm font-semibold">Events &amp; Competitors</span>
@@ -178,7 +161,7 @@ export function WorkflowComparison() {
                 </div>
               </div>
               <div className="md:hidden flex flex-col items-center text-indigo-500 opacity-50">
-                <iconify-icon icon="solar:arrow-down-linear" width="24" />
+                <Icon icon="solar:arrow-down-linear" width="24" />
               </div>
 
               {/* CENTRAL BRAIN */}
@@ -203,7 +186,7 @@ export function WorkflowComparison() {
                 </div>
               </div>
               <div className="md:hidden flex flex-col items-center text-emerald-500 opacity-50">
-                <iconify-icon icon="solar:arrow-down-linear" width="24" />
+                <Icon icon="solar:arrow-down-linear" width="24" />
               </div>
 
               {/* OUTPUT */}
@@ -218,7 +201,7 @@ export function WorkflowComparison() {
                       { icon: 'solar:calendar-bold', label: 'Event Outreach' },
                     ].map(({ icon, label }) => (
                       <div key={label} className="bg-emerald-500/10 border border-emerald-500/20 rounded-lg p-2.5 text-center hover:bg-emerald-500/20 transition-colors cursor-default">
-                        <iconify-icon icon={icon} class="text-emerald-400 mb-1" width="16" />
+                        <Icon icon={icon} className="text-emerald-400 mb-1 mx-auto" width="16" />
                         <span className="text-[10px] font-semibold text-emerald-300 block">{label}</span>
                       </div>
                     ))}

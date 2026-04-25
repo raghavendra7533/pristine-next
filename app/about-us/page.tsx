@@ -9,7 +9,7 @@ import { WaveCarousel } from '@/components/WaveCarousel'
 export const metadata: Metadata = {
   title: 'About Us - Pristine Data AI',
   description:
-    'Pristine Data AI was born from the frustration of revenue teams who did everything right — and still couldn\'t predict their pipeline. Learn our story.',
+    'Pristine Data AI was born from the frustration of revenue teams who did everything right, and still couldn\'t predict their pipeline. Learn our story.',
   openGraph: {
     title: 'About Us - Pristine Data AI',
     description:
@@ -36,7 +36,7 @@ export default function AboutPage() {
       <main>
 
         {/* ============================================================
-            ACT 1 — THE HOOK (About Us Hero)
+            ACT 1: THE HOOK (About Us Hero)
             ============================================================ */}
         <section className="min-h-[92vh] flex items-center overflow-hidden bg-slate-950 relative pt-24" id="act1-hook">
           {/* Subtle grid background */}
@@ -66,7 +66,7 @@ export default function AboutPage() {
                 </div>
                 <div className="mb-8">
                   <p className="text-base md:text-lg text-slate-400 leading-relaxed max-w-lg">
-                    We were born from the frustration of revenue teams who did everything right — and still couldn&apos;t predict their pipeline.
+                    We were born from the frustration of revenue teams who did everything right, and still couldn&apos;t predict their pipeline.
                   </p>
                 </div>
                 <div>
@@ -113,7 +113,7 @@ export default function AboutPage() {
 
 
         {/* ============================================================
-            ACT 2 — THE WOUND
+            ACT 2: THE WOUND
             ============================================================ */}
         <section className="bg-white dark:bg-slate-950 relative py-16 md:py-24" id="act2-wound">
           <div>
@@ -193,7 +193,7 @@ export default function AboutPage() {
 
 
         {/* ============================================================
-            ACT 3 — THE TURN (Light section, tension breaks)
+            ACT 3: THE TURN (Light section, tension breaks)
             ============================================================ */}
         <section className="py-16 md:py-24 bg-white dark:bg-slate-950" id="act3-turn">
           <div className="max-w-4xl mx-auto px-6 text-center">
@@ -220,7 +220,7 @@ export default function AboutPage() {
 
 
         {/* ============================================================
-            ACT 4 — THE ANSWER
+            ACT 4: THE ANSWER
             ============================================================ */}
         <section className="py-16 md:py-24 bg-slate-50 dark:bg-slate-900/50" id="act4-answer">
           <div className="max-w-6xl mx-auto px-6">
@@ -262,7 +262,7 @@ export default function AboutPage() {
               </div>
             </div>
 
-            {/* Part B: Credibility — Ashok's story */}
+            {/* Part B: Credibility: Ashok's story */}
             <div className="mb-16 md:mb-20">
               <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-8 md:p-10 shadow-lg dark:shadow-2xl">
                 <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 lg:gap-12 items-start">
@@ -315,7 +315,7 @@ export default function AboutPage() {
                   <div className="sm:pr-8">
                     <span className="text-[10px] font-bold text-indigo-400 tracking-widest uppercase">01</span>
                     <p className="text-2xl md:text-3xl font-bold text-white mt-2 mb-3">Who?</p>
-                    <p className="text-sm text-slate-400 leading-relaxed">Who is actually in market right now — not just a title in a spreadsheet?</p>
+                    <p className="text-sm text-slate-400 leading-relaxed">Who is actually in market right now: not just a title in a spreadsheet?</p>
                   </div>
                   <div className="sm:px-8">
                     <span className="text-[10px] font-bold text-indigo-400 tracking-widest uppercase">02</span>
@@ -376,7 +376,7 @@ export default function AboutPage() {
 
 
         {/* ============================================================
-            ACT 5 — THE INVITATION (Dark closing section)
+            ACT 5: THE INVITATION (Dark closing section)
             ============================================================ */}
         <section
           className="overflow-hidden text-white relative"
@@ -413,7 +413,7 @@ export default function AboutPage() {
                 You&apos;re not evaluating another tool.
               </p>
               <p className="text-xl md:text-2xl text-slate-300 leading-relaxed">
-                You&apos;re deciding whether outbound stays a volume game —<br className="hidden md:block" /> or becomes a <span style={{ background: 'linear-gradient(90deg, #818cf8, #a78bfa, #fb7185)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text', fontWeight: 800 }}>precision game</span>.
+                You&apos;re deciding whether outbound stays a volume game ,<br className="hidden md:block" /> or becomes a <span style={{ background: 'linear-gradient(90deg, #818cf8, #a78bfa, #fb7185)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text', fontWeight: 800 }}>precision game</span>.
               </p>
             </div>
 
@@ -658,7 +658,7 @@ export default function AboutPage() {
         <section className="py-16 md:py-24">
           <div className="max-w-4xl mx-auto px-6 text-center">
             <h2 className="text-2xl md:text-3xl font-semibold text-slate-900 dark:text-white mb-4">Ready to show up at the right moment?</h2>
-            <p className="text-slate-600 dark:text-slate-400 mb-8">Join the teams using Pristine Data AI to move from volume to precision — and win on timing.</p>
+            <p className="text-slate-600 dark:text-slate-400 mb-8">Join the teams using Pristine Data AI to move from volume to precision and win on timing.</p>
             <Link
               href="/contact-us"
               className="inline-flex items-center gap-2 px-8 py-3 bg-slate-900 dark:bg-white hover:bg-slate-800 dark:hover:bg-slate-200 text-white dark:text-slate-900 font-semibold rounded-xl shadow-lg transition-all hover:scale-[1.02]"

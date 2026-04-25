@@ -20,7 +20,7 @@ const sections = [
   {
     title: '2. How We Use Your Information',
     body: [
-      'We use the information we collect to provide, maintain, and improve our services — including processing your searches, generating enrichment results, building Opportunity Playbooks, and delivering outreach campaigns.',
+      'We use the information we collect to provide, maintain, and improve our services: including processing your searches, generating enrichment results, building Opportunity Playbooks, and delivering outreach campaigns.',
       'We use your contact information to send transactional communications (account confirmations, usage alerts, billing receipts) and, where you have opted in, product updates and marketing communications.',
       'We use aggregate and anonymised usage data to understand how our platform is used, identify areas for improvement, and develop new features. This data cannot be used to identify individual users.',
       'We do not sell your personal data to third parties.',
@@ -29,7 +29,7 @@ const sections = [
   {
     title: '3. Data Sharing',
     body: [
-      'We share your information with third-party service providers who assist us in operating our platform — including cloud infrastructure providers, payment processors, analytics tools, and customer support software. These providers are contractually bound to use your data only to perform services on our behalf.',
+      'We share your information with third-party service providers who assist us in operating our platform: including cloud infrastructure providers, payment processors, analytics tools, and customer support software. These providers are contractually bound to use your data only to perform services on our behalf.',
       'We integrate with CRM platforms (Salesforce, HubSpot, Pipedrive) and outreach tools (Smartlead, Instantly) at your direction. Data sent to these integrations is governed by your agreements with those providers.',
       'We may disclose your information if required by law, court order, or governmental authority, or if we believe disclosure is necessary to protect the rights, property, or safety of Pristine, our users, or the public.',
       'In the event of a merger, acquisition, or sale of substantially all assets, your information may be transferred as part of that transaction. We will notify you via email or prominent notice on our platform before your data is transferred and becomes subject to a different privacy policy.',

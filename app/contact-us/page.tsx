@@ -181,7 +181,7 @@ export default function ContactPage() {
                     ) : status === 'success' ? (
                       <><Icon icon="solar:check-circle-bold" width={16} /> Message Sent!</>
                     ) : status === 'error' ? (
-                      <><Icon icon="solar:close-circle-bold" width={16} /> Error — Try Again</>
+                      <><Icon icon="solar:close-circle-bold" width={16} /> Error: Try Again</>
                     ) : (
                       <><Icon icon="solar:plain-bold" width={16} /> Send Message</>
                     )}
