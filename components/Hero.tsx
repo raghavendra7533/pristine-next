@@ -24,6 +24,7 @@ export function Hero() {
   const router = useRouter()
   const [tab, setTab] = useState<'people' | 'company'>('people')
   const [placeholder, setPlaceholder] = useState('')
+  const queryRef = useRef<HTMLTextAreaElement>(null)
   const phraseIdx = useRef(0)
   const charIdx = useRef(0)
   const deleting = useRef(false)
@@ -96,6 +97,7 @@ export function Hero() {
                     <Icon icon="solar:magic-stick-3-linear" width={20} />
                   </div>
                   <textarea
+                    ref={queryRef}
                     className="placeholder:text-slate-400 dark:placeholder:text-slate-600 border-none resize-none leading-relaxed text-lg font-medium text-slate-600 dark:text-slate-200 bg-transparent w-full p-0"
                     rows={2}
                     placeholder={placeholder}
@@ -122,7 +124,11 @@ export function Hero() {
                 </div>
 
                 <button
-                  onClick={() => router.push('/contact-us')}
+                  onClick={() => {
+                    const q = queryRef.current?.value.trim() || placeholder
+                    const params = new URLSearchParams({ query: q, type: tab })
+                    router.push(`/results?${params.toString()}`)
+                  }}
                   className="sm:w-auto hover:bg-slate-800 dark:bg-white dark:hover:bg-slate-200 dark:text-slate-900 transition-all hover:translate-y-px flex gap-2 text-xs font-semibold text-white bg-slate-900 w-full rounded-lg py-2 px-5 shadow-lg items-center justify-center"
                 >
                   Generate Leads
