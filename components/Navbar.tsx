@@ -2,17 +2,29 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Icon } from '@iconify/react'
 import { useTheme } from './ThemeProvider'
 
 export function Navbar() {
   const { toggle, theme } = useTheme()
   const [mobileOpen, setMobileOpen] = useState(false)
+  const [cinematic, setCinematic] = useState(false)
+
+  useEffect(() => {
+    const handler = (e: Event) => {
+      setCinematic((e as CustomEvent<{ active: boolean }>).detail.active)
+    }
+    window.addEventListener('pristine:cinematic', handler)
+    return () => window.removeEventListener('pristine:cinematic', handler)
+  }, [])
 
   return (
     <>
-      <nav className="fixed w-full z-50 transition-all duration-300 top-0 glass-nav bg-white/80 dark:bg-slate-950/80">
+      <nav
+        className="fixed w-full z-50 transition-all duration-700 top-0 glass-nav bg-white/80 dark:bg-slate-950/80"
+        style={{ opacity: cinematic ? 0 : 1, pointerEvents: cinematic ? 'none' : 'auto' }}
+      >
         <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
           <div className="flex items-center gap-8">
             <a href="/" className="flex items-center group">
