@@ -241,14 +241,18 @@ export function WorkflowComparison() {
   const wrapperRef = useRef<HTMLDivElement>(null)
   const [progress, setProgress] = useState(0)
   const [isDark, setIsDark] = useState(false)
+  const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
+    setMounted(true)
     const check = () => setIsDark(document.documentElement.classList.contains('dark'))
     check()
     const mo = new MutationObserver(check)
     mo.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] })
     return () => mo.disconnect()
   }, [])
+
+  const dark = mounted && isDark
 
   useEffect(() => {
     const onScroll = () => {
@@ -342,7 +346,7 @@ export function WorkflowComparison() {
         {/* Radial vignette — covers logos as bill appears, adapts to theme */}
         <div
           className="absolute inset-0 pointer-events-none"
-          style={{ background: `radial-gradient(ellipse 55% 55% at 50% 50%, transparent 0%, ${isDark ? `rgba(2,6,23,${mapRange(progress, 0.32, 0.55, 0.0, 0.98)})` : `rgba(255,255,255,${mapRange(progress, 0.32, 0.55, 0.0, 0.98)})`} 100%)` }}
+          style={{ background: `radial-gradient(ellipse 55% 55% at 50% 50%, transparent 0%, ${dark ? `rgba(2,6,23,${mapRange(progress, 0.32, 0.55, 0.0, 0.98)})` : `rgba(255,255,255,${mapRange(progress, 0.32, 0.55, 0.0, 0.98)})`} 100%)` }}
         />
 
         {/* ── Act 2 + 3: bill with ticker, then torn ── */}
@@ -372,10 +376,10 @@ export function WorkflowComparison() {
               willChange: 'opacity, transform, filter',
             }}
           >
-            {isDark ? (
+            {dark ? (
               <h2
-                className="font-bold tracking-tighter leading-none whitespace-nowrap text-white"
-                style={{ fontSize: 'clamp(1.8rem, 4.5vw, 3.8rem)' }}
+                className="font-bold tracking-tighter leading-tight text-white text-center pb-2"
+                style={{ fontSize: 'clamp(1.8rem, 4vw, 3.5rem)' }}
               >
                 One platform.{' '}
                 <span style={{ background: 'linear-gradient(90deg, #818cf8, #34d399)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
@@ -384,9 +388,9 @@ export function WorkflowComparison() {
               </h2>
             ) : (
               <h2
-                className="font-bold tracking-tighter leading-none whitespace-nowrap"
+                className="font-bold tracking-tighter leading-tight text-center pb-2"
                 style={{
-                  fontSize: 'clamp(1.8rem, 4.5vw, 3.8rem)',
+                  fontSize: 'clamp(1.8rem, 4vw, 3.5rem)',
                   background: 'linear-gradient(90deg, #0f172a 35%, #6366f1 68%, #10b981 100%)',
                   WebkitBackgroundClip: 'text',
                   WebkitTextFillColor: 'transparent',
@@ -412,7 +416,7 @@ export function WorkflowComparison() {
           <div style={{ opacity: markOpacity, willChange: 'opacity' }} className="mt-1">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src={isDark ? '/assets/Pristine Data AI Logo.svg' : '/assets/Pristine Data Footer Logo.svg'}
+              src={dark ? '/assets/Pristine Data AI Logo.svg' : '/assets/Pristine Data Footer Logo.svg'}
               alt="Pristine Data AI"
               className="h-8 opacity-60"
             />
