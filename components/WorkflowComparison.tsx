@@ -17,6 +17,15 @@ const TOOLS = [
   { name: 'Lemlist',     domain: 'lemlist.com'     },
 ]
 
+// The painful manual workflow a GTM rep actually goes through
+const HOP_STEPS = [
+  { name: 'Apollo',      domain: 'apollo.io',       action: 'Find prospects',        pain: 'Export CSV manually' },
+  { name: 'ZoomInfo',    domain: 'zoominfo.com',    action: 'Verify contacts',       pain: 'Copy-paste into sheet' },
+  { name: 'Clay',        domain: 'clay.com',        action: 'Enrich & normalize',    pain: 'Wait for enrichment' },
+  { name: 'Smartlead',   domain: 'smartlead.ai',    action: 'Write sequences',       pain: 'Upload CSV again' },
+  { name: 'Amplemarket', domain: 'amplemarket.com', action: 'Launch outreach',       pain: 'Sync back to CRM' },
+]
+
 const BILL_ITEMS = [
   { name: 'ZoomInfo',    domain: 'zoominfo.com',   price: 1250 },
   { name: 'Apollo',      domain: 'apollo.io',       price: 399  },
@@ -275,32 +284,54 @@ export function WorkflowComparison() {
 
   /* ── Derived animation values ── */
 
-  // Act 1: logos visible at start, hold through 0.14, fade out 0.14→0.26
-  const logosBase = progress < 0.14 ? 1 : mapRange(progress, 0.14, 0.26, 1, 0)
-  const logosBlur = mapRange(progress, 0.14, 0.26, 0, 20)
+  // Act 1 (0→0.10): logo grid, fade out fast
+  const logosBase = progress < 0.05 ? 1 : mapRange(progress, 0.05, 0.12, 1, 0)
+  const logosBlur = mapRange(progress, 0.05, 0.12, 0, 20)
   function logoOpacity(_i: number) { return logosBase }
 
-  // Act 2: bill slides in 0.26→0.36, counter runs 0.28→0.46
-  const billOpacity  = mapRange(progress, 0.26, 0.36, 0, 1)
-  const billSlideY   = mapRange(progress, 0.26, 0.36, 60, 0)
-  const counterValue = Math.round(mapRange(progress, 0.28, 0.46, 0, BILL_TOTAL))
+  // Act 2 (0.12→0.44): tool-hopping — 5 steps
+  const HOP_N    = HOP_STEPS.length
+  const hopRange = 0.44 - 0.12
+  const hopP     = clamp((progress - 0.12) / hopRange)
+  const hopSlot  = hopP * HOP_N
+  const hopIndex = Math.min(Math.floor(hopSlot), HOP_N - 1)
+  const hopFrac  = hopSlot - Math.floor(hopSlot)
+  const hopBase  = progress >= 0.12 && progress <= 0.46 ? 1 : 0
+  function hopCardVisible(i: number) { return hopBase === 1 && i === hopIndex }
+  function hopCardOpacity(i: number) {
+    if (!hopCardVisible(i)) return 0
+    const fadeIn  = mapRange(hopFrac, 0, 0.2, 0, 1)
+    const fadeOut = i < HOP_N - 1 ? mapRange(hopFrac, 0.75, 1.0, 1, 0) : 1
+    return fadeIn * fadeOut
+  }
+  function hopCardScale(i: number) {
+    if (!hopCardVisible(i)) return 0.88
+    return mapRange(hopFrac, 0, 0.2, 0.88, 1)
+  }
+  function hopCardY(i: number) {
+    if (!hopCardVisible(i)) return 20
+    return mapRange(hopFrac, 0, 0.2, 20, 0)
+  }
 
-  // Act 3: scissors cut 0.46→0.68
-  const tearProgress = mapRange(progress, 0.46, 0.68, 0, 1)
+  // Act 3 (0.44→0.56): bill slides in, counter ticks
+  const billOpacity  = mapRange(progress, 0.44, 0.52, 0, 1)
+  const billSlideY   = mapRange(progress, 0.44, 0.52, 60, 0)
+  const counterValue = Math.round(mapRange(progress, 0.46, 0.60, 0, BILL_TOTAL))
 
-  // Bill visible only when not fully cut away
-  const showBill = progress > 0.26 && progress < 0.70
+  // Act 4 (0.60→0.74): scissors cut
+  const tearProgress = mapRange(progress, 0.60, 0.74, 0, 1)
+  const showBill     = progress > 0.44 && progress < 0.76
 
-  // Act 4: reveal text 0.68→0.82
-  const textOpacity = mapRange(progress, 0.68, 0.82, 0, 1)
-  const textScale   = mapRange(progress, 0.68, 0.82, 0.88, 1)
-  const textBlur    = mapRange(progress, 0.68, 0.80, 10, 0)
-  const subOpacity  = mapRange(progress, 0.76, 0.90, 0, 1)
-  const subY        = mapRange(progress, 0.76, 0.90, 18, 0)
-  const markOpacity = mapRange(progress, 0.82, 0.94, 0, 1)
+  // Act 5 (0.76→1.0): reveal text
+  const textOpacity = mapRange(progress, 0.76, 0.86, 0, 1)
+  const textScale   = mapRange(progress, 0.76, 0.86, 0.88, 1)
+  const textBlur    = mapRange(progress, 0.76, 0.84, 10, 0)
+  const subOpacity  = mapRange(progress, 0.84, 0.93, 0, 1)
+  const subY        = mapRange(progress, 0.84, 0.93, 18, 0)
+  const markOpacity = mapRange(progress, 0.90, 1.0, 0, 1)
 
   return (
-    <div ref={wrapperRef} style={{ height: '380vh' }}>
+    <div ref={wrapperRef} style={{ height: '300vh' }}>
       <div className="sticky top-0 flex items-center justify-center bg-white dark:bg-slate-950" style={{ height: '100vh', overflow: 'clip' }}>
 
         {/* ── Act 1: competitor logos ── */}
@@ -343,10 +374,59 @@ export function WorkflowComparison() {
           </div>
         </div>
 
+        {/* ── Act 2: tool-hopping journey ── */}
+        {hopBase === 1 && (
+          <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+            {HOP_STEPS.map((step, i) => (
+              <div
+                key={step.name}
+                className="absolute flex flex-col items-center gap-5 text-center"
+                style={{
+                  opacity: hopCardOpacity(i),
+                  transform: `scale(${hopCardScale(i)}) translateY(${hopCardY(i)}px)`,
+                  willChange: 'opacity, transform',
+                }}
+              >
+                {/* Step counter */}
+                <p className="text-[11px] font-bold uppercase tracking-[0.25em] text-slate-400 dark:text-slate-500">
+                  Step {i + 1} of {HOP_N}
+                </p>
+
+                {/* Logo pill */}
+                <div className="flex items-center gap-4 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl px-6 py-4 shadow-lg">
+                  <div className="w-12 h-12 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-center justify-center overflow-hidden flex-shrink-0">
+                    <img
+                      src={`https://www.google.com/s2/favicons?domain=${step.domain}&sz=64`}
+                      alt={step.name}
+                      width={32} height={32}
+                      className="w-8 h-8 object-contain"
+                    />
+                  </div>
+                  <div className="text-left">
+                    <p className="text-base font-bold text-slate-900 dark:text-white">{step.name}</p>
+                    <p className="text-sm text-indigo-500 dark:text-indigo-400 font-medium">{step.action}</p>
+                  </div>
+                </div>
+
+                {/* Pain point */}
+                <div className="flex items-center gap-2 bg-rose-50 dark:bg-rose-900/20 border border-rose-200 dark:border-rose-800/40 rounded-full px-4 py-1.5">
+                  <span className="text-rose-400 text-sm">↳</span>
+                  <span className="text-rose-500 dark:text-rose-400 text-xs font-semibold">{step.pain}</span>
+                </div>
+
+                {/* Arrow to next — not shown on last */}
+                {i < HOP_N - 1 && (
+                  <div className="text-slate-300 dark:text-slate-700 text-2xl">↓</div>
+                )}
+              </div>
+            ))}
+          </div>
+        )}
+
         {/* Radial vignette — covers logos as bill appears, adapts to theme */}
         <div
           className="absolute inset-0 pointer-events-none"
-          style={{ background: `radial-gradient(ellipse 55% 55% at 50% 50%, transparent 0%, ${dark ? `rgba(2,6,23,${mapRange(progress, 0.32, 0.55, 0.0, 0.98)})` : `rgba(255,255,255,${mapRange(progress, 0.32, 0.55, 0.0, 0.98)})`} 100%)` }}
+          style={{ background: `radial-gradient(ellipse 55% 55% at 50% 50%, transparent 0%, ${dark ? `rgba(2,6,23,${mapRange(progress, 0.40, 0.48, 0.0, 0.98)})` : `rgba(255,255,255,${mapRange(progress, 0.40, 0.48, 0.0, 0.98)})`} 100%)` }}
         />
 
         {/* ── Act 2 + 3: bill with ticker, then torn ── */}
