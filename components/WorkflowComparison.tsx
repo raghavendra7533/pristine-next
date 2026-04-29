@@ -67,7 +67,7 @@ function LogoCard({ name, domain, opacity, blur, scale, ty }: {
 /* ─── Invoice / bill visual ─────────────────────────────────────────────── */
 function BillFace({ counter }: { counter: number }) {
   return (
-    <div className="w-80 bg-white rounded-2xl border border-slate-200 shadow-2xl overflow-hidden select-none" style={{ boxShadow: '0 4px 24px rgba(0,0,0,0.08), 0 1px 3px rgba(0,0,0,0.05)' }}>
+    <div className="w-[min(320px,88vw)] bg-white rounded-2xl border border-slate-200 shadow-2xl overflow-hidden select-none" style={{ boxShadow: '0 4px 24px rgba(0,0,0,0.08), 0 1px 3px rgba(0,0,0,0.05)' }}>
       {/* Header */}
       <div className="bg-slate-900 px-5 py-4 flex items-center justify-between">
         <div>
@@ -109,6 +109,70 @@ function BillFace({ counter }: { counter: number }) {
         >
           ${counter.toLocaleString()}
         </span>
+      </div>
+    </div>
+  )
+}
+
+/* ─── Money sacks ───────────────────────────────────────────────────────── */
+const SACK_COUNT = 6
+
+// Hardcoded scatter positions (x, y offset in px, rotation in deg) — pile on the floor feel
+const SACK_POSES = [
+  { x:  -8, y:  60, rot: -18, z: 1 },
+  { x:  38, y:  52, rot:  14, z: 2 },
+  { x: -36, y:  28, rot: -28, z: 1 },
+  { x:  18, y:  20, rot:   8, z: 3 },
+  { x: -18, y:  -4, rot: -12, z: 2 },
+  { x:  10, y: -22, rot:  20, z: 4 },
+]
+
+function MoneySacks({ counterValue, billOpacity, billSlideY, tearProgress }: { counterValue: number; billOpacity: number; billSlideY: number; tearProgress: number }) {
+  const thresholds = Array.from({ length: SACK_COUNT }, (_, i) =>
+    Math.round(BILL_TOTAL * (i + 1) / SACK_COUNT)
+  )
+
+  return (
+    <div
+      className="flex flex-col items-center pointer-events-none select-none"
+      style={{
+        opacity: billOpacity,
+        transform: `translateY(${billSlideY}px)`,
+        willChange: 'opacity, transform',
+      }}
+    >
+      <p
+        className="text-[11px] font-bold uppercase tracking-[0.2em] text-slate-400 dark:text-slate-500 mb-4"
+        style={{ opacity: tearProgress > 0.01 ? 0 : 1, transition: 'opacity 0.2s ease' }}
+      >
+        Your Wallet
+      </p>
+      {/* Pile container — sacks are absolutely positioned within */}
+      <div className="relative" style={{ width: 110, height: 120 }}>
+        {thresholds.map((threshold, i) => {
+          const gone = counterValue >= threshold
+          const { x, y, rot, z } = SACK_POSES[i]
+          return (
+            <div
+              key={i}
+              style={{
+                position: 'absolute',
+                left: '50%',
+                top: '50%',
+                transform: gone
+                  ? `translate(calc(-50% + ${x}px), calc(-50% + ${y}px)) rotate(${rot}deg) scale(0.3)`
+                  : `translate(calc(-50% + ${x}px), calc(-50% + ${y}px)) rotate(${rot}deg) scale(1)`,
+                opacity: gone ? 0 : 1,
+                zIndex: z,
+                transition: 'opacity 0.3s ease, transform 0.3s ease',
+                fontSize: 36,
+                lineHeight: 1,
+              }}
+            >
+              💵
+            </div>
+          )
+        })}
       </div>
     </div>
   )
@@ -429,20 +493,41 @@ export function WorkflowComparison() {
           style={{ background: `radial-gradient(ellipse 55% 55% at 50% 50%, transparent 0%, ${dark ? `rgba(2,6,23,${mapRange(progress, 0.40, 0.48, 0.0, 0.98)})` : `rgba(255,255,255,${mapRange(progress, 0.40, 0.48, 0.0, 0.98)})`} 100%)` }}
         />
 
-        {/* ── Act 2 + 3: bill with ticker, then torn ── */}
+        {/* ── Act 2 + 3: money sacks + bill with ticker, then torn ── */}
         {showBill && (
-          <div
-            className="absolute z-20 pointer-events-none"
-            style={{
-              opacity: billOpacity,
-              transform: `translateY(${billSlideY}px)`,
-              willChange: 'opacity, transform',
-            }}
-          >
-            {tearProgress > 0.01
-              ? <ScissorsCut counter={BILL_TOTAL} tearProgress={tearProgress} />
-              : <BillFace counter={counterValue} />
-            }
+          <div className="absolute z-20 pointer-events-none">
+            {/* Money sacks — absolutely positioned to the left of the centered bill, hidden on small screens */}
+            <div
+              className="absolute hidden md:block"
+              style={{
+                right: 'calc(100% + 80px)',
+                top: '50%',
+                transform: 'translateY(-50%)',
+                opacity: tearProgress > 0.01 ? mapRange(tearProgress, 0.01, 0.25, 1, 0) : 1,
+                transition: 'opacity 0.2s ease',
+              }}
+            >
+              <MoneySacks
+                counterValue={counterValue}
+                billOpacity={billOpacity}
+                billSlideY={billSlideY}
+                tearProgress={tearProgress}
+              />
+            </div>
+
+            {/* Bill — this div is centered on screen */}
+            <div
+              style={{
+                opacity: billOpacity,
+                transform: `translateY(${billSlideY}px)`,
+                willChange: 'opacity, transform',
+              }}
+            >
+              {tearProgress > 0.01
+                ? <ScissorsCut counter={BILL_TOTAL} tearProgress={tearProgress} />
+                : <BillFace counter={counterValue} />
+              }
+            </div>
           </div>
         )}
 
