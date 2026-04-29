@@ -63,6 +63,12 @@
 
 
   <url>
+    <loc>https://pristinedata.ai/results</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
     <loc>https://pristinedata.ai/privacy</loc>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
