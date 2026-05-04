@@ -1,8 +1,10 @@
 'use client'
 
 import { useState } from 'react'
+import Link from 'next/link'
 import { Icon } from '@iconify/react'
 
+// Approximate list prices as of Q1 2026 — update periodically
 const TOOLS = [
   { name: 'ZoomInfo',    price: 1250, perSeat: true  },
   { name: 'Apollo',      price: 399,  perSeat: false },
@@ -56,6 +58,7 @@ export function StackCalculator() {
                     {reps} {reps === 1 ? 'rep' : 'reps'}
                   </span>
                 </div>
+                {/* Max 20 covers SMB and mid-market teams — adjust if needed */}
                 <input
                   type="range"
                   min={1}
@@ -90,9 +93,13 @@ export function StackCalculator() {
                         <span className="text-sm font-medium text-slate-700 dark:text-slate-300">
                           {tool.name}
                         </span>
-                        {tool.perSeat && (
+                        {tool.perSeat ? (
                           <span className="text-[10px] text-slate-400 dark:text-slate-500">
                             per seat
+                          </span>
+                        ) : (
+                          <span className="text-[10px] text-slate-400 dark:text-slate-500">
+                            flat rate
                           </span>
                         )}
                       </div>
@@ -111,10 +118,7 @@ export function StackCalculator() {
                 <p className="text-[10px] uppercase tracking-widest font-semibold text-slate-400 dark:text-slate-500 mb-4">
                   Your current stack costs
                 </p>
-                <div
-                  className="font-black tabular-nums leading-none mb-2"
-                  style={{ fontSize: '3rem', color: '#ef4444', letterSpacing: '-0.04em' }}
-                >
+                <div className="font-black tabular-nums leading-none mb-2 text-5xl text-red-500 tracking-tight">
                   ${monthlyTotal.toLocaleString()}
                   <span className="text-base font-semibold text-slate-400 dark:text-slate-500 ml-1">/mo</span>
                 </div>
@@ -127,14 +131,13 @@ export function StackCalculator() {
               </div>
 
               <div className="flex flex-col gap-3">
-                <a
+                <Link
                   href="/stack-audit"
-                  className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl text-sm font-semibold text-white shadow-lg transition-all hover:scale-[1.02] hover:shadow-xl active:scale-100"
-                  style={{ background: 'linear-gradient(135deg, #6366f1, #8b5cf6)' }}
+                  className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl text-sm font-semibold text-white shadow-lg transition-all hover:scale-[1.02] hover:shadow-xl active:scale-100 bg-gradient-to-br from-indigo-500 to-violet-500"
                 >
                   Get your free GTM stack audit
                   <Icon icon="solar:arrow-right-linear" width={14} />
-                </a>
+                </Link>
                 <p className="text-center text-[11px] text-slate-400 dark:text-slate-600">
                   Free · No credit card · Takes 2 minutes
                 </p>
