@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react'
 import { useRouter } from 'next/navigation'
+import Link from 'next/link'
 import { Icon } from '@iconify/react'
 
 const peoplePhrases = [
@@ -140,13 +141,13 @@ export function Hero() {
         </div>
 
         <div className="mt-4 flex justify-center">
-          <a
+          <Link
             href="/contact-us"
             className="text-sm font-medium text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200 transition-colors flex items-center gap-1"
           >
             Book a demo
             <Icon icon="solar:arrow-right-linear" width={14} />
-          </a>
+          </Link>
         </div>
       </div>
     </section>
