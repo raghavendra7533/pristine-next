@@ -440,51 +440,92 @@ export function WorkflowComparison() {
 
         {/* ── Act 2: tool-hopping journey ── */}
         {hopBase === 1 && (
-          <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-            {HOP_STEPS.map((step, i) => (
-              <div
-                key={step.name}
-                className="absolute flex flex-col items-center gap-5 text-center"
-                style={{
-                  opacity: hopCardOpacity(i),
-                  transform: `scale(${hopCardScale(i)}) translateY(${hopCardY(i)}px)`,
-                  willChange: 'opacity, transform',
-                }}
-              >
-                {/* Step counter */}
-                <p className="text-[11px] font-bold uppercase tracking-[0.25em] text-slate-400 dark:text-slate-500">
-                  Step {i + 1} of {HOP_N}
-                </p>
-
-                {/* Logo pill */}
-                <div className="flex items-center gap-4 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl px-6 py-4 shadow-lg">
-                  <div className="w-12 h-12 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-center justify-center overflow-hidden flex-shrink-0">
-                    <img
-                      src={`https://www.google.com/s2/favicons?domain=${step.domain}&sz=64`}
-                      alt={step.name}
-                      width={32} height={32}
-                      className="w-8 h-8 object-contain"
-                    />
+          <>
+            {/* Mobile: single card centered, one at a time */}
+            <div className="md:hidden absolute inset-0 flex items-center justify-center pointer-events-none">
+              {HOP_STEPS.map((step, i) => (
+                <div
+                  key={step.name}
+                  className="absolute flex flex-col items-center gap-5 text-center"
+                  style={{
+                    opacity: hopCardOpacity(i),
+                    transform: `scale(${hopCardScale(i)}) translateY(${hopCardY(i)}px)`,
+                    willChange: 'opacity, transform',
+                  }}
+                >
+                  <p className="text-[11px] font-bold uppercase tracking-[0.25em] text-slate-400 dark:text-slate-500">
+                    Step {i + 1} of {HOP_N}
+                  </p>
+                  <div className="flex items-center gap-4 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl px-6 py-4 shadow-lg">
+                    <div className="w-12 h-12 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-center justify-center overflow-hidden flex-shrink-0">
+                      <img src={`https://www.google.com/s2/favicons?domain=${step.domain}&sz=64`} alt={step.name} width={32} height={32} className="w-8 h-8 object-contain" />
+                    </div>
+                    <div className="text-left">
+                      <p className="text-base font-bold text-slate-900 dark:text-white">{step.name}</p>
+                      <p className="text-sm text-indigo-500 dark:text-indigo-400 font-medium">{step.action}</p>
+                    </div>
                   </div>
-                  <div className="text-left">
-                    <p className="text-base font-bold text-slate-900 dark:text-white">{step.name}</p>
-                    <p className="text-sm text-indigo-500 dark:text-indigo-400 font-medium">{step.action}</p>
+                  <div className="flex items-center gap-2 bg-rose-50 dark:bg-rose-900/20 border border-rose-200 dark:border-rose-800/40 rounded-full px-4 py-1.5">
+                    <span className="text-rose-400 text-sm">↳</span>
+                    <span className="text-rose-500 dark:text-rose-400 text-xs font-semibold">{step.pain}</span>
                   </div>
                 </div>
+              ))}
+            </div>
 
-                {/* Pain point */}
-                <div className="flex items-center gap-2 bg-rose-50 dark:bg-rose-900/20 border border-rose-200 dark:border-rose-800/40 rounded-full px-4 py-1.5">
-                  <span className="text-rose-400 text-sm">↳</span>
-                  <span className="text-rose-500 dark:text-rose-400 text-xs font-semibold">{step.pain}</span>
-                </div>
+            {/* Desktop: horizontal row, cards appear left-to-right */}
+            <div className="hidden md:flex absolute inset-0 items-center justify-center pointer-events-none px-8">
+              <div className="flex items-start gap-0">
+                {HOP_STEPS.map((step, i) => {
+                  // Each card enters when hopSlot crosses i
+                  const cardP  = clamp(hopSlot - i, 0, 1)
+                  const arrowP = clamp(hopSlot - i - 0.6, 0, 1)
+                  const cardOpacity  = mapRange(cardP, 0, 0.35, 0, 1)
+                  const cardScale    = mapRange(cardP, 0, 0.35, 0.82, 1)
+                  const cardTY       = mapRange(cardP, 0, 0.35, 18, 0)
+                  return (
+                    <div key={step.name} className="flex items-center">
+                      {/* Step card */}
+                      <div
+                        className="flex flex-col items-center gap-2.5 w-36"
+                        style={{
+                          opacity: cardOpacity,
+                          transform: `scale(${cardScale}) translateY(${cardTY}px)`,
+                          willChange: 'opacity, transform',
+                        }}
+                      >
+                        <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400 dark:text-slate-500">
+                          Step {i + 1}
+                        </p>
+                        <div className="flex flex-col items-center gap-2.5 w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl px-3 py-3 shadow-lg">
+                          <div className="w-10 h-10 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-center justify-center overflow-hidden">
+                            <img src={`https://www.google.com/s2/favicons?domain=${step.domain}&sz=64`} alt={step.name} width={28} height={28} className="w-7 h-7 object-contain" />
+                          </div>
+                          <div className="text-center">
+                            <p className="text-sm font-bold text-slate-900 dark:text-white leading-tight">{step.name}</p>
+                            <p className="text-[11px] text-indigo-500 dark:text-indigo-400 font-medium mt-0.5">{step.action}</p>
+                          </div>
+                        </div>
+                        <div className="flex items-center gap-1 bg-rose-50 dark:bg-rose-900/20 border border-rose-200 dark:border-rose-800/40 rounded-full px-2.5 py-1 text-center">
+                          <span className="text-rose-500 dark:text-rose-400 text-[10px] font-semibold leading-tight">{step.pain}</span>
+                        </div>
+                      </div>
 
-                {/* Arrow to next — not shown on last */}
-                {i < HOP_N - 1 && (
-                  <div className="text-slate-300 dark:text-slate-700 text-2xl">↓</div>
-                )}
+                      {/* Arrow connector — fades in after the card it leads from */}
+                      {i < HOP_N - 1 && (
+                        <div
+                          className="flex-shrink-0 px-2 text-slate-300 dark:text-slate-700"
+                          style={{ opacity: mapRange(arrowP, 0, 0.5, 0, 1), fontSize: 20, marginTop: -20 }}
+                        >
+                          →
+                        </div>
+                      )}
+                    </div>
+                  )
+                })}
               </div>
-            ))}
-          </div>
+            </div>
+          </>
         )}
 
         {/* Radial vignette — covers logos as bill appears, adapts to theme */}
