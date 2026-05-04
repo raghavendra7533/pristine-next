@@ -1,5 +1,3 @@
-// components/LogoBar.tsx
-
 const LOGOS = [
   'SingleGrain',
   'Maveriq',
@@ -17,16 +15,14 @@ export function LogoBar() {
         <span className="text-[10px] uppercase tracking-widest font-semibold text-slate-400 dark:text-slate-500 flex-shrink-0 whitespace-nowrap">
           Trusted by
         </span>
-        <div className="flex items-center gap-3 flex-nowrap">
-          {LOGOS.map((name) => (
-            <span
-              key={name}
-              className="flex-shrink-0 whitespace-nowrap text-sm font-semibold text-slate-500 dark:text-slate-400 border border-slate-200 dark:border-slate-700 rounded-full px-4 py-1.5 bg-slate-50 dark:bg-slate-800"
-            >
-              {name}
-            </span>
-          ))}
-        </div>
+        {LOGOS.map((name) => (
+          <span
+            key={name}
+            className="flex-shrink-0 whitespace-nowrap text-sm font-semibold text-slate-500 dark:text-slate-400 border border-slate-200 dark:border-slate-700 rounded-full px-4 py-1.5 bg-slate-50 dark:bg-slate-800"
+          >
+            {name}
+          </span>
+        ))}
       </div>
     </div>
   )
