@@ -1,28 +1,40 @@
 const LOGOS = [
-  'SingleGrain',
-  'Maveriq',
-  'Frontline',
-  'Aquila Cloud',
-  'Nexla',
-  'Lister Ventures',
-  'Dezign Pro',
+  { name: 'SingleGrain',      domain: 'singlegrain.com'              },
+  { name: 'Maveriq',          domain: 'maveriq.ch'                   },
+  { name: 'Frontline',        domain: 'frontlinerecruitmentgroup.com' },
+  { name: 'Aquila Cloud',     domain: 'aquilaclouds.com'             },
+  { name: 'Nexla',            domain: 'nexla.com'                    },
+  { name: 'Lister Ventures',  domain: 'listerventures.com'           },
+  { name: 'Dezign Pro',       domain: 'dezign.pro'                   },
 ]
 
 export function LogoBar() {
   return (
     <div className="border-y border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-950 py-5 px-6">
-      <div className="max-w-6xl mx-auto flex items-center gap-6 overflow-x-auto scrollbar-none">
-        <span className="text-[10px] uppercase tracking-widest font-semibold text-slate-400 dark:text-slate-500 flex-shrink-0 whitespace-nowrap">
+      <div className="max-w-6xl mx-auto flex flex-col items-center gap-4">
+        <span className="text-[10px] uppercase tracking-widest font-semibold text-slate-400 dark:text-slate-500">
           Trusted by
         </span>
-        {LOGOS.map((name) => (
-          <span
-            key={name}
-            className="flex-shrink-0 whitespace-nowrap text-sm font-semibold text-slate-500 dark:text-slate-400 border border-slate-200 dark:border-slate-700 rounded-full px-4 py-1.5 bg-slate-50 dark:bg-slate-800"
-          >
-            {name}
-          </span>
-        ))}
+        <div className="flex items-center justify-center gap-4 flex-wrap">
+          {LOGOS.map(({ name, domain }) => (
+            <div
+              key={name}
+              className="flex items-center gap-2 whitespace-nowrap border border-slate-200 dark:border-slate-700 rounded-full px-4 py-1.5 bg-slate-50 dark:bg-slate-800"
+            >
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={`https://www.google.com/s2/favicons?domain=${domain}&sz=32`}
+                alt={name}
+                width={16}
+                height={16}
+                className="w-4 h-4 object-contain"
+              />
+              <span className="text-sm font-semibold text-slate-500 dark:text-slate-400">
+                {name}
+              </span>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   )

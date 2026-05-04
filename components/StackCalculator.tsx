@@ -5,13 +5,14 @@ import Link from 'next/link'
 import { Icon } from '@iconify/react'
 
 // Approximate list prices as of Q1 2026 — update periodically
-const TOOLS = [
-  { name: 'ZoomInfo',    price: 1250, perSeat: true  },
-  { name: 'Apollo',      price: 399,  perSeat: false },
-  { name: 'Clay',        price: 299,  perSeat: false },
-  { name: 'Amplemarket', price: 800,  perSeat: false },
-  { name: 'Outreach',    price: 400,  perSeat: false },
-  { name: 'Smartlead',   price: 94,   perSeat: false },
+// perSeat: true = multiplied by rep count; custom = excluded from total
+const TOOLS: { name: string; domain: string; price: number; perSeat: boolean; custom?: boolean }[] = [
+  { name: 'ZoomInfo',    domain: 'zoominfo.com',    price: 1250, perSeat: true  },
+  { name: 'Apollo',      domain: 'apollo.io',       price: 79,   perSeat: true  },
+  { name: 'Clay',        domain: 'clay.com',        price: 299,  perSeat: false },
+  { name: 'Amplemarket', domain: 'amplemarket.com', price: 300,  perSeat: true  },
+  { name: 'Outreach',    domain: 'outreach.io',     price: 0,    perSeat: false, custom: true },
+  { name: 'Smartlead',   domain: 'smartlead.ai',    price: 94,   perSeat: true  },
 ]
 
 export function StackCalculator() {
@@ -25,7 +26,7 @@ export function StackCalculator() {
   }
 
   const monthlyTotal = TOOLS.reduce((sum, tool) => {
-    if (!checked[tool.name]) return sum
+    if (!checked[tool.name] || tool.custom) return sum
     return sum + (tool.perSeat ? tool.price * reps : tool.price)
   }, 0)
 
@@ -90,21 +91,29 @@ export function StackCalculator() {
                           onChange={() => toggleTool(tool.name)}
                           className="accent-indigo-500 w-4 h-4"
                         />
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img
+                          src={`https://www.google.com/s2/favicons?domain=${tool.domain}&sz=32`}
+                          alt={tool.name}
+                          width={16}
+                          height={16}
+                          className="w-4 h-4 object-contain"
+                        />
                         <span className="text-sm font-medium text-slate-700 dark:text-slate-300">
                           {tool.name}
                         </span>
-                        {tool.perSeat ? (
-                          <span className="text-[10px] text-slate-400 dark:text-slate-500">
-                            per seat
-                          </span>
+                        {tool.custom ? (
+                          <span className="text-[10px] text-slate-400 dark:text-slate-500">custom</span>
+                        ) : tool.perSeat ? (
+                          <span className="text-[10px] text-slate-400 dark:text-slate-500">per seat</span>
                         ) : (
-                          <span className="text-[10px] text-slate-400 dark:text-slate-500">
-                            flat rate
-                          </span>
+                          <span className="text-[10px] text-slate-400 dark:text-slate-500">flat rate</span>
                         )}
                       </div>
                       <span className="text-xs font-semibold text-slate-500 dark:text-slate-400 tabular-nums">
-                        ${(tool.perSeat ? tool.price * reps : tool.price).toLocaleString()}/mo
+                        {tool.custom
+                          ? 'Custom'
+                          : `$${(tool.perSeat ? tool.price * reps : tool.price).toLocaleString()}/mo`}
                       </span>
                     </label>
                   ))}
