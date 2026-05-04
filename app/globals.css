@@ -185,3 +185,11 @@ input[type="range"]::-moz-range-track { height: 6px; border-radius: 3px; backgro
 .dark input[type="range"]::-moz-range-track { background: #1e293b; }
 input[type="range"]::-moz-range-thumb { width: 22px; height: 22px; border-radius: 50%; background: #6366f1; border: 3px solid #ffffff; }
 .dark input[type="range"]::-moz-range-thumb { border-color: #0f172a; }
+
+/* Utility: hide scrollbar while preserving scroll */
+.scrollbar-none {
+  scrollbar-width: none;
+}
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
