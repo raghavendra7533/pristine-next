@@ -76,16 +76,16 @@ export function Hero() {
             <span className="relative inline-flex rounded-full h-2 w-2 bg-[#F43F5E]" />
           </span>
           <span className="text-[10px] uppercase dark:text-slate-300 font-semibold text-slate-600 tracking-wider">
-            largest coverage in the category - 700M+ Contacts
+            Live
           </span>
         </div>
 
         <h1 className="md:text-6xl leading-[1.15] dark:text-white text-4xl font-semibold text-slate-950 tracking-tighter mb-4">
-          Your Entire Revenue Stack. <br className="hidden md:block" /> One AI-Powered Platform.
+          Replace ZoomInfo, Clay, and Amplemarket. <br className="hidden md:block" /> One agent. One bill.
         </h1>
 
-        <p className="leading-relaxed dark:text-slate-400 text-base font-medium text-slate-700 max-w-lg mx-auto mb-10">
-          Find prospects, enrich data, and run outreach: all in one place. Stop paying for ZoomInfo, Amplemarket, and OpenAI separately.
+        <p className="leading-relaxed dark:text-slate-400 text-base font-medium text-slate-700 max-w-lg mx-auto mb-8">
+          Search 700M contacts, verify them in real time, and send strategy-led outreach. No Clay tables. No ops engineer. No $40K ZoomInfo seat.
         </p>
 
         <div className="relative w-full max-w-2xl mx-auto group">
@@ -131,12 +131,22 @@ export function Hero() {
                   }}
                   className="sm:w-auto hover:bg-slate-800 dark:bg-white dark:hover:bg-slate-200 dark:text-slate-900 transition-all hover:translate-y-px flex gap-2 text-xs font-semibold text-white bg-slate-900 w-full rounded-lg py-2 px-5 shadow-lg items-center justify-center"
                 >
-                  Generate Leads
+                  Try a search
                   <Icon icon="solar:arrow-right-linear" width={14} />
                 </button>
               </div>
             </div>
           </div>
+        </div>
+
+        <div className="mt-4 flex justify-center">
+          <a
+            href="/contact-us"
+            className="text-sm font-medium text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200 transition-colors flex items-center gap-1"
+          >
+            Book a demo
+            <Icon icon="solar:arrow-right-linear" width={14} />
+          </a>
         </div>
       </div>
     </section>
