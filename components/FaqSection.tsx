@@ -38,10 +38,12 @@ export function FaqSection() {
 
         <div className="divide-y divide-slate-100 dark:divide-slate-800">
           {FAQS.map((faq, i) => (
-            <div key={i}>
+            <div key={faq.q}>
               <button
                 onClick={() => setOpen(open === i ? null : i)}
-                className="w-full flex justify-between items-center py-5 text-left gap-4 cursor-pointer"
+                aria-expanded={open === i}
+                aria-controls={`faq-answer-${i}`}
+                className="w-full flex justify-between items-center py-5 text-left gap-4"
               >
                 <span className="text-sm font-semibold text-slate-800 dark:text-white">
                   {faq.q}
@@ -49,14 +51,17 @@ export function FaqSection() {
                 <Icon
                   icon={open === i ? 'solar:minus-circle-linear' : 'solar:add-circle-linear'}
                   width={20}
-                  className="flex-shrink-0 text-slate-400 dark:text-slate-500 transition-transform"
+                  className="flex-shrink-0 text-slate-400 dark:text-slate-500"
                 />
               </button>
-              {open === i && (
-                <p className="pb-5 text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-                  {faq.a}
-                </p>
-              )}
+              <p
+                id={`faq-answer-${i}`}
+                role="region"
+                hidden={open !== i}
+                className="pb-5 text-sm text-slate-600 dark:text-slate-400 leading-relaxed"
+              >
+                {faq.a}
+              </p>
             </div>
           ))}
         </div>
