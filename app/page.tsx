@@ -2,18 +2,21 @@ import type { Metadata } from 'next'
 import { Navbar } from '@/components/Navbar'
 import { Footer } from '@/components/Footer'
 import { Hero } from '@/components/Hero'
-import { StatsSection } from '@/components/StatsSection'
-import { FeaturesSection } from '@/components/FeaturesSection'
-import { ComparisonTable } from '@/components/ComparisonTable'
+import { LogoBar } from '@/components/LogoBar'
 import { WorkflowComparison } from '@/components/WorkflowComparison'
+import { FeaturesSection } from '@/components/FeaturesSection'
+import { StatsSection } from '@/components/StatsSection'
+import { StackCalculator } from '@/components/StackCalculator'
+import { ComparisonMatrix } from '@/components/ComparisonMatrix'
+import { FaqSection } from '@/components/FaqSection'
 
 export const metadata: Metadata = {
-  title: 'Pristine Data AI - The All-in-One GTM Platform',
-  description: 'Find prospects, enrich data, and run outreach: all in one place. 700M+ verified contacts. Stop paying for ZoomInfo, Amplemarket, and OpenAI separately.',
+  title: 'Pristine Data AI - Replace ZoomInfo, Clay, and Amplemarket',
+  description: 'Search 700M contacts, verify them in real time, and send strategy-led outreach. No Clay tables. No ops engineer. No $40K ZoomInfo seat.',
   alternates: { canonical: 'https://pristinedata.ai' },
   openGraph: {
-    title: 'Pristine Data AI - The All-in-One GTM Platform',
-    description: 'Find prospects, enrich data, and run outreach: all in one place. 700M+ verified contacts.',
+    title: 'Pristine Data AI - Replace ZoomInfo, Clay, and Amplemarket',
+    description: 'Search 700M contacts, verify them in real time, and send strategy-led outreach. One agent. One bill.',
     url: 'https://pristinedata.ai',
     siteName: 'Pristine Data AI',
     images: [{ url: '/og-image.png', width: 1200, height: 630, alt: 'Pristine Data AI' }],
@@ -21,8 +24,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Pristine Data AI - The All-in-One GTM Platform',
-    description: 'Find prospects, enrich data, and run outreach: all in one place. 700M+ verified contacts.',
+    title: 'Pristine Data AI - Replace ZoomInfo, Clay, and Amplemarket',
+    description: 'Search 700M contacts, verify them in real time, and send strategy-led outreach. One agent. One bill.',
     images: ['/og-image.png'],
   },
 }
@@ -38,7 +41,7 @@ export default function HomePage() {
             '@type': 'SoftwareApplication',
             name: 'Pristine Data AI',
             applicationCategory: 'BusinessApplication',
-            description: 'The all-in-one GTM platform with 700M+ verified contacts, AI-powered search, and automated outreach.',
+            description: 'Replace ZoomInfo, Clay, and Amplemarket. One agent. One bill. 700M+ verified contacts, AI-powered search, and automated outreach.',
             url: 'https://pristinedata.ai',
             offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
           }),
@@ -47,10 +50,13 @@ export default function HomePage() {
       <Navbar />
       <main>
         <Hero />
-        <StatsSection />
+        <LogoBar />
         <WorkflowComparison />
         <FeaturesSection />
-        <ComparisonTable />
+        <StatsSection />
+        <StackCalculator />
+        <ComparisonMatrix />
+        <FaqSection />
       </main>
       <Footer />
     </>
