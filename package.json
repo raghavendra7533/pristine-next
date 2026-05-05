@@ -7,12 +7,11 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "build:demo": "cd pristine-demo && npm install --include=dev && ./node_modules/.bin/vite build --config vite.spa.config.ts && rm -rf ../public/demo && cp -r dist/spa ../public/demo",
-    "prebuild": "npm run build:demo"
   },
   "dependencies": {
     "@iconify/react": "^6.0.2",
     "@supabase/supabase-js": "^2.104.1",
+    "lucide-react": "^1.14.0",
     "next": "16.2.4",
     "react": "19.2.4",
     "react-dom": "19.2.4"

@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { Icon } from '@iconify/react'
 import { LogoBar } from '@/components/LogoBar'
+import { PristineDemo } from '@/components/PristineDemo'
 
 const peoplePhrases = [
   'Find CMOs at Series A companies with $10M+ ARR...',
@@ -166,13 +167,7 @@ export function Hero() {
         {/* Right column — product demo iframe */}
         <div className="relative w-full">
           <div className="relative w-full rounded-xl overflow-hidden shadow-[0_0_0_1px_rgba(99,102,241,0.15),0_20px_48px_rgba(0,0,0,0.10),0_4px_12px_rgba(99,102,241,0.06)] aspect-[16/10]">
-            <iframe
-              src="/demo/index.html"
-              title="Pristine Data AI product demo"
-              className="absolute inset-0 w-full h-full border-0"
-              loading="lazy"
-              scrolling="no"
-            />
+            <PristineDemo />
           </div>
         </div>
 
