@@ -90,10 +90,10 @@ export function PristineDemo() {
   }, []);
 
   return (
-    <div ref={wrapRef} className="w-full h-full flex items-center justify-center bg-[oklch(0.97_0.015_270)] p-2 sm:p-4 font-sans overflow-hidden">
+    <div ref={wrapRef} className="absolute inset-0 flex items-center justify-center bg-[oklch(0.97_0.015_270)] font-sans overflow-hidden">
       <div
         className="relative rounded-2xl overflow-hidden shadow-2xl bg-white flex"
-        style={{ width: DESIGN_W, height: DESIGN_H, transform: `scale(${scale})`, transformOrigin: "center center", flexShrink: 0 }}
+        style={{ width: DESIGN_W, height: DESIGN_H, transform: `scale(${scale})`, transformOrigin: "center center", flexShrink: 0, position: "absolute" }}
       >
         <Sidebar />
         <div className="flex-1 flex flex-col min-w-0">
