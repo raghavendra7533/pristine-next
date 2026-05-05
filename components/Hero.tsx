@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { Icon } from '@iconify/react'
+import { LogoBar } from '@/components/LogoBar'
 
 const peoplePhrases = [
   'Find CMOs at Series A companies with $10M+ ARR...',
@@ -64,92 +65,121 @@ export function Hero() {
   }, [tab])
 
   return (
-    <section className="min-h-[600px] flex overflow-hidden h-[80vh] pt-16 relative items-center justify-center">
+    <section className="h-[95vh] flex flex-col overflow-hidden pt-16 relative">
       <div className="absolute inset-0 grid-bg opacity-40 dark:opacity-10 pointer-events-none -z-10" />
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-white/50 to-white dark:via-slate-950/50 dark:to-slate-950 pointer-events-none -z-10" />
       <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-rose-50/50 dark:bg-rose-900/10 rounded-full blur-[80px] -z-10 opacity-60" />
       <div className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-blue-50/50 dark:bg-blue-900/10 rounded-full blur-[80px] -z-10 opacity-60" />
 
-      <div className="z-10 flex flex-col text-center w-full max-w-4xl mx-auto px-6 items-center">
-        <div className="inline-flex gap-1.5 dark:bg-slate-900 dark:border-slate-800 bg-white border-slate-200 border rounded-full mb-6 px-3 py-1 shadow-sm items-center">
-          <span className="relative flex h-2 w-2">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#F43F5E] opacity-75" />
-            <span className="relative inline-flex rounded-full h-2 w-2 bg-[#F43F5E]" />
-          </span>
-          <span className="text-[10px] uppercase dark:text-slate-300 font-semibold text-slate-600 tracking-wider">
-            Live
-          </span>
-        </div>
+      <div className="z-10 flex-1 w-full max-w-7xl mx-auto px-6 py-8 grid lg:grid-cols-[5fr_7fr] gap-10 lg:gap-12 items-center">
 
-        <h1 className="md:text-6xl leading-[1.15] dark:text-white text-4xl font-semibold text-slate-950 tracking-tighter mb-4">
-          Replace ZoomInfo, Clay, and Amplemarket. <br className="hidden md:block" /> One agent. One bill.
-        </h1>
+        {/* Left column */}
+        <div className="flex flex-col items-start">
+          <div className="inline-flex gap-1.5 dark:bg-slate-900 dark:border-slate-800 bg-white border-slate-200 border rounded-full mb-6 px-3 py-1 shadow-sm items-center">
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#F43F5E] opacity-75" />
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-[#F43F5E]" />
+            </span>
+            <span className="text-[10px] uppercase dark:text-slate-300 font-semibold text-slate-600 tracking-wider">
+              Live
+            </span>
+          </div>
 
-        <p className="leading-relaxed dark:text-slate-400 text-base font-medium text-slate-700 max-w-lg mx-auto mb-8">
-          Search 700M contacts, verify them in real time, and send strategy-led outreach. No Clay tables. No ops engineer. No $40K ZoomInfo seat.
-        </p>
+          <h1 className="md:text-5xl leading-[1.15] dark:text-white text-3xl font-semibold text-slate-950 tracking-tighter mb-4">
+            One AI Agent Replaces ZoomInfo, Clay &amp; Amplemarket.
+          </h1>
 
-        <div className="relative w-full max-w-2xl mx-auto group">
-          <div className="bg-white dark:bg-slate-900 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:shadow-none border border-slate-200 dark:border-slate-800 transition-all duration-300 hover:border-slate-300 dark:hover:border-slate-700 ring-4 ring-slate-50/50 dark:ring-slate-800/20">
-            <div className="flex flex-col">
-              <div className="pt-4 px-4 pb-2">
-                <div className="relative flex items-start gap-3">
-                  <div className="mt-1 text-slate-400 dark:text-slate-500">
-                    <Icon icon="solar:magic-stick-3-linear" width={20} />
+          <p className="leading-relaxed dark:text-slate-400 text-base font-medium text-slate-700 max-w-lg mb-8">
+            Search 700M contacts, verify them in real time, and send strategy-led outreach. No Clay tables. No ops engineer. No $40K ZoomInfo seat.
+          </p>
+
+          {/* Search box — hidden until backend search is ready */}
+          <div className="hidden relative w-full max-w-2xl group mb-4">
+            <div className="bg-white dark:bg-slate-900 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:shadow-none border border-slate-200 dark:border-slate-800 transition-all duration-300 hover:border-slate-300 dark:hover:border-slate-700 ring-4 ring-slate-50/50 dark:ring-slate-800/20">
+              <div className="flex flex-col">
+                <div className="pt-4 px-4 pb-2">
+                  <div className="relative flex items-start gap-3">
+                    <div className="mt-1 text-slate-400 dark:text-slate-500">
+                      <Icon icon="solar:magic-stick-3-linear" width={20} />
+                    </div>
+                    <textarea
+                      ref={queryRef}
+                      className="placeholder:text-slate-400 dark:placeholder:text-slate-600 border-none resize-none leading-relaxed text-lg font-medium text-slate-600 dark:text-slate-200 bg-transparent w-full p-0"
+                      rows={2}
+                      placeholder={placeholder}
+                    />
                   </div>
-                  <textarea
-                    ref={queryRef}
-                    className="placeholder:text-slate-400 dark:placeholder:text-slate-600 border-none resize-none leading-relaxed text-lg font-medium text-slate-600 dark:text-slate-200 bg-transparent w-full p-0"
-                    rows={2}
-                    placeholder={placeholder}
-                  />
-                </div>
-              </div>
-
-              <div className="px-4 pb-4 pt-2 flex flex-col sm:flex-row items-center justify-between gap-3 border-t border-transparent sm:border-slate-50 dark:sm:border-slate-800">
-                <div className="flex items-center gap-1 p-0.5 bg-slate-100/80 dark:bg-slate-800 rounded-lg self-start sm:self-center">
-                  {(['people', 'company'] as const).map((t) => (
-                    <button
-                      key={t}
-                      onClick={() => setTab(t)}
-                      className={`px-3 py-1.5 rounded-md text-xs font-semibold transition-all flex items-center gap-1.5 ${
-                        tab === t
-                          ? 'bg-white dark:bg-slate-700 text-slate-800 dark:text-white shadow-sm'
-                          : 'text-slate-500 dark:text-slate-400'
-                      }`}
-                    >
-                      <Icon icon={t === 'people' ? 'solar:user-circle-linear' : 'solar:buildings-2-linear'} width={14} />
-                      {t.charAt(0).toUpperCase() + t.slice(1)}
-                    </button>
-                  ))}
                 </div>
 
-                <button
-                  onClick={() => {
-                    const q = queryRef.current?.value.trim() || placeholder
-                    const params = new URLSearchParams({ query: q, type: tab })
-                    router.push(`/results?${params.toString()}`)
-                  }}
-                  className="sm:w-auto hover:bg-slate-800 dark:bg-white dark:hover:bg-slate-200 dark:text-slate-900 transition-all hover:translate-y-px flex gap-2 text-xs font-semibold text-white bg-slate-900 w-full rounded-lg py-2 px-5 shadow-lg items-center justify-center"
-                >
-                  Try a search
-                  <Icon icon="solar:arrow-right-linear" width={14} />
-                </button>
+                <div className="px-4 pb-4 pt-2 flex flex-col sm:flex-row items-center justify-between gap-3 border-t border-transparent sm:border-slate-50 dark:sm:border-slate-800">
+                  <div className="flex items-center gap-1 p-0.5 bg-slate-100/80 dark:bg-slate-800 rounded-lg self-start sm:self-center">
+                    {(['people', 'company'] as const).map((t) => (
+                      <button
+                        key={t}
+                        onClick={() => setTab(t)}
+                        className={`px-3 py-1.5 rounded-md text-xs font-semibold transition-all flex items-center gap-1.5 ${
+                          tab === t
+                            ? 'bg-white dark:bg-slate-700 text-slate-800 dark:text-white shadow-sm'
+                            : 'text-slate-500 dark:text-slate-400'
+                        }`}
+                      >
+                        <Icon icon={t === 'people' ? 'solar:user-circle-linear' : 'solar:buildings-2-linear'} width={14} />
+                        {t.charAt(0).toUpperCase() + t.slice(1)}
+                      </button>
+                    ))}
+                  </div>
+
+                  <button
+                    onClick={() => {
+                      const q = queryRef.current?.value.trim() || placeholder
+                      const params = new URLSearchParams({ query: q, type: tab })
+                      router.push(`/results?${params.toString()}`)
+                    }}
+                    className="sm:w-auto hover:bg-slate-800 dark:bg-white dark:hover:bg-slate-200 dark:text-slate-900 transition-all hover:translate-y-px flex gap-2 text-xs font-semibold text-white bg-slate-900 w-full rounded-lg py-2 px-5 shadow-lg items-center justify-center"
+                  >
+                    Try a search
+                    <Icon icon="solar:arrow-right-linear" width={14} />
+                  </button>
+                </div>
               </div>
             </div>
           </div>
+
+          <div className="flex items-center gap-4">
+            <button
+              onClick={() => router.push('/results')}
+              className="hover:bg-slate-800 dark:bg-white dark:hover:bg-slate-200 dark:text-slate-900 transition-all hover:translate-y-px flex gap-2 text-sm font-semibold text-white bg-slate-900 rounded-lg py-2.5 px-6 shadow-lg items-center"
+            >
+              Try a search
+              <Icon icon="solar:arrow-right-linear" width={14} />
+            </button>
+            <Link
+              href="/contact-us"
+              className="text-sm font-medium text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200 transition-colors flex items-center gap-1"
+            >
+              Book a demo
+              <Icon icon="solar:arrow-right-linear" width={14} />
+            </Link>
+          </div>
         </div>
 
-        <div className="mt-4 flex justify-center">
-          <Link
-            href="/contact-us"
-            className="text-sm font-medium text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200 transition-colors flex items-center gap-1"
-          >
-            Book a demo
-            <Icon icon="solar:arrow-right-linear" width={14} />
-          </Link>
+        {/* Right column — product demo iframe */}
+        <div className="relative w-full">
+          <div className="relative w-full rounded-xl overflow-hidden shadow-[0_0_0_1px_rgba(99,102,241,0.15),0_20px_48px_rgba(0,0,0,0.10),0_4px_12px_rgba(99,102,241,0.06)] aspect-[16/10]">
+            <iframe
+              src="/demo/index.html"
+              title="Pristine Data AI product demo"
+              className="absolute inset-0 w-full h-full border-0"
+              loading="lazy"
+              scrolling="no"
+            />
+          </div>
         </div>
+
       </div>
+
+      <LogoBar />
+
     </section>
   )
 }

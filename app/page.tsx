@@ -2,7 +2,6 @@ import type { Metadata } from 'next'
 import { Navbar } from '@/components/Navbar'
 import { Footer } from '@/components/Footer'
 import { Hero } from '@/components/Hero'
-import { LogoBar } from '@/components/LogoBar'
 import { WorkflowComparison } from '@/components/WorkflowComparison'
 import { FeaturesSection } from '@/components/FeaturesSection'
 import { StatsSection } from '@/components/StatsSection'
@@ -50,7 +49,6 @@ export default function HomePage() {
       <Navbar />
       <main>
         <Hero />
-        <LogoBar />
         <WorkflowComparison />
         <FeaturesSection />
         <StatsSection />

@@ -20,6 +20,9 @@
 # production
 /build
 
+# pristine-demo build output (derived — run `bun run build:demo` to regenerate)
+/public/demo
+
 # misc
 .DS_Store
 *.pem
