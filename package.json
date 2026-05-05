@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "build:demo": "cd pristine-demo && npx vite build --config vite.spa.config.ts && rm -rf ../public/demo && cp -r dist/spa ../public/demo"
+    "build:demo": "cd pristine-demo && npm install && npx vite build --config vite.spa.config.ts && rm -rf ../public/demo && cp -r dist/spa ../public/demo",
+    "prebuild": "npm run build:demo"
   },
   "dependencies": {
     "@iconify/react": "^6.0.2",
