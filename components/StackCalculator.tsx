@@ -15,6 +15,10 @@ function fmt(n: number) {
   return '$' + n.toLocaleString()
 }
 
+function getMonthYear() {
+  return new Date().toLocaleDateString('en-US', { month: 'long', year: 'numeric' })
+}
+
 export function StackCalculator() {
   return (
     <section className="py-24 px-6">
@@ -29,7 +33,7 @@ export function StackCalculator() {
             Your GTM stack is costing you more than you think.
           </h2>
           <p className="text-base text-slate-600 dark:text-slate-400 leading-relaxed mb-4">
-            Most sales teams are running 3–5 tools that overlap, overcharge, and still don&apos;t talk to each other. ZoomInfo for data. Apollo for sequences. LinkedIn for prospecting. That&apos;s three bills, three logins, and three ops headaches — every single month.
+            Most sales teams are running 3–5 tools that overlap, overcharge, and still don&apos;t talk to each other. ZoomInfo for data. Apollo for sequences. LinkedIn for prospecting. That&apos;s three bills, three logins, and three ops headaches every single month.
           </p>
           <p className="text-base text-slate-600 dark:text-slate-400 leading-relaxed mb-10">
             Pristine replaces all of them. One agent. One price. 700M verified contacts with real-time enrichment and AI-written outreach built in.
@@ -45,67 +49,56 @@ export function StackCalculator() {
           </Link>
         </div>
 
-        {/* Right — receipt */}
+        {/* Right — invoice card */}
         <div className="flex justify-center lg:justify-end">
-          <div className="w-full max-w-sm">
-            <div
-              className="bg-[#fffef5] dark:bg-[#1a1a0e] rounded-sm shadow-[0_2px_16px_rgba(0,0,0,0.10)] px-6 py-7 font-mono text-[13px] text-[#1a1a0a] dark:text-[#e8e8d8]"
-              style={{ backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 31px, rgba(0,0,0,0.04) 31px, rgba(0,0,0,0.04) 32px)' }}
-            >
-              {/* Header */}
-              <div className="text-center mb-5">
-                <div className="text-[11px] font-black tracking-[0.15em] uppercase">* PRISTINE DATA AI *</div>
-                <div className="text-[9px] text-[#888877] tracking-[0.12em] mt-0.5 uppercase">GTM Stack Cost Audit</div>
+          <div className="w-full max-w-sm rounded-2xl overflow-hidden shadow-[0_8px_40px_rgba(0,0,0,0.12)] dark:shadow-[0_8px_40px_rgba(0,0,0,0.4)]">
+
+            {/* Dark header */}
+            <div className="bg-slate-800 dark:bg-slate-900 px-6 py-5 flex items-start justify-between">
+              <div>
+                <div className="text-white font-bold text-lg tracking-tight">Monthly Invoice</div>
+                <div className="text-slate-400 text-sm mt-0.5">GTM Stack — {getMonthYear()}</div>
               </div>
-
-              <div className="border-t border-dashed border-[#c8c8a0] dark:border-[#444430] my-3" />
-
-              {/* Column headers */}
-              <div className="flex justify-between text-[9px] uppercase tracking-widest text-[#888877] mb-2">
-                <span>Tool</span>
-                <span>Monthly</span>
+              <div className="w-9 h-9 rounded-lg bg-slate-700 dark:bg-slate-800 flex items-center justify-center shrink-0">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M4 2h6l3 3v9a1 1 0 01-1 1H4a1 1 0 01-1-1V3a1 1 0 011-1z" stroke="#94a3b8" strokeWidth="1.25" strokeLinejoin="round"/>
+                  <path d="M10 2v3h3M6 8h4M6 11h3" stroke="#94a3b8" strokeWidth="1.25" strokeLinecap="round"/>
+                </svg>
               </div>
+            </div>
 
-              <div className="border-t border-dashed border-[#c8c8a0] dark:border-[#444430] my-3" />
-
-              {/* Line items */}
-              <div className="flex flex-col gap-3">
-                {TOOLS.map((t) => (
-                  <div key={t.name} className="flex items-center justify-between gap-3">
-                    <div className="flex items-center gap-2 min-w-0">
+            {/* Line items */}
+            <div className="bg-white dark:bg-slate-950 px-6 py-4 flex flex-col divide-y divide-slate-100 dark:divide-slate-800">
+              {TOOLS.map((t) => (
+                <div key={t.name} className="flex items-center justify-between py-3.5 gap-3">
+                  <div className="flex items-center gap-3 min-w-0">
+                    <div className="w-8 h-8 rounded-lg border border-slate-100 dark:border-slate-800 flex items-center justify-center shrink-0 overflow-hidden bg-white">
                       <Image
                         src={`https://img.logo.dev/${t.domain}?token=${LOGO_TOKEN}&size=32`}
                         alt={t.name}
-                        width={16}
-                        height={16}
-                        className="rounded-sm shrink-0"
+                        width={20}
+                        height={20}
                         unoptimized
                       />
-                      <span className="truncate text-[12px]">{t.name}</span>
                     </div>
-                    <span className="shrink-0 text-[12px] font-semibold tabular-nums">{fmt(t.cost)}/mo</span>
+                    <span className="text-slate-700 dark:text-slate-300 text-[14px] truncate">{t.name}</span>
                   </div>
-                ))}
-              </div>
+                  <span className="text-slate-800 dark:text-slate-200 text-[14px] font-semibold tabular-nums shrink-0">{fmt(t.cost)}/mo</span>
+                </div>
+              ))}
+            </div>
 
-              <div className="border-t border-dashed border-[#c8c8a0] dark:border-[#444430] my-4" />
-
-              {/* Totals */}
-              <div className="flex justify-between items-baseline">
-                <span className="text-[11px] font-black uppercase tracking-widest">Total / mo</span>
-                <span className="text-[15px] font-black tabular-nums">{fmt(TOTAL)}</span>
-              </div>
-              <div className="flex justify-between items-baseline mt-1">
-                <span className="text-[11px] font-black uppercase tracking-widest">Total / yr</span>
-                <span className="text-[20px] font-black tabular-nums text-red-600 dark:text-red-400">{fmt(TOTAL * 12)}</span>
-              </div>
-
-              <div className="border-t border-dashed border-[#c8c8a0] dark:border-[#444430] my-4" />
-
-              <div className="text-center text-[9px] text-[#888877] tracking-wide leading-relaxed">
-                Replace all three with Pristine.<br />One bill. One agent.
+            {/* Total */}
+            <div className="bg-white dark:bg-slate-950 px-6 pb-6">
+              <div className="border-t border-dashed border-slate-200 dark:border-slate-800 pt-4 flex items-end justify-between">
+                <div>
+                  <div className="text-[10px] font-bold uppercase tracking-widest text-slate-400 dark:text-slate-500">Monthly Spend</div>
+                  <div className="text-slate-400 dark:text-slate-500 text-xs mt-0.5">{fmt(TOTAL * 12)}/yr</div>
+                </div>
+                <div className="text-3xl font-black tabular-nums text-red-500">{fmt(TOTAL)}</div>
               </div>
             </div>
+
           </div>
         </div>
 
