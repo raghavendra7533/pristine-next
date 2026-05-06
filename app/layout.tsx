@@ -17,6 +17,11 @@ export const metadata: Metadata = {
     template: '%s | Pristine Data AI',
   },
   robots: { index: true, follow: true },
+  icons: {
+    icon: '/favicon.svg',
+    shortcut: '/favicon.svg',
+    apple: '/favicon.svg',
+  },
 }
 
 const organizationJsonLd = {
