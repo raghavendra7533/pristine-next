@@ -1,9 +1,8 @@
-'use client'
 // app/compare/pristine-vs-amplemarket/page.tsx
 import Link from 'next/link'
-import { useState } from 'react'
 import { Navbar } from '@/components/Navbar'
 import { Footer } from '@/components/Footer'
+import { CompareAccordion } from '@/components/CompareAccordion'
 
 const enrichmentRows = [
   ['Data source', 'Parallel query across Apollo, Wiza, Explorium', 'Proprietary database, single source'],
@@ -58,37 +57,32 @@ const faqs = [
   },
 ]
 
-function Accordion({ items }: { items: { q: string; a: string }[] }) {
-  const [open, setOpen] = useState<number | null>(null)
-  return (
-    <div className="divide-y divide-slate-100 dark:divide-slate-800 border border-slate-100 dark:border-slate-800 rounded-2xl overflow-hidden">
-      {items.map(({ q, a }, i) => (
-        <div key={i}>
-          <button
-            onClick={() => setOpen(open === i ? null : i)}
-            className="w-full flex items-center justify-between gap-4 px-6 py-5 text-left hover:bg-slate-50 dark:hover:bg-slate-900 transition-colors"
-          >
-            <span className="text-sm font-semibold text-slate-900 dark:text-white">{q}</span>
-            <span className={`shrink-0 w-5 h-5 rounded-full border border-slate-200 dark:border-slate-700 flex items-center justify-center transition-transform duration-300 ${open === i ? 'rotate-45' : ''}`}>
-              <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
-                <path d="M5 1v8M1 5h8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" className="text-slate-400" />
-              </svg>
-            </span>
-          </button>
-          <div className={`grid transition-all duration-300 ease-in-out ${open === i ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'}`}>
-            <div className="overflow-hidden">
-              <p className="text-sm text-slate-500 dark:text-slate-400 leading-relaxed px-6 pb-5">{a}</p>
-            </div>
-          </div>
-        </div>
-      ))}
-    </div>
-  )
-}
+
+const ampleMarketPageJsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://pristinedata.ai' },
+      { '@type': 'ListItem', position: 2, name: 'Compare', item: 'https://pristinedata.ai/compare' },
+      { '@type': 'ListItem', position: 3, name: 'Pristine vs Amplemarket', item: 'https://pristinedata.ai/compare/pristine-vs-amplemarket' },
+    ],
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqs.map(({ q, a }) => ({
+      '@type': 'Question',
+      name: q,
+      acceptedAnswer: { '@type': 'Answer', text: a },
+    })),
+  },
+]
 
 export default function PristineVsAmplemarketPage() {
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(ampleMarketPageJsonLd) }} />
       <Navbar />
       <main className="pt-16">
         <div className="max-w-3xl mx-auto px-6">
@@ -324,7 +318,7 @@ export default function PristineVsAmplemarketPage() {
           {/* FAQ */}
           <section className="py-16 border-t border-slate-100 dark:border-slate-800">
             <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-8">Frequently Asked Questions</h2>
-            <Accordion items={faqs} />
+            <CompareAccordion items={faqs} />
           </section>
 
           {/* CTA */}

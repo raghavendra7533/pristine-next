@@ -30,6 +30,38 @@ export const metadata: Metadata = {
   },
 }
 
+const faqJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'How is Pristine Data AI different from Apollo or ZoomInfo?',
+      acceptedAnswer: { '@type': 'Answer', text: 'Pristine replaces them, not integrates with them. One login, one bill, one workflow. No CSV exports, no tool-hopping, no Clay tables gluing it together.' },
+    },
+    {
+      '@type': 'Question',
+      name: 'Is the data actually verified, or just aggregated?',
+      acceptedAnswer: { '@type': 'Answer', text: 'Real-time SMTP pings on every contact before export. 90% deliverability, not a batch-refreshed promise. If it bounces, you don\'t see it.' },
+    },
+    {
+      '@type': 'Question',
+      name: 'Do I need an ops engineer or RevOps person to run Pristine?',
+      acceptedAnswer: { '@type': 'Answer', text: 'No. Type what you want in plain English, get a verified list, write sequences from the same screen. No spreadsheets, no API keys, no ops dependency.' },
+    },
+    {
+      '@type': 'Question',
+      name: 'Can I import my existing sequences or contacts?',
+      acceptedAnswer: { '@type': 'Answer', text: 'Yes. We support imports from Apollo, ZoomInfo exports, and CSV. Our team helps with migration (included).' },
+    },
+    {
+      '@type': 'Question',
+      name: 'How does Pristine Data AI pricing work?',
+      acceptedAnswer: { '@type': 'Answer', text: 'All-in-one pricing: no per-credit surprises, no seat tax for every tool in your stack. Contact us for a custom quote based on your team size.' },
+    },
+  ],
+}
+
 export default function HomePage() {
   return (
     <>
@@ -47,6 +79,7 @@ export default function HomePage() {
           }),
         }}
       />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }} />
       <Navbar />
       <main>
         <Hero />

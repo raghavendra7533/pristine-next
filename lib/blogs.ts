@@ -13,6 +13,7 @@ export type BlogPost = {
   description: string
   date: string        // ISO: "YYYY-MM-DD"
   image: string       // relative to /public, e.g. "/images/blog-1.webp"
+  author?: { name: string; url?: string }
   sections: Section[]
 }
 
@@ -24,6 +25,7 @@ export const blogs: BlogPost[] = [
     description: "Fewer than 30% of reps hit quota consistently. Here's what the ones who do are doing differently: and why most teams never replicate it.",
     date: '2025-08-04',
     image: 'https://images.unsplash.com/photo-1551836022-d5d88e9218df?w=1200&q=80',
+    author: { name: 'Ashok Rajan', url: 'https://www.linkedin.com/in/rajanashok/' },
     sections: [
       {
         body: [
@@ -90,6 +92,7 @@ export const blogs: BlogPost[] = [
     description: "Top-performing reps generate nearly 3x more meetings than their peers. The difference isn't charisma: it's how well they know their buyers before picking up the phone.",
     date: '2025-07-28',
     image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&q=80',
+    author: { name: 'Ashok Rajan', url: 'https://www.linkedin.com/in/rajanashok/' },
     sections: [
       {
         body: [
@@ -147,6 +150,7 @@ export const blogs: BlogPost[] = [
     description: 'Mid-market companies face bigger budgets, established credibility, and larger teams on the other side of every deal. Here\'s what it takes to compete and win.',
     date: '2025-07-21',
     image: 'https://images.unsplash.com/photo-1552664730-d307ca884978?w=1200&q=80',
+    author: { name: 'Ashok Rajan', url: 'https://www.linkedin.com/in/rajanashok/' },
     sections: [
       {
         body: [
@@ -183,6 +187,7 @@ export const blogs: BlogPost[] = [
     description: "Sales and marketing misalignment costs companies an average of 10% of annual revenue. Here's what alignment looks like in practice across the entire funnel.",
     date: '2025-07-15',
     image: 'https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=1200&q=80',
+    author: { name: 'Ashok Rajan', url: 'https://www.linkedin.com/in/rajanashok/' },
     sections: [
       {
         body: [
@@ -238,6 +243,7 @@ export const blogs: BlogPost[] = [
     description: 'Only 22% of mid-sized businesses saw sales growth last year. Here\'s what it actually feels like to sell for a mid-market company: and what the numbers behind the struggle look like.',
     date: '2025-07-07',
     image: 'https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=1200&q=80',
+    author: { name: 'Ashok Rajan', url: 'https://www.linkedin.com/in/rajanashok/' },
     sections: [
       {
         body: [
@@ -293,6 +299,7 @@ export const blogs: BlogPost[] = [
     description: 'Five more reasons B2B companies struggle to align with buyers: from buying group blind spots to change resistance and the technology gap.',
     date: '2025-06-09',
     image: 'https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=1200&q=80',
+    author: { name: 'Ashok Rajan', url: 'https://www.linkedin.com/in/rajanashok/' },
     sections: [
       {
         body: [
@@ -363,6 +370,7 @@ export const blogs: BlogPost[] = [
     description: "74% of sellers say their role is becoming more consultative. Only 27% of B2B companies are actually pulling it off. Here are five reasons the gap keeps widening.",
     date: '2025-05-19',
     image: 'https://images.unsplash.com/photo-1556761175-b413da4baf72?w=1200&q=80',
+    author: { name: 'Ashok Rajan', url: 'https://www.linkedin.com/in/rajanashok/' },
     sections: [
       {
         body: [
@@ -424,6 +432,7 @@ export const blogs: BlogPost[] = [
     description: "Buyers complete 70% of their purchase decision before talking to sales. The teams winning in this environment aren't selling harder: they're making the buying process easier.",
     date: '2025-04-10',
     image: 'https://images.unsplash.com/photo-1521791136064-7986c2920216?w=1200&q=80',
+    author: { name: 'Ashok Rajan', url: 'https://www.linkedin.com/in/rajanashok/' },
     sections: [
       {
         body: [

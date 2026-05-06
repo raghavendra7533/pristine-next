@@ -59,6 +59,16 @@ export default async function BlogArticlePage({ params }: Props) {
     day: 'numeric',
   })
 
+  const breadcrumbJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://pristinedata.ai' },
+      { '@type': 'ListItem', position: 2, name: 'Blog', item: 'https://pristinedata.ai/blog' },
+      { '@type': 'ListItem', position: 3, name: post.title, item: `https://pristinedata.ai/blog/${post.slug}` },
+    ],
+  }
+
   const articleJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'Article',
@@ -67,11 +77,9 @@ export default async function BlogArticlePage({ params }: Props) {
     datePublished: post.date,
     url: `https://pristinedata.ai/blog/${post.slug}`,
     image: `https://pristinedata.ai${post.image}`,
-    author: {
-      '@type': 'Organization',
-      name: 'Pristine Data AI',
-      url: 'https://pristinedata.ai',
-    },
+    author: post.author
+      ? { '@type': 'Person', name: post.author.name, ...(post.author.url ? { url: post.author.url } : {}) }
+      : { '@type': 'Organization', name: 'Pristine Data AI', url: 'https://pristinedata.ai' },
     publisher: {
       '@type': 'Organization',
       name: 'Pristine Data AI',
@@ -89,6 +97,7 @@ export default async function BlogArticlePage({ params }: Props) {
 
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}

@@ -19,10 +19,36 @@ export const metadata: Metadata = {
   robots: { index: true, follow: true },
 }
 
+const organizationJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'Pristine Data AI',
+  url: 'https://pristinedata.ai',
+  logo: 'https://pristinedata.ai/images/pristine-data-logo.svg',
+  sameAs: [
+    'https://www.linkedin.com/company/pristinedataai/',
+    'https://x.com/pristinedataai',
+  ],
+}
+
+const websiteJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: 'Pristine Data AI',
+  url: 'https://pristinedata.ai',
+  potentialAction: {
+    '@type': 'SearchAction',
+    target: 'https://pristinedata.ai/results?query={search_term_string}',
+    'query-input': 'required name=search_term_string',
+  },
+}
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={`scroll-smooth ${manrope.variable}`} suppressHydrationWarning>
       <body className="bg-white dark:bg-slate-950 text-slate-700 dark:text-slate-400 overflow-x-hidden selection:bg-rose-100 selection:text-rose-900 dark:selection:bg-indigo-900 dark:selection:text-white">
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }} />
         <ThemeProvider>
           {children}
         </ThemeProvider>
