@@ -148,10 +148,10 @@ export function Hero() {
 
           <div className="flex items-center gap-4">
             <button
-              onClick={() => router.push('/results')}
+              onClick={() => router.push('/contact-us')}
               className="hover:bg-slate-800 dark:bg-white dark:hover:bg-slate-200 dark:text-slate-900 transition-all hover:translate-y-px flex gap-2 text-sm font-semibold text-white bg-slate-900 rounded-lg py-2.5 px-6 shadow-lg items-center"
             >
-              Try a search
+              Try now
               <Icon icon="solar:arrow-right-linear" width={14} />
             </button>
             <Link
