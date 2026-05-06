@@ -1,6 +1,8 @@
 import { MetadataRoute } from 'next'
 import { blogs } from '@/lib/blogs'
 
+export const dynamic = 'force-static'
+
 const BASE = 'https://pristinedata.ai'
 
 export default function sitemap(): MetadataRoute.Sitemap {
