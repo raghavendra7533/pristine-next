@@ -59,7 +59,7 @@ const rows: Row[] = [
   },
   {
     feature: 'Ops overhead',
-    pristine:  { type: 'check', text: 'Zero — prompt and go' },
+    pristine:  { type: 'check', text: 'Zero: prompt and go' },
     zoominfo:  { type: 'cross', text: 'High' },
     clay:      { type: 'cross', text: 'Very high (Clay tables)' },
     apollo:    { type: 'text',  text: 'Medium' },

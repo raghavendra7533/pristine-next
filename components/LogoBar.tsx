@@ -1,11 +1,12 @@
-const LOGOS = [
-  { name: 'SingleGrain',      domain: 'singlegrain.com'              },
-  { name: 'Maveriq',          domain: 'maveriq.ch'                   },
-  { name: 'Frontline',        domain: 'frontlinerecruitmentgroup.com' },
-  { name: 'Aquila Cloud',     domain: 'aquilaclouds.com'             },
-  { name: 'Nexla',            domain: 'nexla.com'                    },
-  { name: 'Lister Ventures',  domain: 'listerventures.com'           },
-  { name: 'Dezign Pro',       domain: 'dezign.pro'                   },
+const LOGOS: { name: string; domain?: string; localLogo?: string }[] = [
+  { name: 'SingleGrain',      domain: 'singlegrain.com'    },
+  { name: 'Maveriq',          domain: 'maveriq.ch'         },
+  { name: 'Frontline',        domain: 'frontlineinc.com'   },
+  { name: 'Aquila Cloud',     domain: 'aquilaclouds.com'   },
+  { name: 'Nexla',            domain: 'nexla.com'          },
+  { name: 'Lister Ventures',  domain: 'listerventures.com' },
+  { name: 'Dezign Pro',       domain: 'dezign.pro'         },
+  { name: 'Hydrolec',         localLogo: '/logos/hydrolec.png' },
 ]
 
 export function LogoBar() {
@@ -16,14 +17,14 @@ export function LogoBar() {
           Trusted by
         </span>
         <div className="flex items-center justify-center gap-4 flex-wrap">
-          {LOGOS.map(({ name, domain }) => (
+          {LOGOS.map(({ name, domain, localLogo }) => (
             <div
               key={name}
               className="flex items-center gap-2 whitespace-nowrap border border-slate-200 dark:border-slate-700 rounded-full px-4 py-1.5 bg-slate-50 dark:bg-slate-800"
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src={`https://www.google.com/s2/favicons?domain=${domain}&sz=32`}
+                src={localLogo ?? `https://www.google.com/s2/favicons?domain=${domain}&sz=32`}
                 alt={name}
                 width={16}
                 height={16}

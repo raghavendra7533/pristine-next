@@ -8,10 +8,11 @@ import { StatsSection } from '@/components/StatsSection'
 import { StackCalculator } from '@/components/StackCalculator'
 import { ComparisonMatrix } from '@/components/ComparisonMatrix'
 import { FaqSection } from '@/components/FaqSection'
+import { TestimonialSection } from '@/components/TestimonialSection'
 
 export const metadata: Metadata = {
   title: 'Pristine Data AI - Replace ZoomInfo, Clay, and Amplemarket',
-  description: 'Search 700M contacts, verify them in real time, and send strategy-led outreach. No Clay tables. No ops engineer. No $40K ZoomInfo seat.',
+  description: 'Search 700M contacts, verify them in real time, and send strategy-led outreach. No Clay tables. No ops engineer. No $35K ZoomInfo seat.',
   alternates: { canonical: 'https://pristinedata.ai' },
   openGraph: {
     title: 'Pristine Data AI - Replace ZoomInfo, Clay, and Amplemarket',
@@ -52,6 +53,7 @@ export default function HomePage() {
         <WorkflowComparison />
         <FeaturesSection />
         <StatsSection />
+        <TestimonialSection />
         <StackCalculator />
         <ComparisonMatrix />
         <FaqSection />

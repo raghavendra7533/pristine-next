@@ -50,7 +50,7 @@ export function StatsSection() {
               </div>
             </div>
 
-            <p className="text-slate-400 text-lg leading-relaxed mb-10 max-w-md border-l-2 border-slate-800 pl-6">
+            <p className="text-slate-400 text-lg leading-relaxed mb-8 max-w-md border-l-2 border-slate-800 pl-6">
               The world&apos;s largest database meets the highest accuracy standards. While others offer stale data, we offer verified reality at scale.
             </p>
 

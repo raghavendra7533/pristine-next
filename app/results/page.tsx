@@ -83,7 +83,7 @@ function NoResults({ query, isPeople }: { query: string; isPeople: boolean }) {
         <span className="text-rose-500 dark:text-rose-400">&ldquo;{query}&rdquo;</span>
       </h2>
       <p className="text-slate-500 dark:text-slate-400 text-sm leading-relaxed mb-10">
-        That search didn&apos;t match anything in our database. Try being more specific — our AI works best with job titles, company types, locations, or tools.
+        That search didn&apos;t match anything in our database. Try being more specific. Our AI works best with job titles, company types, locations, or tools.
       </p>
 
       {/* Divider */}
@@ -197,7 +197,7 @@ function ResultsInner() {
                 <p className="mt-2 text-sm text-slate-500 dark:text-slate-400">
                   Found{' '}
                   <span className="font-semibold text-emerald-600 dark:text-emerald-400">{total} {label}</span>
-                  {' '}— showing 6 as a free preview
+                  {' '}(showing 6 as a free preview)
                 </p>
               </div>
 

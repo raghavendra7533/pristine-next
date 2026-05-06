@@ -1,12 +1,59 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { Icon } from '@iconify/react'
+
+function FaqItem({ faq, isOpen, onToggle, index }: {
+  faq: { q: string; a: string }
+  isOpen: boolean
+  onToggle: () => void
+  index: number
+}) {
+  const contentRef = useRef<HTMLDivElement>(null)
+  const [height, setHeight] = useState(0)
+
+  useEffect(() => {
+    if (contentRef.current) {
+      setHeight(isOpen ? contentRef.current.scrollHeight : 0)
+    }
+  }, [isOpen])
+
+  return (
+    <div>
+      <button
+        onClick={onToggle}
+        aria-expanded={isOpen}
+        aria-controls={`faq-answer-${index}`}
+        className="w-full flex justify-between items-center py-5 text-left gap-4"
+      >
+        <span className="text-sm font-semibold text-slate-800 dark:text-white">
+          {faq.q}
+        </span>
+        <Icon
+          icon={isOpen ? 'solar:minus-circle-linear' : 'solar:add-circle-linear'}
+          width={20}
+          className="flex-shrink-0 text-slate-400 dark:text-slate-500"
+        />
+      </button>
+      <div
+        id={`faq-answer-${index}`}
+        role="region"
+        style={{ height, opacity: isOpen ? 1 : 0, overflow: 'hidden', transition: 'height 300ms ease, opacity 300ms ease' }}
+      >
+        <div ref={contentRef}>
+          <p className="pb-5 text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+            {faq.a}
+          </p>
+        </div>
+      </div>
+    </div>
+  )
+}
 
 const FAQS = [
   {
     q: 'How is this different from Apollo or ZoomInfo?',
-    a: 'Pristine replaces them — not integrates with them. One login, one bill, one workflow. No CSV exports, no tool-hopping, no Clay tables gluing it together.',
+    a: 'Pristine replaces them, not integrates with them. One login, one bill, one workflow. No CSV exports, no tool-hopping, no Clay tables gluing it together.',
   },
   {
     q: 'Is the data actually verified, or just aggregated?',
@@ -18,11 +65,11 @@ const FAQS = [
   },
   {
     q: 'Can I import my existing sequences or contacts?',
-    a: "Yes. We support imports from Apollo, ZoomInfo exports, and CSV. Our team helps with migration — it's included.",
+    a: "Yes. We support imports from Apollo, ZoomInfo exports, and CSV. Our team helps with migration (included).",
   },
   {
     q: 'How does pricing work?',
-    a: "All-in-one — no per-credit surprises, no seat tax for every tool in your stack. Contact us for a custom quote based on your team size.",
+    a: "All-in-one pricing: no per-credit surprises, no seat tax for every tool in your stack. Contact us for a custom quote based on your team size.",
   },
 ]
 
@@ -38,31 +85,13 @@ export function FaqSection() {
 
         <div className="divide-y divide-slate-100 dark:divide-slate-800">
           {FAQS.map((faq, i) => (
-            <div key={faq.q}>
-              <button
-                onClick={() => setOpen(open === i ? null : i)}
-                aria-expanded={open === i}
-                aria-controls={`faq-answer-${i}`}
-                className="w-full flex justify-between items-center py-5 text-left gap-4"
-              >
-                <span className="text-sm font-semibold text-slate-800 dark:text-white">
-                  {faq.q}
-                </span>
-                <Icon
-                  icon={open === i ? 'solar:minus-circle-linear' : 'solar:add-circle-linear'}
-                  width={20}
-                  className="flex-shrink-0 text-slate-400 dark:text-slate-500"
-                />
-              </button>
-              <p
-                id={`faq-answer-${i}`}
-                role="region"
-                hidden={open !== i}
-                className="pb-5 text-sm text-slate-600 dark:text-slate-400 leading-relaxed"
-              >
-                {faq.a}
-              </p>
-            </div>
+            <FaqItem
+              key={faq.q}
+              faq={faq}
+              index={i}
+              isOpen={open === i}
+              onToggle={() => setOpen(open === i ? null : i)}
+            />
           ))}
         </div>
       </div>

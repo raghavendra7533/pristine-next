@@ -383,8 +383,8 @@ function ProfileState() {
           <Section title="Social Summary" open>
             <div className="text-[11px] font-bold text-[oklch(0.18_0.03_265)] mt-2">Messaging Themes</div>
             <ul className="text-[11.5px] text-[oklch(0.3_0.03_265)] list-disc pl-5 space-y-1 mt-1">
-              <li>AI-powered meeting intelligence as a productivity multiplier — Otter positions transcription, automated note-taking, and real-time summarization as tools that let professionals focus on discussion.</li>
-              <li>Knowledge capture and workflow integration — building searchable, persistent meeting records accessible via AI Chat.</li>
+              <li>AI-powered meeting intelligence as a productivity multiplier: Otter positions transcription, automated note-taking, and real-time summarization as tools that let professionals focus on discussion.</li>
+              <li>Knowledge capture and workflow integration: building searchable, persistent meeting records accessible via AI Chat.</li>
             </ul>
             <div className="text-[11px] font-bold text-[oklch(0.18_0.03_265)] mt-3">Priority Topics</div>
             <ul className="text-[11.5px] text-[oklch(0.3_0.03_265)] list-disc pl-5 space-y-1 mt-1">
@@ -541,7 +541,7 @@ function ImprovedMessage() {
         body={<>
           <div>Hi Jeff,</div>
           <div>I hope this message finds you well! As the VP of Data at Otter.ai, I understand that managing diverse data sources efficiently is crucial for driving insights and decision-making.</div>
-          <div className="bg-[oklch(0.97_0.04_280)] -mx-2 px-2 py-1.5 rounded">Nexla offers a powerful data integration platform that simplifies management of data flows. <strong>For instance, we helped a major insurance provider reduce partner onboarding time by 3x</strong>, standardizing data ingestion across hundreds of business units — automating 60-70% of manual tasks and improving claims efficiency by 30%.</div>
+          <div className="bg-[oklch(0.97_0.04_280)] -mx-2 px-2 py-1.5 rounded">Nexla offers a powerful data integration platform that simplifies management of data flows. <strong>For instance, we helped a major insurance provider reduce partner onboarding time by 3x</strong>, standardizing data ingestion across hundreds of business units, automating 60-70% of manual tasks and improving claims efficiency by 30%.</div>
           <div>Would you be open to a brief chat to discuss how <span className="text-[oklch(0.45_0.22_280)] underline">Nexla</span> can support your initiatives at Otter.ai?</div>
         </>}
         footer={<>

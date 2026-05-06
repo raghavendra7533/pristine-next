@@ -120,7 +120,8 @@ function calc(
   const prospectTaxTotal = selDataTools.length * PROSPECT_TAX[prospectTier]
   const emailTaxTotal    = selEmailTools.length > 0 ? EMAIL_TAX[emailTier] : 0
   const volumeTax        = prospectTaxTotal + emailTaxTotal
-  const totalMonthly     = monthly + volumeTax
+  const headcountPenalty = sel.length > 2 ? 4000 : 0
+  const totalMonthly     = monthly + volumeTax + headcountPenalty
   const totalAnnual      = totalMonthly * 12
 
   const maxScore = sel.length >= 3 ? 50 : sel.length === 2 ? 70 : 100
@@ -158,7 +159,7 @@ function calc(
   return {
     monthly, annual, overlappingCats, score, catCounts, sel,
     categoryCost, categorySavings,
-    prospectTaxTotal, emailTaxTotal, volumeTax,
+    prospectTaxTotal, emailTaxTotal, volumeTax, headcountPenalty,
     totalMonthly, totalAnnual,
     selDataTools, selEmailTools,
   }
@@ -174,7 +175,7 @@ function buildReceiptHTML(
   emailTier: number,
 ): string {
   const { sel, monthly, totalMonthly, totalAnnual, overlappingCats,
-          prospectTaxTotal, emailTaxTotal, volumeTax,
+          prospectTaxTotal, emailTaxTotal, volumeTax, headcountPenalty,
           selDataTools, selEmailTools } = r
 
   const date = new Date().toLocaleDateString('en-US', { month:'short', day:'numeric', year:'numeric' })
@@ -225,6 +226,12 @@ function buildReceiptHTML(
     h += `<hr><div class="r-row" style="font-size:12px;font-weight:700;color:#b45309">
       <span>SCALE PENALTY</span><span>+${fmt(volumeTax)}/mo</span>
     </div>`
+  }
+
+  if (headcountPenalty > 0) {
+    h += `<hr><div class="r-hdr" style="color:#dc2626">*** HEADCOUNT PENALTY ***</div>`
+    h += `<div style="text-align:center;font-size:8px;color:#888877;margin:-2px 0 6px;letter-spacing:0.03em">Managing 3+ tools requires a dedicated GTM Engineer</div>`
+    h += `<div class="r-row" style="color:#dc2626"><span class="r-name">GTM Engineer</span><span class="r-price">+${fmt(headcountPenalty)}/mo</span></div>`
   }
 
   h += `<hr style="border-color:rgba(0,0,0,0.35)">
@@ -379,89 +386,100 @@ function AuditModal({ onDismiss }: { onDismiss: () => void }) {
   return (
     <div style={{
       display: 'flex', position: 'fixed', inset: 0, zIndex: 9999,
-      background: 'rgba(2,6,23,0.85)', backdropFilter: 'blur(6px)',
+      background: 'rgba(2,6,23,0.75)', backdropFilter: 'blur(8px)',
       alignItems: 'center', justifyContent: 'center', padding: '16px',
     }}>
       <div style={{
-        position: 'relative', background: '#0f172a', border: '1px solid #1e293b',
-        borderRadius: '16px', padding: '36px 32px', width: '100%', maxWidth: '420px',
-        boxShadow: '0 32px 80px rgba(0,0,0,0.6)',
+        position: 'relative', background: '#ffffff',
+        borderRadius: '20px', padding: '40px 36px', width: '100%', maxWidth: '440px',
+        boxShadow: '0 40px 100px rgba(0,0,0,0.3), 0 0 0 1px rgba(0,0,0,0.06)',
       }}>
-        <div style={{ marginBottom: '24px', textAlign: 'center' }}>
+        {/* Top accent bar */}
+        <div style={{
+          position: 'absolute', top: 0, left: '50%', transform: 'translateX(-50%)',
+          width: '48px', height: '4px', borderRadius: '0 0 4px 4px',
+          background: 'linear-gradient(90deg, #6366f1, #8b5cf6)',
+        }} />
+
+        {/* Header */}
+        <div style={{ marginBottom: '28px', textAlign: 'center' }}>
           <div style={{
             display: 'inline-flex', alignItems: 'center', gap: '6px',
-            background: '#1e293b', border: '1px solid #334155', borderRadius: '999px',
-            padding: '4px 12px', marginBottom: '16px',
+            background: '#f1f5f9', borderRadius: '999px',
+            padding: '4px 12px', marginBottom: '14px',
           }}>
             <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#6366f1', display: 'inline-block' }} />
-            <span style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '0.08em', color: '#94a3b8', textTransform: 'uppercase', fontFamily: "'Manrope',sans-serif" }}>
-              Free GTM Audit Tool
+            <span style={{ fontSize: '10px', fontWeight: 700, letterSpacing: '0.1em', color: '#6366f1', textTransform: 'uppercase', fontFamily: "'Manrope',sans-serif" }}>
+              Free GTM Audit
             </span>
           </div>
-          <h2 style={{ fontSize: '22px', fontWeight: 800, color: '#f1f5f9', margin: '0 0 8px', fontFamily: "'Manrope',sans-serif", lineHeight: 1.25 }}>
-            See your GTM stack&apos;s true cost
+          <h2 style={{ fontSize: '24px', fontWeight: 800, color: '#0f172a', margin: '0 0 8px', fontFamily: "'Manrope',sans-serif", lineHeight: 1.2, letterSpacing: '-0.02em' }}>
+            See what your stack<br />is actually costing you
           </h2>
-          <p style={{ fontSize: '13px', color: '#64748b', margin: 0, fontFamily: "'Manrope',sans-serif" }}>
-            Free. Takes 60 seconds. No sales call.
+          <p style={{ fontSize: '13px', color: '#94a3b8', margin: 0, fontFamily: "'Manrope',sans-serif", lineHeight: 1.6 }}>
+            Takes 60 seconds. No sales call. No BS.
           </p>
         </div>
+
+        {/* Form */}
         <form onSubmit={handleSubmit} noValidate>
-          <div style={{ marginBottom: '14px' }}>
-            <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, color: '#94a3b8', marginBottom: '6px', fontFamily: "'Manrope',sans-serif" }}>
-              First Name
-            </label>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', marginBottom: '8px' }}>
             <input
               ref={firstRef}
               type="text"
               autoComplete="given-name"
-              placeholder="Alex"
+              placeholder="First name"
               value={firstName}
               onChange={e => setFirstName(e.target.value)}
               style={{
-                width: '100%', boxSizing: 'border-box', background: '#1e293b',
-                border: '1px solid #334155', borderRadius: '8px', padding: '11px 14px',
-                fontSize: '14px', color: '#f1f5f9', fontFamily: "'Manrope',sans-serif", outline: 'none',
+                width: '100%', boxSizing: 'border-box',
+                background: '#f8fafc', border: '1.5px solid #e2e8f0',
+                borderRadius: '10px', padding: '13px 16px',
+                fontSize: '14px', color: '#0f172a', fontFamily: "'Manrope',sans-serif", outline: 'none',
               }}
-              onFocus={e => { e.currentTarget.style.borderColor = '#6366f1' }}
-              onBlur={e => { e.currentTarget.style.borderColor = '#334155' }}
+              onFocus={e => { e.currentTarget.style.borderColor = '#6366f1'; e.currentTarget.style.background = '#fff' }}
+              onBlur={e => { e.currentTarget.style.borderColor = '#e2e8f0'; e.currentTarget.style.background = '#f8fafc' }}
             />
-          </div>
-          <div style={{ marginBottom: '20px' }}>
-            <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, color: '#94a3b8', marginBottom: '6px', fontFamily: "'Manrope',sans-serif" }}>
-              Work Email
-            </label>
             <input
               type="email"
               autoComplete="email"
-              placeholder="alex@company.com"
+              placeholder="Work email"
               value={email}
               onChange={e => setEmail(e.target.value)}
               style={{
-                width: '100%', boxSizing: 'border-box', background: '#1e293b',
-                border: '1px solid #334155', borderRadius: '8px', padding: '11px 14px',
-                fontSize: '14px', color: '#f1f5f9', fontFamily: "'Manrope',sans-serif", outline: 'none',
+                width: '100%', boxSizing: 'border-box',
+                background: '#f8fafc', border: '1.5px solid #e2e8f0',
+                borderRadius: '10px', padding: '13px 16px',
+                fontSize: '14px', color: '#0f172a', fontFamily: "'Manrope',sans-serif", outline: 'none',
               }}
-              onFocus={e => { e.currentTarget.style.borderColor = '#6366f1' }}
-              onBlur={e => { e.currentTarget.style.borderColor = '#334155' }}
+              onFocus={e => { e.currentTarget.style.borderColor = '#6366f1'; e.currentTarget.style.background = '#fff' }}
+              onBlur={e => { e.currentTarget.style.borderColor = '#e2e8f0'; e.currentTarget.style.background = '#f8fafc' }}
             />
           </div>
-          <div style={{ fontSize: '12px', color: '#f87171', marginBottom: '10px', minHeight: '16px', fontFamily: "'Manrope',sans-serif" }}>
+
+          <div style={{ fontSize: '12px', color: '#ef4444', marginBottom: '10px', minHeight: '16px', fontFamily: "'Manrope',sans-serif" }}>
             {error}
           </div>
+
           <button
             type="submit"
             disabled={submitting}
             style={{
-              width: '100%', background: '#6366f1', color: '#fff',
-              fontFamily: "'Manrope',sans-serif", fontSize: '14px', fontWeight: 700,
-              padding: '13px 16px', borderRadius: '10px', border: 'none', cursor: 'pointer',
+              width: '100%', background: 'linear-gradient(135deg, #6366f1, #8b5cf6)', color: '#fff',
+              fontFamily: "'Manrope',sans-serif", fontSize: '15px', fontWeight: 700,
+              padding: '14px 16px', borderRadius: '12px', border: 'none', cursor: 'pointer',
               letterSpacing: '0.01em', opacity: submitting ? 0.7 : 1,
+              boxShadow: '0 4px 20px rgba(99,102,241,0.35)',
             }}
-            onMouseOver={e => { if (!submitting) e.currentTarget.style.background = '#4f46e5' }}
-            onMouseOut={e => { e.currentTarget.style.background = '#6366f1' }}
+            onMouseOver={e => { if (!submitting) e.currentTarget.style.opacity = '0.9' }}
+            onMouseOut={e => { e.currentTarget.style.opacity = '1' }}
           >
-            {submitting ? 'Sending\u2026' : 'Run My Free Audit \u2192'}
+            {submitting ? 'Sending…' : 'Run My Free Audit →'}
           </button>
+
+          <p style={{ textAlign: 'center', fontSize: '11px', color: '#cbd5e1', marginTop: '14px', fontFamily: "'Manrope',sans-serif" }}>
+            No credit card · No commitment
+          </p>
         </form>
       </div>
     </div>

@@ -27,10 +27,10 @@ const HOP_STEPS = [
 ]
 
 const BILL_ITEMS = [
-  { name: 'ZoomInfo',    domain: 'zoominfo.com',   price: 1250 },
+  { name: 'ZoomInfo',    domain: 'zoominfo.com',   price: 3000 },
   { name: 'Apollo',      domain: 'apollo.io',       price: 399  },
   { name: 'Clay',        domain: 'clay.com',        price: 299  },
-  { name: 'Amplemarket', domain: 'amplemarket.com', price: 800  },
+  { name: 'Amplemarket', domain: 'amplemarket.com', price: 1500 },
   { name: 'Outreach',    domain: 'outreach.io',     price: 400  },
   { name: 'Smartlead',   domain: 'smartlead.ai',    price: 94   },
 ]
@@ -64,51 +64,74 @@ function LogoCard({ name, domain, opacity, blur, scale, ty }: {
   )
 }
 
-/* ─── Invoice / bill visual ─────────────────────────────────────────────── */
-function BillFace({ counter }: { counter: number }) {
+const LOGO_TOKEN = 'pk_R0FhQgSqRMmR86Lw1NOJNg'
+
+/* ─── Thermal receipt bill ───────────────────────────────────────────────── */
+function BillFace({ counter }: { counter: number; dark: boolean }) {
+  const bg       = '#fffef5'
+  const textMain = '#1a1a0a'
+  const textMid  = '#555544'
+  const textDim  = '#888877'
+  const divider  = '#c8c8a0'
+  const lineRule = 'rgba(0,0,0,0.04)'
+
   return (
-    <div className="w-[min(320px,88vw)] bg-white rounded-2xl border border-slate-200 shadow-2xl overflow-hidden select-none" style={{ boxShadow: '0 4px 24px rgba(0,0,0,0.08), 0 1px 3px rgba(0,0,0,0.05)' }}>
-      {/* Header */}
-      <div className="bg-slate-900 px-5 py-4 flex items-center justify-between">
-        <div>
-          <p className="text-white text-xs font-bold tracking-widest uppercase">Monthly Invoice</p>
-          <p className="text-slate-400 text-[10px] mt-0.5">GTM Stack — April 2025</p>
-        </div>
-        <div className="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round">
-            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/>
-          </svg>
-        </div>
+    <div
+      className="w-[min(300px,88vw)] rounded-sm shadow-[0_2px_24px_rgba(0,0,0,0.18)] px-5 py-6 font-mono text-[12px] select-none"
+      style={{
+        backgroundColor: bg,
+        color: textMain,
+        backgroundImage: `repeating-linear-gradient(0deg, transparent, transparent 31px, ${lineRule} 31px, ${lineRule} 32px)`,
+      }}
+    >
+      {/* Title */}
+      <div className="text-center mb-3">
+        <p className="text-[10px] font-black uppercase tracking-[0.25em]" style={{ color: textMid }}>GTM Stack Invoice</p>
+        <p className="text-[8px] tracking-wide mt-0.5" style={{ color: textDim }}>2026</p>
       </div>
 
+      {/* Column headers */}
+      <div className="border-t border-dashed my-3" style={{ borderColor: divider }} />
+      <div className="flex justify-between text-[9px] uppercase tracking-widest mb-2" style={{ color: textDim }}>
+        <span>Tool</span>
+        <span>Monthly</span>
+      </div>
+      <div className="border-t border-dashed my-3" style={{ borderColor: divider }} />
+
       {/* Line items */}
-      <div className="px-5 py-3 flex flex-col gap-1">
+      <div className="flex flex-col gap-2.5">
         {BILL_ITEMS.map((item) => (
-          <div key={item.name} className="flex items-center justify-between py-1.5 border-b border-slate-100 last:border-0">
-            <div className="flex items-center gap-2.5">
-              <div className="w-6 h-6 rounded-md bg-slate-50 border border-slate-200 flex items-center justify-center overflow-hidden flex-shrink-0">
-                <img src={`https://www.google.com/s2/favicons?domain=${item.domain}&sz=32`} alt={item.name} width={14} height={14} className="w-3.5 h-3.5 object-contain" />
-              </div>
-              <span className="text-slate-600 text-xs font-medium">{item.name}</span>
+          <div key={item.name} className="flex items-center justify-between gap-3">
+            <div className="flex items-center gap-2 min-w-0">
+              <img
+                src={`https://img.logo.dev/${item.domain}?token=${LOGO_TOKEN}&size=32`}
+                alt={item.name}
+                width={14}
+                height={14}
+                className="rounded-[2px] shrink-0"
+              />
+              <span className="truncate text-[11px]">{item.name}</span>
             </div>
-            <span className="text-slate-700 text-xs font-semibold tabular-nums">${item.price.toLocaleString()}/mo</span>
+            <span className="shrink-0 text-[11px] font-semibold tabular-nums">${item.price.toLocaleString()}/mo</span>
           </div>
         ))}
       </div>
 
-      {/* Divider + total */}
-      <div className="mx-5 border-t-2 border-dashed border-slate-200" />
-      <div className="px-5 py-4 flex items-center justify-between">
-        <div>
-          <p className="text-slate-400 text-[10px] uppercase tracking-wider font-semibold">Monthly Waste</p>
-          <p className="text-slate-300 text-[9px] mt-0.5">${(BILL_TOTAL * 12).toLocaleString()}/yr</p>
-        </div>
-        <span
-          className="font-black tabular-nums"
-          style={{ fontSize: '1.6rem', color: '#ef4444', letterSpacing: '-0.04em' }}
-        >
-          ${counter.toLocaleString()}
-        </span>
+      <div className="border-t border-dashed my-4" style={{ borderColor: divider }} />
+
+      {/* Totals */}
+      <div className="flex justify-between items-baseline">
+        <span className="text-[10px] font-black uppercase tracking-widest" style={{ color: textMid }}>Total / mo</span>
+        <span className="text-[13px] font-black tabular-nums">${counter.toLocaleString()}</span>
+      </div>
+      <div className="flex justify-between items-baseline mt-1">
+        <span className="text-[10px] font-black uppercase tracking-widest" style={{ color: textMid }}>Total / yr</span>
+        <span className="text-[18px] font-black tabular-nums text-red-500">${(counter * 12).toLocaleString()}</span>
+      </div>
+
+      <div className="border-t border-dashed my-4" style={{ borderColor: divider }} />
+      <div className="text-center text-[9px] tracking-wide leading-relaxed" style={{ color: textDim }}>
+        Replace all six with Pristine.<br />One bill. One agent.
       </div>
     </div>
   )
@@ -179,7 +202,7 @@ function MoneySacks({ counterValue, billOpacity, billSlideY, tearProgress }: { c
 }
 
 /* ─── Easing ────────────────────────────────────────────────────────────── */
-const BILL_H = 440
+const BILL_H = 400
 
 function easeInOutCubic(t: number) {
   return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2
@@ -204,7 +227,7 @@ function ScissorIcon({ openAngle }: { openAngle: number }) {
 }
 
 /* ─── Bill with scissors cut ─────────────────────────────────────────────── */
-function ScissorsCut({ counter, tearProgress }: { counter: number; tearProgress: number }) {
+function ScissorsCut({ counter, tearProgress, dark }: { counter: number; tearProgress: number; dark: boolean }) {
   // Phase 1 (0 → 0.74): scissors travel left → right with eased movement
   const rawX      = clamp(tearProgress / 0.74)
   const scissorsX = easeInOutCubic(rawX)                          // smooth acceleration / deceleration
@@ -243,7 +266,7 @@ function ScissorsCut({ counter, tearProgress }: { counter: number; tearProgress:
           willChange: 'transform, opacity',
         }}
       >
-        <div style={{ height: BILL_H }}><BillFace counter={counter} /></div>
+        <div style={{ height: BILL_H }}><BillFace counter={counter} dark={dark} /></div>
       </div>
 
       {/* ── Bottom half ── */}
@@ -260,7 +283,7 @@ function ScissorsCut({ counter, tearProgress }: { counter: number; tearProgress:
             : undefined,
         }}
       >
-        <div style={{ height: BILL_H }}><BillFace counter={counter} /></div>
+        <div style={{ height: BILL_H }}><BillFace counter={counter} dark={dark} /></div>
       </div>
 
       {/* ── Cut trail line ── */}
@@ -565,8 +588,8 @@ export function WorkflowComparison() {
               }}
             >
               {tearProgress > 0.01
-                ? <ScissorsCut counter={BILL_TOTAL} tearProgress={tearProgress} />
-                : <BillFace counter={counterValue} />
+                ? <ScissorsCut counter={BILL_TOTAL} tearProgress={tearProgress} dark={dark} />
+                : <BillFace counter={counterValue} dark={dark} />
               }
             </div>
           </div>
@@ -624,7 +647,7 @@ export function WorkflowComparison() {
             <img
               src={dark ? '/assets/Pristine Data AI Logo.svg' : '/assets/Pristine Data Footer Logo.svg'}
               alt="Pristine Data AI"
-              className="h-8 opacity-60"
+              className="h-10 opacity-100"
             />
           </div>
 

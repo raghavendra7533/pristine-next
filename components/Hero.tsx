@@ -91,7 +91,7 @@ export function Hero() {
           </h1>
 
           <p className="leading-relaxed dark:text-slate-400 text-base font-medium text-slate-700 max-w-lg mb-8">
-            Search 700M contacts, verify them in real time, and send strategy-led outreach. No Clay tables. No ops engineer. No $40K ZoomInfo seat.
+            Search 700M contacts, verify them in real time, and send strategy-led outreach. No Clay tables. No ops engineer. No $35K ZoomInfo seat.
           </p>
 
           {/* Search box — hidden until backend search is ready */}
