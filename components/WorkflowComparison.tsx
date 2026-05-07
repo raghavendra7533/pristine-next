@@ -19,22 +19,19 @@ const TOOLS = [
 
 // The painful manual workflow a GTM rep actually goes through
 const HOP_STEPS = [
-  { name: 'Apollo',      domain: 'apollo.io',       action: 'Find prospects',        pain: 'Export CSV manually' },
-  { name: 'ZoomInfo',    domain: 'zoominfo.com',    action: 'Verify contacts',       pain: 'Copy-paste into sheet' },
-  { name: 'Clay',        domain: 'clay.com',        action: 'Enrich & normalize',    pain: 'Wait for enrichment' },
-  { name: 'Smartlead',   domain: 'smartlead.ai',    action: 'Write sequences',       pain: 'Upload CSV again' },
-  { name: 'Amplemarket', domain: 'amplemarket.com', action: 'Launch outreach',       pain: 'Sync back to CRM' },
+  { name: 'ZoomInfo',    domain: 'zoominfo.com',    action: 'Pull prospect list',     pain: 'Export CSV manually' },
+  { name: 'Clay',        domain: 'clay.com',        action: 'Enrich & normalize',     pain: 'Wait for enrichment' },
+  { name: 'Amplemarket', domain: 'amplemarket.com', action: 'Score & prioritize',     pain: 'Upload CSV again' },
+  { name: 'Outreach',    domain: 'outreach.io',     action: 'Write & send sequences', pain: 'Sync back to CRM' },
 ]
 
 const BILL_ITEMS = [
-  { name: 'ZoomInfo',    domain: 'zoominfo.com',   price: 3000 },
-  { name: 'Apollo',      domain: 'apollo.io',       price: 399  },
+  { name: 'ZoomInfo',    domain: 'zoominfo.com',    price: 3000 },
   { name: 'Clay',        domain: 'clay.com',        price: 299  },
   { name: 'Amplemarket', domain: 'amplemarket.com', price: 1500 },
   { name: 'Outreach',    domain: 'outreach.io',     price: 400  },
-  { name: 'Smartlead',   domain: 'smartlead.ai',    price: 94   },
 ]
-const BILL_TOTAL = BILL_ITEMS.reduce((s, i) => s + i.price, 0) // 3242
+const BILL_TOTAL = BILL_ITEMS.reduce((s, i) => s + i.price, 0)
 
 // Straight horizontal cut at 50%
 const CUT_Y   = 50
@@ -131,7 +128,7 @@ function BillFace({ counter }: { counter: number; dark: boolean }) {
 
       <div className="border-t border-dashed my-4" style={{ borderColor: divider }} />
       <div className="text-center text-[9px] tracking-wide leading-relaxed" style={{ color: textDim }}>
-        Replace all six with Pristine.<br />One bill. One agent.
+        Replace all four with Pristine.<br />One bill. One agent.
       </div>
     </div>
   )
@@ -332,6 +329,8 @@ function ScissorsCut({ counter, tearProgress, dark }: { counter: number; tearPro
   )
 }
 
+const DURATION = 12000 // ms
+
 /* ─── Main ─────────────────────────────────────────────────────────────── */
 export function WorkflowComparison() {
   const wrapperRef = useRef<HTMLDivElement>(null)
@@ -351,21 +350,36 @@ export function WorkflowComparison() {
   const dark = mounted && isDark
 
   useEffect(() => {
-    const onScroll = () => {
-      const el = wrapperRef.current
-      if (!el) return
-      const rect = el.getBoundingClientRect()
-      const scrolled = -rect.top
-      const total = el.offsetHeight - window.innerHeight
-      const p = clamp(scrolled / total)
+    const el = wrapperRef.current
+    if (!el) return
+
+    let rafId: number
+    let startTime: number | null = null
+    let playing = false
+
+    const tick = (now: number) => {
+      if (!playing) return
+      if (startTime === null) startTime = now
+      const p = clamp((now - startTime) / DURATION)
       setProgress(p)
-      window.dispatchEvent(new CustomEvent('pristine:cinematic', { detail: { active: p > 0 && p < 1 } }))
+      if (p < 1) rafId = requestAnimationFrame(tick)
     }
-    window.addEventListener('scroll', onScroll, { passive: true })
-    onScroll()
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !playing) {
+          playing = true
+          startTime = null
+          rafId = requestAnimationFrame(tick)
+        }
+      },
+      { threshold: 0.3 }
+    )
+    observer.observe(el)
+
     return () => {
-      window.removeEventListener('scroll', onScroll)
-      window.dispatchEvent(new CustomEvent('pristine:cinematic', { detail: { active: false } }))
+      observer.disconnect()
+      cancelAnimationFrame(rafId)
     }
   }, [])
 
@@ -418,8 +432,8 @@ export function WorkflowComparison() {
   const markOpacity = mapRange(progress, 0.90, 1.0, 0, 1)
 
   return (
-    <div ref={wrapperRef} style={{ height: '300vh' }}>
-      <div className="sticky top-0 flex items-center justify-center bg-white dark:bg-slate-950" style={{ height: '100vh', overflow: 'clip' }}>
+    <div ref={wrapperRef} className="flex items-center justify-center bg-white dark:bg-slate-950" style={{ height: '100vh', overflow: 'clip' }}>
+      <div className="relative w-full h-full flex items-center justify-center">
 
         {/* ── Act 1: competitor logos ── */}
         <div className="absolute inset-0 flex flex-col items-center justify-center gap-10 pointer-events-none">
@@ -670,14 +684,6 @@ export function WorkflowComparison() {
           </div>
         </div>
 
-        {/* Scroll hint */}
-        <div
-          className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 pointer-events-none"
-          style={{ opacity: mapRange(progress, 0, 0.06, 1, 0) }}
-        >
-          <span className="text-slate-400 dark:text-slate-600 text-[11px] uppercase tracking-widest font-semibold">Scroll</span>
-          <div className="w-px h-10 bg-gradient-to-b from-slate-300 dark:from-slate-700 to-transparent" />
-        </div>
       </div>
     </div>
   )

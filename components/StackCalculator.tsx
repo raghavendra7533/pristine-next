@@ -5,11 +5,9 @@ const LOGO_TOKEN = 'pk_R0FhQgSqRMmR86Lw1NOJNg'
 
 const TOOLS = [
   { name: 'ZoomInfo',     domain: 'zoominfo.com',     cost: 3000 },
-  { name: 'Apollo',       domain: 'apollo.io',         cost: 399  },
   { name: 'Clay',         domain: 'clay.com',          cost: 299  },
   { name: 'Amplemarket',  domain: 'amplemarket.com',   cost: 1500 },
   { name: 'Outreach',     domain: 'outreach.io',       cost: 400  },
-  { name: 'Smartlead',    domain: 'smartlead.ai',      cost: 94   },
 ]
 
 const TOTAL = TOOLS.reduce((s, t) => s + t.cost, 0)
@@ -32,7 +30,7 @@ export function StackCalculator() {
             Your GTM stack is costing you more than you think.
           </h2>
           <p className="text-base text-slate-600 dark:text-slate-400 leading-relaxed mb-4">
-            Most sales teams are duct-taping 6+ tools together that overlap, overcharge, and still don&apos;t talk to each other. ZoomInfo for data. Apollo for sequences. Clay for enrichment. Amplemarket for outreach. That&apos;s six bills, six logins, six ops headaches, every single month.
+            Most sales teams are duct-taping 4+ tools together that overlap, overcharge, and still don&apos;t talk to each other. ZoomInfo for data. Clay for enrichment. Amplemarket for scoring. Outreach for sequences. That&apos;s four bills, four logins, four ops headaches, every single month.
           </p>
           <p className="text-base text-slate-600 dark:text-slate-400 leading-relaxed mb-10">
             Pristine replaces all of them. One agent. One price. 700M verified contacts with real-time enrichment and AI-written outreach built in.
@@ -100,7 +98,7 @@ export function StackCalculator() {
               <div className="border-t border-dashed border-[#c8c8a0] my-4" />
 
               <div className="text-center text-[9px] text-[#888877] tracking-wide leading-relaxed">
-                Replace all six with Pristine.<br />One bill. One agent.
+                Replace all four with Pristine.<br />One bill. One agent.
               </div>
             </div>
           </div>
