@@ -206,7 +206,7 @@ export function FrankenstackAnimation() {
             Sound familiar?
           </p>
           <h2 className="text-3xl md:text-4xl font-semibold tracking-tighter text-slate-950 dark:text-white mb-6 leading-tight">
-            If your GTM stack looks like this, you&apos;re paying for six tools to do one job.
+            If your GTM stack looks like this, you&apos;re paying for multiple tools that overlap and overcharge.
           </h2>
           <p className="text-base text-slate-600 dark:text-slate-400 leading-relaxed mb-4">
             ZoomInfo for data. Clay for enrichment. Amplemarket for scoring. Outreach for sequences.
