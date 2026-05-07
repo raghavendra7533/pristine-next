@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { Navbar } from '@/components/Navbar'
 import { Footer } from '@/components/Footer'
 import { Hero } from '@/components/Hero'
-import { WorkflowComparison } from '@/components/WorkflowComparison'
+import { FrankenstackAnimation } from '@/components/FrankenstackAnimation'
 import { FeaturesSection } from '@/components/FeaturesSection'
 import { StatsSection } from '@/components/StatsSection'
 import { StackCalculator } from '@/components/StackCalculator'
@@ -83,11 +83,11 @@ export default function HomePage() {
       <Navbar />
       <main>
         <Hero />
-        <WorkflowComparison />
+        <FrankenstackAnimation />
+        <StackCalculator />
         <FeaturesSection />
         <StatsSection />
         <TestimonialSection />
-        <StackCalculator />
         <ComparisonMatrix />
         <FaqSection />
       </main>
