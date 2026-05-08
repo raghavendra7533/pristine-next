@@ -106,43 +106,76 @@ export function ComparisonMatrix() {
           </p>
         </div>
 
-        <div className="border border-slate-200 dark:border-slate-800 rounded-2xl overflow-hidden shadow-lg bg-white dark:bg-slate-950">
-          {/* Header row */}
-          <div className="grid grid-cols-5 bg-slate-50/50 dark:bg-slate-900/50 border-b border-slate-200 dark:border-slate-800">
-            <div className="p-5 text-xs font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wider flex items-center">
-              Feature
-            </div>
-            {/* Pristine — highlighted */}
-            <div className="p-5 bg-slate-50 dark:bg-slate-900 border-x border-indigo-100 dark:border-indigo-900/40 flex items-center">
-              <span className="text-sm font-bold text-indigo-600 dark:text-indigo-400">Pristine</span>
-            </div>
-            {['ZoomInfo', 'Clay', 'Apollo'].map((name) => (
-              <div key={name} className="p-5 flex items-center text-sm font-semibold text-slate-400 dark:text-slate-500">
-                {name}
+        {/* ── Desktop table (md+) ── */}
+        <div className="hidden md:block overflow-x-auto rounded-2xl shadow-lg">
+          <div className="border border-slate-200 dark:border-slate-800 rounded-2xl overflow-hidden bg-white dark:bg-slate-950 min-w-[640px]">
+            {/* Header row */}
+            <div className="grid grid-cols-5 bg-slate-50/50 dark:bg-slate-900/50 border-b border-slate-200 dark:border-slate-800">
+              <div className="p-5 text-xs font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wider flex items-center">
+                Feature
               </div>
+              <div className="p-5 bg-slate-50 dark:bg-slate-900 border-x border-indigo-100 dark:border-indigo-900/40 flex items-center">
+                <span className="text-sm font-bold text-indigo-600 dark:text-indigo-400">Pristine</span>
+              </div>
+              {['ZoomInfo', 'Clay', 'Apollo'].map((name) => (
+                <div key={name} className="p-5 flex items-center text-sm font-semibold text-slate-400 dark:text-slate-500">
+                  {name}
+                </div>
+              ))}
+            </div>
+            <div className="divide-y divide-slate-100 dark:divide-slate-800">
+              {rows.map((row) => (
+                <div
+                  key={row.feature}
+                  className="grid grid-cols-5 hover:bg-slate-50/50 dark:hover:bg-slate-900/20 transition-colors"
+                >
+                  <div className="p-5 text-sm font-medium text-slate-700 dark:text-slate-300 flex items-center">
+                    {row.feature}
+                  </div>
+                  <div className="p-5 bg-slate-50/60 dark:bg-slate-900/60 border-x border-indigo-100 dark:border-indigo-900/40 flex items-center">
+                    <Cell value={row.pristine} />
+                  </div>
+                  <div className="p-5 flex items-center"><Cell value={row.zoominfo} /></div>
+                  <div className="p-5 flex items-center"><Cell value={row.clay} /></div>
+                  <div className="p-5 flex items-center"><Cell value={row.apollo} /></div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* ── Mobile card stack (< md) ── */}
+        <div className="md:hidden space-y-3">
+          {/* Competitor legend */}
+          <div className="flex items-center justify-end gap-4 px-1 pb-1">
+            {['ZoomInfo', 'Clay', 'Apollo'].map((name) => (
+              <span key={name} className="text-xs font-semibold text-slate-400 dark:text-slate-500">{name}</span>
             ))}
           </div>
 
-          {/* Data rows */}
-          <div className="divide-y divide-slate-100 dark:divide-slate-800">
-            {rows.map((row) => (
-              <div
-                key={row.feature}
-                className="grid grid-cols-5 hover:bg-slate-50/50 dark:hover:bg-slate-900/20 transition-colors"
-              >
-                <div className="p-5 text-sm font-medium text-slate-700 dark:text-slate-300 flex items-center">
+          {rows.map((row) => (
+            <div
+              key={row.feature}
+              className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 overflow-hidden"
+            >
+              {/* Feature name + Pristine value */}
+              <div className="px-4 pt-4 pb-3 bg-indigo-50/60 dark:bg-indigo-950/30 border-b border-indigo-100 dark:border-indigo-900/40">
+                <p className="text-xs font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-1">
                   {row.feature}
-                </div>
-                {/* Pristine cell — highlighted column */}
-                <div className="p-5 bg-slate-50/60 dark:bg-slate-900/60 border-x border-indigo-100 dark:border-indigo-900/40 flex items-center">
-                  <Cell value={row.pristine} />
-                </div>
-                <div className="p-5 flex items-center"><Cell value={row.zoominfo} /></div>
-                <div className="p-5 flex items-center"><Cell value={row.clay} /></div>
-                <div className="p-5 flex items-center"><Cell value={row.apollo} /></div>
+                </p>
+                <Cell value={row.pristine} />
               </div>
-            ))}
-          </div>
+
+              {/* Competitors — 3-column micro-grid */}
+              <div className="grid grid-cols-3 divide-x divide-slate-100 dark:divide-slate-800">
+                {([row.zoominfo, row.clay, row.apollo] as CellValue[]).map((val, i) => (
+                  <div key={i} className="px-3 py-3">
+                    <Cell value={val} />
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
         </div>
 
         <div className="mt-12 flex justify-center">
