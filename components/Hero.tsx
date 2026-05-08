@@ -66,7 +66,7 @@ export function Hero() {
   }, [tab])
 
   return (
-    <section className="h-[95vh] flex flex-col overflow-hidden pt-16 relative">
+    <section className="min-h-[95vh] flex flex-col pt-16 relative overflow-x-hidden">
       <div className="absolute inset-0 grid-bg opacity-40 dark:opacity-10 pointer-events-none -z-10" />
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-white/50 to-white dark:via-slate-950/50 dark:to-slate-950 pointer-events-none -z-10" />
       <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-rose-50/50 dark:bg-rose-900/10 rounded-full blur-[80px] -z-10 opacity-60" />

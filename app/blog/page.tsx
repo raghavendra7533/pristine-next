@@ -48,7 +48,7 @@ export default function BlogIndexPage() {
       />
       <Navbar />
       <main>
-        <section className="py-20 px-6 max-w-7xl mx-auto">
+        <section className="pt-28 pb-20 px-6 max-w-7xl mx-auto">
           <div className="mb-14 max-w-2xl">
             <h1 className="text-4xl font-bold text-slate-900 dark:text-white mb-4 leading-tight">
               GTM & B2B Sales Insights

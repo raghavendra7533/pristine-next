@@ -20,7 +20,7 @@ function fmt(n: number) {
 
 export function StackCalculator() {
   return (
-    <section className="py-24 px-6">
+    <section className="py-24 px-6 overflow-x-hidden">
       <div className="max-w-6xl mx-auto grid lg:grid-cols-2 gap-16 items-center">
 
         {/* Left — copy */}
