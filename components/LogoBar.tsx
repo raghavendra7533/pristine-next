@@ -16,11 +16,11 @@ export function LogoBar() {
         <span className="text-[10px] uppercase tracking-widest font-semibold text-slate-400 dark:text-slate-500">
           Trusted by
         </span>
-        <div className="flex items-center justify-center gap-4 flex-wrap">
+        <div className="grid grid-cols-2 sm:grid-cols-4 md:flex md:flex-wrap md:justify-center gap-3 md:gap-4 w-full md:w-auto">
           {LOGOS.map(({ name, domain, localLogo }) => (
             <div
               key={name}
-              className="flex items-center gap-2 whitespace-nowrap border border-slate-200 dark:border-slate-700 rounded-full px-4 py-1.5 bg-slate-50 dark:bg-slate-800"
+              className="flex items-center justify-center gap-2 border border-slate-200 dark:border-slate-700 rounded-full px-4 py-1.5 bg-slate-50 dark:bg-slate-800"
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
