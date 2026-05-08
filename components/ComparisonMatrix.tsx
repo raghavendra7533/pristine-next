@@ -146,13 +146,6 @@ export function ComparisonMatrix() {
 
         {/* ── Mobile card stack (< md) ── */}
         <div className="md:hidden space-y-3">
-          {/* Competitor legend */}
-          <div className="flex items-center justify-end gap-4 px-1 pb-1">
-            {['ZoomInfo', 'Clay', 'Apollo'].map((name) => (
-              <span key={name} className="text-xs font-semibold text-slate-400 dark:text-slate-500">{name}</span>
-            ))}
-          </div>
-
           {rows.map((row) => (
             <div
               key={row.feature}
@@ -166,10 +159,15 @@ export function ComparisonMatrix() {
                 <Cell value={row.pristine} />
               </div>
 
-              {/* Competitors — 3-column micro-grid */}
+              {/* Competitors — 3-column micro-grid with inline labels */}
               <div className="grid grid-cols-3 divide-x divide-slate-100 dark:divide-slate-800">
-                {([row.zoominfo, row.clay, row.apollo] as CellValue[]).map((val, i) => (
-                  <div key={i} className="px-3 py-3">
+                {([
+                  { label: 'ZoomInfo', val: row.zoominfo },
+                  { label: 'Clay',     val: row.clay     },
+                  { label: 'Apollo',   val: row.apollo   },
+                ] as { label: string; val: CellValue }[]).map(({ label, val }) => (
+                  <div key={label} className="px-3 py-3">
+                    <p className="text-[10px] font-semibold text-slate-400 dark:text-slate-600 uppercase tracking-wide mb-1.5">{label}</p>
                     <Cell value={val} />
                   </div>
                 ))}

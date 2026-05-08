@@ -54,7 +54,7 @@ export function FrankenstackAnimation() {
           rafId = requestAnimationFrame(tick)
         }
       },
-      { threshold: 0.3 }
+      { threshold: 0.1 }
     )
 
     const el = document.getElementById('frankenstack-animation')
@@ -76,7 +76,8 @@ export function FrankenstackAnimation() {
   function hopCardOpacity(i: number) {
     if (hopBase !== 1 || i !== Math.min(Math.floor(hopSlot), HOP_N - 1)) return 0
     const frac    = hopSlot - Math.floor(hopSlot)
-    const fadeIn  = mapRange(frac, 0, 0.2, 0, 1)
+    // Start card 0 fully visible so the container is never blank before animation fires
+    const fadeIn  = (i === 0 && progress < 0.001) ? 1 : mapRange(frac, 0, 0.2, 0, 1)
     const fadeOut = i < HOP_N - 1 ? mapRange(frac, 0.75, 1.0, 1, 0) : 1
     return fadeIn * fadeOut
   }
@@ -101,7 +102,7 @@ export function FrankenstackAnimation() {
 
         {/* Left — animation panel (no box) */}
         <div className="w-full lg:w-1/2 order-1">
-          <div id="frankenstack-animation" className="relative overflow-hidden" style={{ height: 440 }}>
+          <div id="frankenstack-animation" className="relative overflow-hidden h-[300px] sm:h-[380px] md:h-[440px]">
 
             {/* ── Act 2: tool-hopping ── */}
             {hopBase === 1 && (
