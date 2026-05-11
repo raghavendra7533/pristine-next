@@ -20,6 +20,90 @@ export type BlogPost = {
 // Ordered newest-first. Prepend new posts to maintain this order.
 export const blogs: BlogPost[] = [
   {
+    slug: 'why-your-ai-sdr-keeps-missing',
+    title: 'Why Your AI SDR Keeps Missing (It Is Not the Model)',
+    description: "You bought the AI SDR. You set up the sequences. The emails go out. The replies aren't coming. The real problem isn't the model — it's the data underneath it.",
+    date: '2026-05-01',
+    image: 'https://images.unsplash.com/photo-1518186285589-2f7649de83e0?w=1200&q=80',
+    author: { name: 'Ashok Rajan', url: 'https://www.linkedin.com/in/rajanashok/' },
+    sections: [
+      {
+        body: [
+          'You bought the AI SDR tool. You set up the sequences. You gave it your ICP and told it to go.',
+          'The emails go out. The personalization is there. The timing is good. And the replies are not coming.',
+          'The easy explanation is that the model is not good enough. The real explanation is almost always the data underneath it.',
+        ],
+      },
+      {
+        heading: 'The Model Is Not the Bottleneck',
+        body: [
+          'In 2026, every revenue team has access to roughly the same AI models. GPT-4 class intelligence is a commodity. The competitive gap has moved somewhere else entirely.',
+          'It has moved to data.',
+          'An AI agent is only as smart as the context it has to work with. Feed it a contact record with a verified job title, a current company, and accurate firmographics, and it can do useful work. Feed it a half-complete record with a stale title and a dead email address, and it is generating personalized messages for someone who left that job two years ago.',
+          'Gartner projects that 60% of AI projects lacking AI-ready data will be abandoned through 2026.',
+        ],
+      },
+      {
+        heading: 'What AI-Ready Data Looks Like for a Revenue Team',
+        body: [
+          'The term AI-ready data gets used loosely. For a GTM team it has a specific and practical meaning.',
+          'An AI agent running outreach needs:',
+        ],
+        list: [
+          'Accurate role signals: Current job title, tenure in role, seniority level. A VP who was promoted six months ago has different priorities than the director they used to be.',
+          'Company context: Size, growth stage, tech stack, recent funding or leadership changes. These are the signals that make personalization actually relevant.',
+          'Intent signals: What are they researching, reading, and responding to right now?',
+          'Valid contact information: Accurate records the AI can actually act on.',
+        ],
+      },
+      {
+        body: [
+          "Without these inputs, the AI is not personalizing. It's guessing. And guessing at scale is just spam with better grammar.",
+        ],
+      },
+      {
+        heading: 'The Scale of the Gap',
+        body: [
+          'The gap between what AI tools need and what most CRMs contain is significant.',
+        ],
+        list: [
+          '63% of organizations currently lack AI-ready data.',
+          '76% of CRM entries are less than half complete, missing the fields AI tools require to function.',
+        ],
+      },
+      {
+        body: [
+          'This is why the ROI on AI SDR tools has been inconsistent across teams. The tool is often not the variable. The data going into the tool is.',
+        ],
+      },
+      {
+        heading: 'What High-Performing Teams Are Doing Differently',
+        body: [
+          'The teams getting real results from AI-assisted outreach are not using better models. They are using better data infrastructure.',
+          'Specifically:',
+        ],
+        list: [
+          'Continuous enrichment: Records are enriched in real time, not in batch exports. When a contact changes roles, that update flows through to the tools immediately.',
+          'Signal layering: Contact data is combined with intent signals, company events, and persona insights before the AI writes a single word.',
+          'Accuracy over volume: Smaller, highly targeted campaigns with clean data consistently outperform large sends against noisy lists.',
+        ],
+      },
+      {
+        body: [
+          'This is the foundation that makes AI GTM work. Without it, you are optimizing the output layer while the input layer is broken.',
+        ],
+      },
+      {
+        heading: 'The Pristine Data Approach',
+        body: [
+          'Pristine Data AI was built around this problem. The platform provides AI-generated buyer persona summaries and a database designed for accuracy in addition to raw volume.',
+          'The idea is direct: if the AI has the right context going in, the output takes care of itself.',
+          'The teams that win with AI in 2026 will not be the ones with the most tools. They will be the ones with the cleanest data feeding those tools.',
+        ],
+      },
+    ],
+  },
+  {
     slug: 'quota-killers-what-top-b2b-reps-do-differently',
     title: 'What Top B2B Sales Reps Actually Do Differently',
     description: "Fewer than 30% of reps hit quota consistently. Here's what the ones who do are doing differently: and why most teams never replicate it.",

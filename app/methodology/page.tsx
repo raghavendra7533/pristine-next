@@ -42,7 +42,7 @@ const SECTIONS = [
     stat: '90% deliverability',
     heading: 'How we define and measure 90% deliverability',
     body: [
-      'Deliverability is measured as the percentage of exported contacts that pass real-time SMTP verification at the moment of export. An email address that fails SMTP handshake is filtered before it reaches the user — you never see a contact we cannot verify.',
+      'Deliverability is measured as the percentage of exported contacts that pass real-time SMTP verification at the moment of export. An email address that fails SMTP handshake is filtered before it reaches the user. You never see a contact we cannot verify.',
       'The 90% figure is a floor, not an average. It reflects our minimum guarantee across all export cohorts. In practice, most campaigns see 92–96% deliverability depending on the ICP searched. We measure this by tracking hard bounces on outbound campaigns sent through Smartlead and Instantly integrations, aggregated across all customer accounts monthly.',
       'Comparison context: industry bounce rate benchmarks for cold email typically run 3–8% on clean lists and 10–20%+ on unverified database exports (source: Smartlead industry report, 2024; Instantly deliverability benchmarks, 2024).',
     ],
@@ -53,7 +53,7 @@ const SECTIONS = [
     stat: 'Real-time SMTP',
     heading: 'How real-time SMTP verification works',
     body: [
-      'When a user exports a contact, Pristine performs a live SMTP handshake against the mail server for that email domain. This is a three-step process: (1) DNS MX record lookup to identify the mail server, (2) SMTP EHLO/HELO handshake to confirm the server is reachable, (3) RCPT TO command to verify the specific mailbox exists — without sending an email.',
+      'When a user exports a contact, Pristine performs a live SMTP handshake against the mail server for that email domain. This is a three-step process: (1) DNS MX record lookup to identify the mail server, (2) SMTP EHLO/HELO handshake to confirm the server is reachable, (3) RCPT TO command to verify the specific mailbox exists, without sending an email.',
       'This process takes 300–800ms per contact and runs in parallel across batches. It is performed at export time, not at ingestion time, which means the verification reflects the current state of the mailbox rather than a cached result from weeks or months prior.',
       'Limitations: SMTP verification cannot detect catch-all domains (domains that accept mail for any address). We flag catch-all domains in the UI so users can decide how to treat them. Catch-all domains represent approximately 8–12% of the B2B contact universe.',
     ],
@@ -64,7 +64,7 @@ const SECTIONS = [
     stat: '3× enrichment sources',
     heading: 'How parallel multi-source enrichment works',
     body: [
-      'When a user searches, Pristine queries Apollo, Wiza, and Explorium simultaneously. Each provider returns its best available data for each contact. Our resolution layer then selects the highest-confidence value per field — not per provider.',
+      'When a user searches, Pristine queries Apollo, Wiza, and Explorium simultaneously. Each provider returns its best available data for each contact. Our resolution layer then selects the highest-confidence value per field, not per provider.',
       'For example: if Apollo has the most recent email for a contact but Explorium has a more current job title, the exported record uses Apollo\'s email and Explorium\'s title. Field-level confidence is scored based on recency, source reputation for that field type, and cross-source agreement.',
       'This approach consistently produces better deliverability and data accuracy than single-source or sequential waterfall lookups, where the first available result wins regardless of quality.',
     ],
@@ -76,7 +76,7 @@ const SECTIONS = [
     heading: 'How buying signals are sourced and surfaced',
     body: [
       'Pristine monitors three signal categories natively: job changes (sourced via LinkedIn activity feeds and HR data aggregators), funding events (sourced via Crunchbase and PitchBook API feeds, refreshed daily), and technology stack changes (sourced via BuiltWith and Wappalyzer crawl data, refreshed weekly).',
-      'Signals are surfaced inside the prospecting workflow — while the user is building a list — rather than in a separate dashboard. A funding event or job change that surfaces after a prospect list is built goes unactioned by most teams. Pristine shows signals at list-build time so the decision to include or exclude a prospect reflects the most current context available.',
+      'Signals are surfaced inside the prospecting workflow, while the user is building a list, rather than in a separate dashboard. A funding event or job change that surfaces after a prospect list is built goes unactioned by most teams. Pristine shows signals at list-build time so the decision to include or exclude a prospect reflects the most current context available.',
     ],
   },
 ]
@@ -98,7 +98,7 @@ export default function MethodologyPage() {
               Data Methodology
             </h1>
             <p className="text-lg text-slate-500 dark:text-slate-400 leading-relaxed">
-              The sources, processes, and definitions behind every number we publish — so you can evaluate our claims, not just take them on faith.
+              The sources, processes, and definitions behind every number we publish, so you can evaluate our claims, not just take them on faith.
             </p>
           </div>
 

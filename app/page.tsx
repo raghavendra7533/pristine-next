@@ -5,7 +5,6 @@ import { Hero } from '@/components/Hero'
 import { FrankenstackAnimation } from '@/components/FrankenstackAnimation'
 import { FeaturesSection } from '@/components/FeaturesSection'
 import { StatsSection } from '@/components/StatsSection'
-import { StackCalculator } from '@/components/StackCalculator'
 import { ComparisonMatrix } from '@/components/ComparisonMatrix'
 import { FaqSection } from '@/components/FaqSection'
 import { TestimonialSection } from '@/components/TestimonialSection'
@@ -84,7 +83,6 @@ export default function HomePage() {
       <main>
         <Hero />
         <FrankenstackAnimation />
-        <StackCalculator />
         <FeaturesSection />
         <StatsSection />
         <TestimonialSection />
